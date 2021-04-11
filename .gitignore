@@ -9,6 +9,7 @@ Thumbs.db
 # Vendors
 node_modules/
 pixman-0.30.0/
+pixman.tar.gz
 
 # Build
 dist/
