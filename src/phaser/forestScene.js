@@ -5,7 +5,9 @@ let cursors;
 
  export default class Forest extends Phaser.Scene {
   constructor() {
-    super();
+    super({
+      key: "Forest"
+    });
   }
   preload() {
     this.load.image('forest', 'src/assets/images/forest-tileset.png');

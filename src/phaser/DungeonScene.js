@@ -152,16 +152,17 @@ class Player extends Entity {
 
 /* ------------------------------------ Dungeon Scene Class ------------------------ */
 
-class Dungeon extends Phaser.Scene {
+export default class Dungeon extends Phaser.Scene {
   constructor() {
     super('Dungeon');
   }
   
   preload() {
     //this.load.image("logo", logoImg);
-    this.load.image('tiles', "src/assets/maps/dungeon/tilesets/dungeon-tileset.png");
-    this.load.image('obj-tiles', "src/assets/maps/dungeon/tilesets/dungeon-objects.png");
-    this.load.tilemapTiledJSON('map', "src/assets/maps/dungeon/dungeon.json");
+    this.load.image('tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
+    this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
+    this.load.tilemapTiledJSON('map', "src/assets/dungeonMaps/dungeon/dungeon.json");
+
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
   }
   
@@ -214,29 +215,72 @@ class Dungeon extends Phaser.Scene {
   }
 }
 
-class Dungeon2 extends Phaser.Scene {
+// class Dungeon2 extends Phaser.Scene {
+//   constructor() {
+//     super('Dungeon2');
+//   }
+
+//   preload() {
+//     console.log("I AM DUNGEON 2 PRELOAD");
+//     this.load.image('tiles', "src/assets/maps/dungeon/tilesets/dungeon-tileset.png");
+//     this.load.tilemapTiledJSON('map2', "src/assets/maps/dungeon/dungeon2.json");
+//     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+//   }
+  
+//   create() {
+//     console.log("I AM DUNGEON 2 CREATE");
+//     // environment
+//     const map = this.make.tilemap({key:'map2'});
+//     const tileset = map.addTilesetImage('dungeon-tileset', 'tiles');
+//     const ground = map.createLayer("groundLayer", tileset, 0, 0);
+
+//     // camera
+//     this.cameras.main.setZoom(2);
+//     // Create player at start location and scale him
+//     this.player = new Player(this, 752, 80, 'player');
+//     const player = this.player;
+//     player.body.setCollideWorldBounds(true);
+
+//     // Make camera stop at edge of map
+//     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+
+//     // make camera follow player
+//     this.cameras.main.startFollow(this.player);
+
+//   }
+
+//   update() {
+//     this.player.update();
+//   }
+
+// }
+
+class Town extends Phaser.Scene {
   constructor() {
-    super('Dungeon2');
+    super("Town");
   }
 
   preload() {
-    console.log("I AM DUNGEON 2 PRELOAD");
-    this.load.image('tiles', "src/assets/maps/dungeon/tilesets/dungeon-tileset.png");
-    this.load.tilemapTiledJSON('map2', "src/assets/maps/dungeon/dungeon2.json");
-    this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+    this.load.image('tiles', 'src/assets/town32.png');
+    this.load.tilemapTiledJSON('map', 'src/assets/overworldv3.json');
+
+    this.load.spritesheet('player', 'src/assets/images/player.png', { frameWidth: 32, frameHeight: 32 });
   }
-  
   create() {
-    console.log("I AM DUNGEON 2 CREATE");
     // environment
-    const map = this.make.tilemap({key:'map2'});
-    const tileset = map.addTilesetImage('dungeon-tileset', 'tiles');
-    const ground = map.createLayer("groundLayer", tileset, 0, 0);
+
+    const map = this.make.tilemap({ key: 'map' });
+    const tileset = map.addTilesetImage('town32', 'tiles')
+
+    const ground = map.createLayer("ground", tileset, 0, 0,);
+    const house = map.createLayer("house", tileset, 0, 0);
+    const trees = map.createLayer("trees", tileset, 0, 0);
+
 
     // camera
     this.cameras.main.setZoom(2);
     // Create player at start location and scale him
-    this.player = new Player(this, 752, 80, 'player');
+    this.player = new Player(this, 200, 300, 'player');
     const player = this.player;
     player.body.setCollideWorldBounds(true);
 
@@ -246,12 +290,18 @@ class Dungeon2 extends Phaser.Scene {
     // make camera follow player
     this.cameras.main.startFollow(this.player);
 
-  }
+    //  Player physics properties.
+    trees.setCollisionBetween(1, 1000);
+    this.physics.add.collider(player, trees);
 
+    house.setCollisionBetween(1, 200);
+    this.physics.add.collider(player, house);
+    player.body.setCollideWorldBounds(false);
+  }
   update() {
+    //  Input Events
     this.player.update();
   }
-
 }
 
-module.exports = { Dungeon, Dungeon2 };
+module.exports = { Dungeon, Town, };

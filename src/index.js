@@ -3,7 +3,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App.jsx";
 import Forest from "./phaser/forestScene";
-import Town from "./phaser/overworld";
+//import {Town} from "./phaser/overworld";
+import {Dungeon, Town} from "./phaser/DungeonScene"
 
 //console.log(App);
 
@@ -21,7 +22,7 @@ const config = {
             debug: true
         }
       },
-      scene: [ Forest, Town ]
+      scene: [ Town, Dungeon ]
   };
 const game = new Phaser.Game(config);
 
