@@ -9,7 +9,7 @@ let cursors;
   }
   preload() {
     this.load.image('forest', 'src/assets/images/forest-tileset.png');
-    this.load.image('graveyard', 'src/assets/images/graveyard.png');
+    this.load.image('graveyard', 'src/assets/images/graveyard-tileset.png');
     this.load.tilemapTiledJSON('map', 'src/assets/maps/finalForest.json');
     this.load.spritesheet('player', 'src/assets/images/player.png', { frameWidth: 32, frameHeight: 32 });
   }
