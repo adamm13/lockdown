@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App.jsx";
-import Forest from "./phaser/scene";
+import Forest from "./phaser/forestScene";
 
 //console.log(App);
 
