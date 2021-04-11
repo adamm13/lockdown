@@ -159,9 +159,9 @@ class Dungeon extends Phaser.Scene {
   
   preload() {
     //this.load.image("logo", logoImg);
-    this.load.image('tiles', "src/assets/maps/dungeon/tilesets/dungeon-tileset.png");
-    this.load.image('obj-tiles', "src/assets/maps/dungeon/tilesets/dungeon-objects.png");
-    this.load.tilemapTiledJSON('map', "src/assets/maps/dungeon/dungeon.json");
+    this.load.image('tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
+    this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
+    this.load.tilemapTiledJSON('map', "src/assets/dungeonMaps/dungeon/dungeon.json");
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
   }
   
@@ -221,8 +221,8 @@ class Dungeon2 extends Phaser.Scene {
 
   preload() {
     console.log("I AM DUNGEON 2 PRELOAD");
-    this.load.image('tiles', "src/assets/maps/dungeon/tilesets/dungeon-tileset.png");
-    this.load.tilemapTiledJSON('map2', "src/assets/maps/dungeon/dungeon2.json");
+    this.load.image('tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
+    this.load.tilemapTiledJSON('map2', "src/assets/dungeonMaps/dungeon/dungeon2.json");
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
   }
   

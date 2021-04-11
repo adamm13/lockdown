@@ -30,7 +30,6 @@ export default class Town extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
     // Create player at start location and scale him
     player = this.physics.add.sprite(200, 300, 'player');
-    player.setScale(1.2);
     // make camera follow player
     this.cameras.main.startFollow(player);
     //  Player physics properties.

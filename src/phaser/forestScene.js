@@ -31,7 +31,6 @@ let cursors;
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
     // Create player at start location and scale him
     player = this.physics.add.sprite(385, 610, 'player');
-    player.setScale(1.2);
     //create layer above player
     const above_player = map.createLayer("above-player", tileset1, 0, 0);
     // make camera follow player
