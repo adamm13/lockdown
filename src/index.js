@@ -2,17 +2,24 @@ import Phaser from "phaser";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App.jsx";
-import playGame from "./phaser/scene";
+import Forest from "./phaser/scene";
 
 //console.log(App);
 
 export const config = {
   type: Phaser.AUTO,
-  parent: "phaser",
-  width: 800,
-  height: 600,
-  scene: playGame
-};
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    parent: 'phaser-example',
+    width: 800,
+    height: 640,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: false
+        }
+      },
+      scene: [ Forest ]
+  };
 
 const game = new Phaser.Game(config);
 
