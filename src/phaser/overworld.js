@@ -12,7 +12,7 @@ export default class Town extends Phaser.Scene {
     this.load.image('tiles', 'src/assets/town32.png');
     this.load.tilemapTiledJSON('map', 'src/assets/overworldv3.json');
 
-    this.load.spritesheet('player', 'src/assets/player.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('player', 'src/assets/images/player.png', { frameWidth: 32, frameHeight: 32 });
   }
   create() {
     // environment

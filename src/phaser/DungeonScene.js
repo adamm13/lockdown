@@ -159,9 +159,9 @@ class Dungeon extends Phaser.Scene {
   
   preload() {
     //this.load.image("logo", logoImg);
-    this.load.image('tiles', "src/assets/maps/dungeon/tilesets/dungeon-tileset.png");
-    this.load.image('obj-tiles', "src/assets/maps/dungeon/tilesets/dungeon-objects.png");
-    this.load.tilemapTiledJSON('map', "src/assets/maps/dungeon/dungeon.json");
+    this.load.image('tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
+    this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
+    this.load.tilemapTiledJSON('map', "src/assets/dungeonMaps/dungeon/dungeon.json");
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
   }
   
@@ -214,44 +214,119 @@ class Dungeon extends Phaser.Scene {
   }
 }
 
-class Dungeon2 extends Phaser.Scene {
+// forest map
+class Forest extends Phaser.Scene {
   constructor() {
-    super('Dungeon2');
+    super({
+      key: "Forest"
+    });
   }
-
   preload() {
-    console.log("I AM DUNGEON 2 PRELOAD");
-    this.load.image('tiles', "src/assets/maps/dungeon/tilesets/dungeon-tileset.png");
-    this.load.tilemapTiledJSON('map2', "src/assets/maps/dungeon/dungeon2.json");
-    this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+    this.load.image('forest', 'src/assets/images/forest-tileset.png');
+    this.load.image('graveyard', 'src/assets/images/graveyard-tileset.png');
+    this.load.tilemapTiledJSON('map', 'src/assets/maps/finalForest.json');
+    this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: 32, frameHeight: 32 });
   }
-  
   create() {
-    console.log("I AM DUNGEON 2 CREATE");
     // environment
-    const map = this.make.tilemap({key:'map2'});
-    const tileset = map.addTilesetImage('dungeon-tileset', 'tiles');
-    const ground = map.createLayer("groundLayer", tileset, 0, 0);
+    const map = this.make.tilemap({ key: 'map' });
+    const tileset1 = map.addTilesetImage('Forest', 'forest');
+    const tileset2 = map.addTilesetImage('Graveyard', 'graveyard');
 
-    // camera
-    this.cameras.main.setZoom(2);
-    // Create player at start location and scale him
-    this.player = new Player(this, 752, 80, 'player');
-    const player = this.player;
-    player.body.setCollideWorldBounds(true);
+    const ground = map.createLayer("ground", tileset1);
+    const below_player_2 = map.createLayer("below-player-2", tileset2);
+    const obstacles = map.createLayer("obstacles", tileset1);
+    const obstacles_2 = map.createLayer("obstacles-2", tileset2);
+    const below_player = map.createLayer("below-player", tileset1);
+    
+    
+      // camera
+      this.cameras.main.setZoom(2);
+      // Create player at start location and scale him
+      this.player = new Player(this, 385, 610, 'player');
+      const player = this.player;
+      player.body.setCollideWorldBounds(true);
+  
+      //create layer above player
+      const above_player = map.createLayer("above-player", tileset1, 0, 0);
 
-    // Make camera stop at edge of map
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+      // Make camera stop at edge of map
+      this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+  
+      // make camera follow player
+      this.cameras.main.startFollow(this.player);
+  
+      //  Player physics properties.
+      obstacles.setCollisionBetween(0, 300);
+      obstacles_2.setCollisionBetween(1, 400);
+      this.physics.add.collider(player, obstacles);
 
-    // make camera follow player
-    this.cameras.main.startFollow(this.player);
 
-  }
+      this.physics.add.collider(player, obstacles_2, (player, tile) => {
+        tile.collisionCallback = (collidingPlayer, collidingTile) => {
+          //console.log("COLLISION CALLBACK 1st Arg: ", collidingPlayer);
+          //console.log("COLLISION CALLBACK 2nd Arg: ", collidingTile);
+        }
+      });
 
-  update() {
-    this.player.update();
-  }
+      this.physics.add.collider(player, obstacles_2, (player, tile) => {
+        console.log("player: ", player);
+        console.log("tile: ", tile);
+        if (tile.index === 339) {
+          tile.collisionCallback = (collidingPlayer, collidingTile) => {
+            console.log("Scene transition: ");
+            console.log(this);
+            console.log(this.scene);
+            this.scene.start('Forest2');
+          }
+        }
+      });
 
+    }
+      update() {
+        //  Input Events
+        this.player.update();
+      }
 }
 
-module.exports = { Dungeon, Dungeon2 };
+// class Dungeon2 extends Phaser.Scene {
+//   constructor() {
+//     super('Dungeon2');
+//   }
+
+//   preload() {
+//     console.log("I AM DUNGEON 2 PRELOAD");
+//     this.load.image('tiles', "src/assets/maps/dungeon/tilesets/dungeon-tileset.png");
+//     this.load.tilemapTiledJSON('map2', "src/assets/maps/dungeon/dungeon2.json");
+//     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+//   }
+  
+//   create() {
+//     console.log("I AM DUNGEON 2 CREATE");
+//     // environment
+//     const map = this.make.tilemap({key:'map2'});
+//     const tileset = map.addTilesetImage('dungeon-tileset', 'tiles');
+//     const ground = map.createLayer("groundLayer", tileset, 0, 0);
+
+//     // camera
+//     this.cameras.main.setZoom(2);
+//     // Create player at start location and scale him
+//     this.player = new Player(this, 752, 80, 'player');
+//     const player = this.player;
+//     player.body.setCollideWorldBounds(true);
+
+//     // Make camera stop at edge of map
+//     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+
+//     // make camera follow player
+//     this.cameras.main.startFollow(this.player);
+
+//   }
+
+//   update() {
+//     this.player.update();
+//   }
+
+// }
+
+module.exports = { Dungeon, Forest };
