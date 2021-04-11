@@ -115,8 +115,6 @@ export default class Town extends Phaser.Scene {
       player.setVelocityY(0);
       player.anims.play('turn');
     }
-
-
   }
 }
 

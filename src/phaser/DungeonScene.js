@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 
-
 const gameTileSize = 32; 
 
 /* ------------------ Entity Class -------------------------- */
@@ -158,7 +157,6 @@ class Dungeon extends Phaser.Scene {
   }
   
   preload() {
-    //this.load.image("logo", logoImg);
     this.load.image('tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
     this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
     this.load.tilemapTiledJSON('map', "src/assets/dungeonMaps/dungeon/dungeon.json");
@@ -214,44 +212,160 @@ class Dungeon extends Phaser.Scene {
   }
 }
 
-class Dungeon2 extends Phaser.Scene {
+// class Dungeon2 extends Phaser.Scene {
+//   constructor() {
+//     super('Dungeon2');
+//   }
+
+//   preload() {
+//     console.log("I AM DUNGEON 2 PRELOAD");
+//     this.load.image('tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
+//     this.load.tilemapTiledJSON('map2', "src/assets/dungeonMaps/dungeon/dungeon2.json");
+//     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+//   }
+  
+//   create() {
+//     console.log("I AM DUNGEON 2 CREATE");
+//     // environment
+//     const map = this.make.tilemap({key:'map2'});
+//     const tileset = map.addTilesetImage('dungeon-tileset', 'tiles');
+//     const ground = map.createLayer("groundLayer", tileset, 0, 0);
+
+//     // camera
+//     this.cameras.main.setZoom(2);
+//     // Create player at start location and scale him
+//     this.player = new Player(this, 752, 80, 'player');
+//     const player = this.player;
+//     player.body.setCollideWorldBounds(true);
+
+//     // Make camera stop at edge of map
+//     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+
+//     // make camera follow player
+//     this.cameras.main.startFollow(this.player);
+
+//   }
+
+//   update() {
+//     this.player.update();
+//   }
+
+// }
+
+class Town extends Phaser.Scene {
   constructor() {
-    super('Dungeon2');
+    super("Town");
   }
 
   preload() {
-    console.log("I AM DUNGEON 2 PRELOAD");
-    this.load.image('tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
-    this.load.tilemapTiledJSON('map2', "src/assets/dungeonMaps/dungeon/dungeon2.json");
-    this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+    this.load.image('tiles', 'src/assets/town32.png');
+    this.load.tilemapTiledJSON('map', 'src/assets/overworldv3.json');
+    this.load.spritesheet('player', 'src/assets/player.png', { frameWidth: 32, frameHeight: 32 });
   }
-  
   create() {
-    console.log("I AM DUNGEON 2 CREATE");
     // environment
-    const map = this.make.tilemap({key:'map2'});
-    const tileset = map.addTilesetImage('dungeon-tileset', 'tiles');
-    const ground = map.createLayer("groundLayer", tileset, 0, 0);
+
+    const map = this.make.tilemap({ key: 'map' });
+    const tileset = map.addTilesetImage('town32', 'tiles')
+
+    const ground = map.createLayer("ground", tileset, 0, 0,);
+    const house = map.createLayer("house", tileset, 0, 0);
+    const trees = map.createLayer("trees", tileset, 0, 0);
+
 
     // camera
-    this.cameras.main.setZoom(2);
-    // Create player at start location and scale him
-    this.player = new Player(this, 752, 80, 'player');
-    const player = this.player;
-    player.body.setCollideWorldBounds(true);
-
-    // Make camera stop at edge of map
+    this.cameras.main.setZoom(1.2);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-
+    // Create player at start location and scale him
+    player = this.physics.add.sprite(200, 300, 'player');
     // make camera follow player
-    this.cameras.main.startFollow(this.player);
+    this.cameras.main.startFollow(player);
+    //  Player physics properties.
+    trees.setCollisionBetween(1, 1000);
+    this.physics.add.collider(player, trees);
 
+    house.setCollisionBetween(1, 200);
+    this.physics.add.collider(player, house);
+    player.setCollideWorldBounds(false);
+    //  Player physics properties.
+    // trees.setCollisionBetween(0, 1000);
+    // this.physics.add.collider(player, obstacles);
+    // this.physics.add.collider(player, trees, (player, tile) => {
+    //   console.log("player: ", player);
+    //   console.log("tile: ", tile);
+    //   tile.collisionCallback = (collidingPlayer, collidingTile) => {
+    //     console.log("COLLISION CALLBACK 1st Arg: ", collidingPlayer);
+    //     console.log("COLLISION CALLBACK 2nd Arg: ", collidingTile);
+    //   }
+    // });
+
+
+    // ground.setCollisionBetween(1,200)
+    // this.physics.add.collider(player, ground);
+
+
+
+    //  Our player animations, turning, walking left and walking right.
+    this.anims.create({
+      key: 'left',
+      frames: this.anims.generateFrameNumbers('player', { start: 5, end: 3 }),
+      frameRate: 10,
+      repeat: -1
+    });
+    this.anims.create({
+      key: 'turn',
+      frames: [{ key: 'player', frame: 1 }],
+      frameRate: 20
+    });
+    this.anims.create({
+      key: 'right',
+      frames: this.anims.generateFrameNumbers('player', { start: 8, end: 6 }),
+      frameRate: 10,
+      repeat: -1
+    });
+    this.anims.create({
+      key: 'up',
+      frames: this.anims.generateFrameNumbers('player', { start: 9, end: 11 }),
+      frameRate: 10,
+      repeat: -1
+    });
+    this.anims.create({
+      key: 'down',
+      frames: this.anims.generateFrameNumbers('player', { start: 0, end: 2 }),
+      frameRate: 10,
+      repeat: -1
+    });
+    //  Input Events
+
+    cursors = this.input.keyboard.createCursorKeys();
   }
-
   update() {
-    this.player.update();
-  }
 
+    if (cursors.left.isDown) {
+      player.setVelocityY(0);
+      player.setVelocityX(-200);
+      player.anims.play('left', true);
+    }
+    else if (cursors.right.isDown) {
+      player.setVelocityY(0);
+      player.setVelocityX(200);
+      player.anims.play('right', true);
+    } else if (cursors.up.isDown) {
+      player.setVelocityX(0);
+      player.setVelocityY(-200);
+      player.anims.play('up', true);
+    } else if (cursors.down.isDown) {
+      player.setVelocityX(0);
+      player.setVelocityY(200);
+      player.anims.play('down', true);
+    } else {
+      player.setVelocityX(0);
+      player.setVelocityY(0);
+      player.anims.play('turn');
+    }
+
+
+  }
 }
 
-module.exports = { Dungeon, Dungeon2 };
+module.exports = { Dungeon, Dungeon2, Town };
