@@ -13,7 +13,6 @@ export default class Dungeon extends Phaser.Scene {
   }
   
   preload() {
-    //this.load.image("logo", logoImg);
     this.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
     this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
     this.load.image('samples', "src/assets/symbols-and-items/sample.png");
@@ -21,6 +20,7 @@ export default class Dungeon extends Phaser.Scene {
     this.load.tilemapTiledJSON('dungMap', "src/assets/dungeonMaps/dungeon/dungeonMapWithObjects.json");
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
     this.load.spritesheet('zombie', "src/assets/characters/enemies/zombie1.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+    this.load.spritesheet('zombieKing', 'src/assets/characters/enemies/zombie2.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
   }
   
   create() {
@@ -29,37 +29,35 @@ export default class Dungeon extends Phaser.Scene {
     const tileset = map.addTilesetImage('dungeon-tileset', 'dungeonTiles');
     const ground = map.createLayer("belowPlayer", tileset, 0, 0);
     const obstacles = map.createLayer("walls", tileset, 0, 0);
-    
+    // camera
+    this.cameras.main.setZoom(2);
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels); // Make camera stop at edge of map
     // Render objects
     const samples = this.physics.add.staticGroup();
     this.renderObjects(map, samples, 'samples', 0.7);
     const chests = this.physics.add.staticGroup();
     this.renderObjects(map, chests, 'chest', 0.7);
     
+    // Get spawn points --> findObject arguments (layerName, callback)
+    const spawnPlayerPos = map.findObject("enterDungeon", obj => obj.name === "enterDungeon");
+    const spawnZombie1Pos = map.findObject("zombieSpawn", obj => obj.name === "zombieGirl");
+    const spawnZombie2Pos = map.findObject("zombieSpawn", obj => obj.name === "zombieKing");
     
-    // camera
-    this.cameras.main.setZoom(2);
-    // Create player at start location and scale him
-    this.player = new Player(this, 752, 80, 'player');
+    // Create player at start location
+    this.player = new Player(this, spawnPlayerPos.x, spawnPlayerPos.y, 'player');
     const player = this.player;
     player.body.setCollideWorldBounds(true);
+    this.cameras.main.startFollow(player); 
 
-    // Create zombie and pass in player as last argument for a target
-    // this.zombie = new Zombie(this, 752, 380, 'zombie', player);
-    // const zombie = this.zombie;
-    // zombie.body.setCollideWorldBounds(true);
-
-    // Make camera stop at edge of map
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-
-    // make camera follow player
-    this.cameras.main.startFollow(this.player);
+    // Create zombies (always give a unique zombie key name e.g. zombie1, zombie2. (It's not Phaser's spritesheet key, but it can be the same if there is only 1)
+    // Args: startX, startY, spritesheetKey, target, zombieKeyName, obstacles
+    this.createZombie(spawnZombie1Pos.x, spawnZombie1Pos.y, 'zombie', player, 'zombieGirl', obstacles);
+    this.createZombie(spawnZombie2Pos.x, spawnZombie2Pos.y, 'zombieKing', player, 'zombieKing', obstacles);
 
     //  Player physics properties.
-    obstacles.setCollisionBetween(0, 300);
-    // dungObjs.setCollisionBetween(1, 400);
+    obstacles.setCollisionBetween(0, 520);
     this.physics.add.collider(player, obstacles);
-    // this.physics.add.collider(zombie, obstacles);
+    
     
     // this.physics.add.collider(player, dungObjs, (player, tile) => {
     //   if (tile.index === 228) {
@@ -84,15 +82,25 @@ export default class Dungeon extends Phaser.Scene {
   update() {
     //  Input Events
     this.player.update();
-    // this.zombie.update();
+    this.zombies['zombieGirl'].update();
+    this.zombies['zombieKing'].update();
   }
 
-  // Custom Helpers
+
+  /* ---------- Custom Helpers -------- */
   renderObjects(map, staticGroup, objString, scale) {
     let newLayer = map.getObjectLayer(objString)["objects"];
     newLayer.forEach(obj => {
       let object = staticGroup.create(obj.x + 16, obj.y - 16, objString).setScale(scale);
     });
+  }
+
+  zombies = {};
+
+  createZombie(startX, startY, spritesheetKey, target, zombieKeyName, obstacles) {
+    this.zombies[zombieKeyName] = new Zombie(this, startX, startY, spritesheetKey, target);
+    this.zombies[zombieKeyName].body.setCollideWorldBounds(true);
+    this.physics.add.collider(this.zombies[zombieKeyName], obstacles);
   }
 
   zombieHit() {
