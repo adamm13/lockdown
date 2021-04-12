@@ -81,27 +81,39 @@ class Zombie extends Entity {
     const targetX = this.target.x;
     const targetY = this.target.y;
 
+    const dx = targetX - this.x;
+    const dy = targetY - this.y;
+
     // const rotation = Phaser.Math.Angle.Between(this.x, this.y, targetX, targetY);
     // this.setRotation(rotation);
 
     ////// Set velocity // reset Y and X to zero for orthogonal movements to prevent diagonal movement
-    if (targetX < this.x) {
-      this.body.setVelocityY(0);
-      this.body.setVelocityX(-walkingSpeed);
-      this.anims.play('zombie-left', true);
-    } else if (targetX > this.x) {
-      this.body.setVelocityY(0);
-      this.body.setVelocityX(walkingSpeed);
-      this.anims.play('zombie-right', true);
-    } else if (targetY < this.y) {
-      this.body.setVelocityX(0);
-      this.body.setVelocityY(-walkingSpeed);
-      this.anims.play('zombie-up', true);
-    } else if (targetY > this.y) {
-      this.body.setVelocityX(0);
-      this.body.setVelocityY(walkingSpeed);
-      this.anims.play('zombie-down', true);
-    } else {
+    
+    if (Math.abs(dx) > Math.abs(dy)) {
+      if (targetX < this.x) {
+        this.body.setVelocityY(0);
+        this.body.setVelocityX(-walkingSpeed);
+        this.anims.play('zombie-left', true);
+      } else if (targetX > this.x) {
+        this.body.setVelocityY(0);
+        this.body.setVelocityX(walkingSpeed);
+        this.anims.play('zombie-right', true);
+      } 
+    }
+
+    if (Math.abs(dx) < Math.abs(dy)) {
+      if (targetY < this.y) {
+        this.body.setVelocityX(0);
+        this.body.setVelocityY(-walkingSpeed);
+        this.anims.play('zombie-up', true);
+      } else if (targetY > this.y) {
+        this.body.setVelocityX(0);
+        this.body.setVelocityY(walkingSpeed);
+        this.anims.play('zombie-down', true);
+      } 
+    }
+    
+    if (targetX === this.x && targetY === this.y) {
       this.anims.stop();
     }
 

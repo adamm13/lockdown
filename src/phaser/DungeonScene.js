@@ -58,11 +58,18 @@ export default class Dungeon extends Phaser.Scene {
       if (tile.index === 228) {
         tile.collisionCallback = (collidingPlayer, collidingTile) => {
           console.log("Scene transition exit Dungeon");
-          this.scene.start('Town');
+          this.scene.start('Town', { 
+            comingFrom: "Dungeon",
+            currentHealth: this.player.health
+           });
           this.scene.stop('Dungeon');
         }
       }
     });
+
+
+    // Testing React State with zombieHit
+    //this.physics.add.overlap(player, zombie, this.zombieHit, null, this);
 
   
   }
@@ -72,6 +79,13 @@ export default class Dungeon extends Phaser.Scene {
     this.player.update();
     this.zombie.update();
   }
+
+  zombieHit() {
+    console.log("ZOMBIE EATS FLESH");
+    // this.player.health -= 1; 
+    // console.log("Health: ", this.player.health);
+  }
+
 }
 
 
