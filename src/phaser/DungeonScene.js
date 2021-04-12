@@ -14,18 +14,16 @@ export default class Dungeon extends Phaser.Scene {
   
   preload() {
     //this.load.image("logo", logoImg);
-    this.load.image('tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
+    this.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
     this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
     this.load.tilemapTiledJSON('dungMap', "src/assets/dungeonMaps/dungeon/dungeon.json");
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
-    console.log("I AM DUNGEON PRELOADED");
   }
   
   create() {
-    console.log("I AM DUNGEON CREATING");
     // environment
     const map = this.make.tilemap({key:'dungMap'});
-    const tileset = map.addTilesetImage('dungeon-tileset', 'tiles');
+    const tileset = map.addTilesetImage('dungeon-tileset', 'dungeonTiles');
     const objTileset = map.addTilesetImage('dungeon-objects', 'obj-tiles');
     const ground = map.createLayer("belowPlayer", tileset, 0, 0);
     const obstacles = map.createLayer("world", tileset, 0, 0);
@@ -50,11 +48,11 @@ export default class Dungeon extends Phaser.Scene {
     this.physics.add.collider(player, obstacles);
     
     this.physics.add.collider(player, dungObjs, (player, tile) => {
-      console.log("player: ", player);
-      console.log("tile: ", tile);
+      // console.log("player: ", player);
+      // console.log("tile: ", tile);
       if (tile.index === 228) {
         tile.collisionCallback = (collidingPlayer, collidingTile) => {
-          console.log("Scene transition: ");
+          console.log("Scene transition exit Dungeon: ");
           // console.log(this);
           // console.log(this.scene);
           this.scene.start('Town');

@@ -29,7 +29,7 @@ class Town extends Phaser.Scene {
     // camera
     this.cameras.main.setZoom(2);
     // Create player at start location and scale him
-    this.player = new Player(this, 200, 300, 'player');
+    this.player = new Player(this, 209, 240, 'player');
     // make camera follow player
     const player = this.player;
     this.cameras.main.startFollow(this.player);
@@ -42,13 +42,13 @@ class Town extends Phaser.Scene {
 
     // Finding portal
     this.physics.add.collider(player, house, (player, tile) => {
-      console.log("player: ", player);
-      console.log("tile: ", tile);
+      // console.log("player: ", player);
+      // console.log("tile: ", tile);
       if (tile.index === 205) {
         tile.collisionCallback = (collidingPlayer, collidingTile) => {
           // console.log("COLLISION CALLBACK 1st Arg: ", collidingPlayer);
           // console.log("COLLISION CALLBACK 2nd Arg: ", collidingTile);
-          console.log("Scene transition: ");
+          console.log("Scene transition exit Town");
           this.scene.start('Dungeon');
           this.scene.stop('Town');
         }
