@@ -4,7 +4,7 @@
   <export target="overworldv5.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="town32" tilewidth="32" tileheight="32" tilecount="312" columns="24">
-  <image source="townmap/town32.png" width="768" height="416"/>
+  <image source="town32.png" width="768" height="416"/>
  </tileset>
  <layer id="1" name="ground" width="60" height="40">
   <data encoding="csv">

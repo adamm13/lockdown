@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App.jsx";
 import { Forest } from "./phaser/forestScene";
-import Town from "./phaser/overworld";
+import { Town } from "./phaser/overworld";
 import { Dungeon } from "./phaser/DungeonScene";
 
 //console.log(App);
@@ -13,15 +13,14 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
     parent: 'phaser-example',
     width: 800,
-    height: 640,
-    yoyo: true,
+    height: 600,
     physics: {
         default: 'arcade',
         arcade: {
             debug: true
         }
       },
-      scene: [ Forest ]
+      scene: [ Town, Forest, Dungeon ]
   };
 const game = new Phaser.Game(config);
 
