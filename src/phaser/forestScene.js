@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import { Player, Entity } from './Player';
 
-
+let shootTime = 0;
+let bullets;
 
 class Forest extends Phaser.Scene {
   constructor() {
@@ -10,10 +11,14 @@ class Forest extends Phaser.Scene {
     });
   }
   preload() {
+    //images for map
     this.load.image('forest', 'src/assets/images/forest-tileset.png');
     this.load.image('graveyard', 'src/assets/images/graveyard-tileset.png');
     this.load.tilemapTiledJSON('forestMap', 'src/assets/maps/finalForest.json');
+    //spritesheet for character
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: 32, frameHeight: 32 });
+    //image for bullets
+    this.load.image('bullet', 'src/assets/images/laserBlue02.png');
   }
   create() {
     // environment
@@ -63,6 +68,18 @@ class Forest extends Phaser.Scene {
         }
       });
 
+      //setting up shooting
+      bullets = game.add.group();
+      bullets.enableBody = true;
+      bullets.physicsBodyType = Phaser.Physics.ARCADE;
+      bullets.createMultiple(10, 'bullet');
+
+      bullets.setAll('anchor.x', 0.5);
+      bullets.setAll('anchor.y', 0.5);
+
+      //scale - commented out for now to see visually
+      // bullets.setAll('scale.x', 0.5);
+      // bullets.setAll('scale.y', 0.5);
     }
       update() {
         //  Input Events
