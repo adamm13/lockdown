@@ -1,5 +1,11 @@
 import Phaser from 'phaser';
 import { Player } from "./Player";
+import { Zombie } from "./Zombie";
+import { NPC } from "./NPC1"
+
+const gameTileSize = 32;
+
+/* ------------------------------------ Overworld Scene Class ------------------------ */
 
 class Town extends Phaser.Scene {
   constructor() {
@@ -22,7 +28,8 @@ class Town extends Phaser.Scene {
   preload() {
     this.load.image('tiles', 'src/assets/town32.png');
     this.load.tilemapTiledJSON('map', 'src/assets/overworldv3.json');
-    this.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
+    this.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
   }
 
   create() {
@@ -30,7 +37,6 @@ class Town extends Phaser.Scene {
 
     const map = this.make.tilemap({ key: 'map' });
     const tileset = map.addTilesetImage('town32', 'tiles')
-
     const ground = map.createLayer("ground", tileset, 0, 0,);
     const house = map.createLayer("house", tileset, 0, 0);
     const trees = map.createLayer("trees", tileset, 0, 0);
@@ -39,16 +45,28 @@ class Town extends Phaser.Scene {
     this.cameras.main.setZoom(2);
 
     // Create player at start location and scale him
-    this.player = new Player(this, this.startingX, this.startingY, 'player');
-    // make camera follow player
+    this.player = new Player(this, 200, 300, 'player');
     const player = this.player;
+     player.body.setCollideWorldBounds(false);
+
+    // Create NPC and pass in player as last argument for a target
+    this.npc = new NPC(this, 250, 300, 'npc');
+    const npc = this.npc;
+    npc.body.setCollideWorldBounds(false);
+
+     // camera to follow the player 
     this.cameras.main.startFollow(this.player);
+
+    //make camera stop at edge of map
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
     
     //  Player physics properties.
     trees.setCollisionBetween(1, 2000);
     house.setCollisionBetween(1, 2000);
-    player.body.setCollideWorldBounds(false);
+   
+    this.physics.add.collider(npc, trees);
+    // allows you to move the player by pushing him.
+       this.physics.add.collider(player, npc);
     
     /* ----- Finding portals ----- */
     // Note the transition callback only gets assigned on the 1st collision with the tile,
@@ -84,6 +102,7 @@ class Town extends Phaser.Scene {
   update() {
     //  Input Events
     this.player.update();
+    this.npc.update();
   }
 
 }
