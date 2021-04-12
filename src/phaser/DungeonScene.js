@@ -52,7 +52,7 @@ export default class Dungeon extends Phaser.Scene {
       // console.log("tile: ", tile);
       if (tile.index === 228) {
         tile.collisionCallback = (collidingPlayer, collidingTile) => {
-          console.log("Scene transition exit Dungeon: ");
+          console.log("Scene transition exit Dungeon");
           // console.log(this);
           // console.log(this.scene);
           this.scene.start('Town');
