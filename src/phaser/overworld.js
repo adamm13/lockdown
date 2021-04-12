@@ -26,6 +26,7 @@ class Town extends Phaser.Scene {
   }
 
   preload() {
+
     this.load.image('tiles', 'src/assets/town32.png');
     this.load.tilemapTiledJSON('map', 'src/assets/overworldv3.json');
     this.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
@@ -40,6 +41,7 @@ class Town extends Phaser.Scene {
     const ground = map.createLayer("ground", tileset, 0, 0,);
     const house = map.createLayer("house", tileset, 0, 0);
     const trees = map.createLayer("trees", tileset, 0, 0);
+
 
     // camera
     this.cameras.main.setZoom(2);
