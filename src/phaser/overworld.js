@@ -1,10 +1,6 @@
 import Phaser from 'phaser';
 import { Player } from "./Player";
 
-const gameTileSize = 32;
-
-/* ------------------ Entity Class -------------------------- */
-
 class Town extends Phaser.Scene {
   constructor() {
     super("Town");

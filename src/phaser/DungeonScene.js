@@ -1,9 +1,9 @@
 import Phaser from "phaser";
 import { Player } from "./Player";
+import { Zombie } from "./Zombie";
 
 
 const gameTileSize = 32; 
-
 
 /* ------------------------------------ Dungeon Scene Class ------------------------ */
 
@@ -18,6 +18,7 @@ export default class Dungeon extends Phaser.Scene {
     this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
     this.load.tilemapTiledJSON('dungMap', "src/assets/dungeonMaps/dungeon/dungeon.json");
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+    this.load.spritesheet('zombie', "src/assets/characters/enemies/zombie1.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
   }
   
   create() {
@@ -36,6 +37,11 @@ export default class Dungeon extends Phaser.Scene {
     const player = this.player;
     player.body.setCollideWorldBounds(true);
 
+    // Create zombie and pass in player as last argument for a target
+    this.zombie = new Zombie(this, 752, 380, 'zombie', player);
+    const zombie = this.zombie;
+    zombie.body.setCollideWorldBounds(true);
+
     // Make camera stop at edge of map
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
 
@@ -46,15 +52,12 @@ export default class Dungeon extends Phaser.Scene {
     obstacles.setCollisionBetween(0, 300);
     dungObjs.setCollisionBetween(1, 400);
     this.physics.add.collider(player, obstacles);
+    this.physics.add.collider(zombie, obstacles);
     
     this.physics.add.collider(player, dungObjs, (player, tile) => {
-      // console.log("player: ", player);
-      // console.log("tile: ", tile);
       if (tile.index === 228) {
         tile.collisionCallback = (collidingPlayer, collidingTile) => {
           console.log("Scene transition exit Dungeon");
-          // console.log(this);
-          // console.log(this.scene);
           this.scene.start('Town');
           this.scene.stop('Dungeon');
         }
@@ -67,6 +70,7 @@ export default class Dungeon extends Phaser.Scene {
   update() {
     //  Input Events
     this.player.update();
+    this.zombie.update();
   }
 }
 
