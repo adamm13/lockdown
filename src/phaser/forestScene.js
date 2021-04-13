@@ -1,8 +1,6 @@
 import Phaser from 'phaser';
 import { Player, Entity } from './Player';
 
-let shootTime = 0;
-let bullets;
 
 class Forest extends Phaser.Scene {
   constructor() {
@@ -31,8 +29,8 @@ class Forest extends Phaser.Scene {
     const obstacles = map.createLayer("obstacles", tileset1);
     const obstacles_2 = map.createLayer("obstacles-2", tileset2);
     const below_player = map.createLayer("below-player", tileset1);
-    
-    
+
+
       // camera
       this.cameras.main.setZoom(2);
       // Create player at start location
@@ -68,23 +66,13 @@ class Forest extends Phaser.Scene {
         }
       });
 
-      //setting up shooting
-      bullets = game.add.group();
-      bullets.enableBody = true;
-      bullets.physicsBodyType = Phaser.Physics.ARCADE;
-      bullets.createMultiple(10, 'bullet');
-
-      bullets.setAll('anchor.x', 0.5);
-      bullets.setAll('anchor.y', 0.5);
-
-      //scale - commented out for now to see visually
-      // bullets.setAll('scale.x', 0.5);
-      // bullets.setAll('scale.y', 0.5);
+      
     }
       update() {
         //  Input Events
-        this.player.update();
-      }
+       this.player.update();
+      
+      } 
 }
 
 module.exports = { Forest }

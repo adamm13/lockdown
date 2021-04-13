@@ -2,6 +2,8 @@ import { Entity } from "./Entity";
   
   /* --------------------------------- Player Class ----------------------------------- */
   
+// let shootTime = 0;
+
 class Player extends Entity {
   
   constructor(scene, x, y, textureKey) {
@@ -54,7 +56,7 @@ class Player extends Entity {
 
     /////////// Keyboard Inputs 
     //keys = this.input.keyboard.createCursorKeys();
-    const {LEFT, RIGHT, UP, DOWN, W, A, S, D} = Phaser.Input.Keyboard.KeyCodes;
+    const {LEFT, RIGHT, UP, DOWN, W, A, S, D, SPACE} = Phaser.Input.Keyboard.KeyCodes;
 
     this.keys = scene.input.keyboard.addKeys({
       left: LEFT, 
@@ -64,7 +66,8 @@ class Player extends Entity {
       w: W, 
       a: A, 
       s: S, 
-      d: D
+      d: D,
+      fireKey: SPACE
     });
     
   } //// end constructor
@@ -98,6 +101,7 @@ class Player extends Entity {
       this.anims.stop();
     }
 
+
     // Normalize and scale the velocity so that player can't move faster along a diagonal
     this.body.velocity.normalize().scale(walkingSpeed);
 
@@ -116,6 +120,7 @@ class Player extends Entity {
     }
 
   }
+  
 } 
 
 module.exports = { Player }
