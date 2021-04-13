@@ -5,8 +5,33 @@ import App from "./components/App.jsx";
 import { Forest } from "./phaser/forestScene";
 import { Town } from "./phaser/overworld";
 import { Dungeon } from "./phaser/DungeonScene";
+import { Menu } from "./phaser/menu";
 
 //console.log(App);
+
+// var Menu = new Phaser.Class({
+
+//     Extends: Phaser.Scene,
+
+//     initialize:
+
+//     function Menu ()
+//     {
+//         Phaser.Scene.call(this, 'menu');
+//     },
+
+//     create()
+//     {
+//         this.add.text(10, 10, 'LOCKDOWN PT 1 - Press 1 to Start the Game', { font: '24px Courier', fill: '#00ff00' });
+
+//         this.input.keyboard.once('keyup-ONE', function () {
+
+//         this.scene.start('Town')}, this);
+
+//     }
+// });
+
+
 
 const config = {
   type: Phaser.AUTO,
@@ -20,7 +45,7 @@ const config = {
             debug: true
         }
       },
-    scene: [ Town, Forest, Dungeon ]
+    scene: [ Menu, Town, Forest, Dungeon ]
   };
 const game = new Phaser.Game(config);
 
