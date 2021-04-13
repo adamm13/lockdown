@@ -173,11 +173,11 @@
         {
          "columns":24,
          "firstgid":1,
-         "image":"townmap\/town32.png",
+         "image":"townmap\/town32-extruded.png",
          "imageheight":416,
          "imagewidth":768,
          "margin":0,
-         "name":"town32",
+         "name":"town32-extruded",
          "spacing":0,
          "tilecount":312,
          "tileheight":32,

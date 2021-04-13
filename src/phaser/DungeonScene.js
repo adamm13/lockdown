@@ -27,7 +27,8 @@ export default class Dungeon extends Phaser.Scene {
   ];
   
   preload() {
-    this.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
+    // this.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
+    this.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset-extruded.png");
     this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
     this.load.image('samples', "src/assets/symbols-and-items/sample2.png");
     // this.load.image('chest', "src/assets/symbols-and-items/chest.png");
@@ -41,7 +42,8 @@ export default class Dungeon extends Phaser.Scene {
   create() {
     // Render environment
     const map = this.make.tilemap({key:'dungMap'});
-    const tileset = map.addTilesetImage('dungeon-tileset', 'dungeonTiles');
+    //const tileset = map.addTilesetImage('dungeon-tileset', 'dungeonTiles');
+    const tileset = map.addTilesetImage('dungeon-tileset-extruded', 'dungeonTiles', 32, 32, 1, 2);
     const dungObjs = map.addTilesetImage('dungeon-objects', 'obj-tiles');
     const ground = map.createLayer("belowPlayer", tileset, 0, 0);
     const obstacles = map.createLayer("walls", tileset, 0, 0);

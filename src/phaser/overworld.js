@@ -27,7 +27,8 @@ class Town extends Phaser.Scene {
 
   preload() {
 
-    this.load.image('tiles', 'src/assets/town32.png');
+    // this.load.image('tiles', 'src/assets/town32.png');
+    this.load.image('tiles', 'src/assets/town32-extruded.png');
     this.load.tilemapTiledJSON('map', 'src/assets/overworldv3.json');
     this.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
     this.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
@@ -37,7 +38,8 @@ class Town extends Phaser.Scene {
     // environment
 
     const map = this.make.tilemap({ key: 'map' });
-    const tileset = map.addTilesetImage('town32', 'tiles')
+    // const tileset = map.addTilesetImage('town32', 'tiles')
+    const tileset = map.addTilesetImage('town32-extruded', 'tiles', 32, 32, 1, 2);
     const ground = map.createLayer("ground", tileset, 0, 0,);
     //const house = map.createLayer("house", tileset, 0, 0);
     const trees = map.createLayer("trees", tileset, 0, 0);
