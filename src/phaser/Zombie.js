@@ -11,34 +11,35 @@ class Zombie extends Entity {
     // Walk animation
     const animFrameRate = 10;
     const anims = scene.anims;
+    const spriteKey = this.textureKey; 
 
     anims.create({
-      key: 'zombie-left',
-      frames: anims.generateFrameNumbers(this.textureKey, { start: 5, end: 3 }),
+      key: spriteKey + '-left',
+      frames: anims.generateFrameNumbers(spriteKey, { start: 5, end: 3 }),
       frameRate: animFrameRate,
       repeat: -1,
       yoyo: true,
     });
     
     anims.create({
-      key: 'zombie-right',
-      frames: anims.generateFrameNumbers(this.textureKey, { start: 8, end: 6 }),
+      key: spriteKey + '-right',
+      frames: anims.generateFrameNumbers(spriteKey, { start: 8, end: 6 }),
       frameRate: animFrameRate,
       repeat: -1,
       yoyo: true,
     });
     
     anims.create({
-      key: 'zombie-up',
-      frames: anims.generateFrameNumbers(this.textureKey, { start: 9, end: 11 }),
+      key: spriteKey + '-up',
+      frames: anims.generateFrameNumbers(spriteKey, { start: 9, end: 11 }),
       frameRate: animFrameRate,
       repeat: -1,
       yoyo: true,
     });
     
     anims.create({
-      key: 'zombie-down',
-      frames: anims.generateFrameNumbers(this.textureKey, { start: 0, end: 2 }),
+      key: spriteKey + '-down',
+      frames: anims.generateFrameNumbers(spriteKey, { start: 0, end: 2 }),
       frameRate: animFrameRate,
       repeat: -1,
       yoyo: true, 
@@ -74,6 +75,7 @@ class Zombie extends Entity {
 
     const walkingSpeed = 200; // velocity is in px / second
     const prevVelocity = this.body.velocity.clone();
+    const spriteKey = this.textureKey; 
 
     this.body.setVelocity(0);
     
@@ -93,11 +95,11 @@ class Zombie extends Entity {
       if (targetX < this.x) {
         this.body.setVelocityY(0);
         this.body.setVelocityX(-walkingSpeed);
-        this.anims.play('zombie-left', true);
+        this.anims.play(spriteKey + '-left', true);
       } else if (targetX > this.x) {
         this.body.setVelocityY(0);
         this.body.setVelocityX(walkingSpeed);
-        this.anims.play('zombie-right', true);
+        this.anims.play(spriteKey + '-right', true);
       } 
     }
 
@@ -105,11 +107,11 @@ class Zombie extends Entity {
       if (targetY < this.y) {
         this.body.setVelocityX(0);
         this.body.setVelocityY(-walkingSpeed);
-        this.anims.play('zombie-up', true);
+        this.anims.play(spriteKey + '-up', true);
       } else if (targetY > this.y) {
         this.body.setVelocityX(0);
         this.body.setVelocityY(walkingSpeed);
-        this.anims.play('zombie-down', true);
+        this.anims.play(spriteKey + '-down', true);
       } 
     }
     
