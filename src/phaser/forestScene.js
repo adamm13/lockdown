@@ -2,12 +2,14 @@ import Phaser from 'phaser';
 import { Player, Entity } from './Player';
 
 
-
 class Forest extends Phaser.Scene {
   constructor() {
     super({
       key: "Forest"
     });
+  }
+  init(data) {
+    console.log(data);
   }
   preload() {
     // this.load.image('forest', 'src/assets/images/forest-tileset.png');
@@ -17,7 +19,7 @@ class Forest extends Phaser.Scene {
     this.load.tilemapTiledJSON('forestMap', 'src/assets/maps/finalForest.json');
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: 32, frameHeight: 32 });
   }
-  create() {
+  create(data) {
     // environment
     const map = this.make.tilemap({ key: 'forestMap' });
     // const tileset1 = map.addTilesetImage('Forest', 'forest');
@@ -35,7 +37,7 @@ class Forest extends Phaser.Scene {
       // camera
       this.cameras.main.setZoom(2);
       // Create player at start location
-      this.player = new Player(this, 385, 610, 'player');
+      this.player = new Player(this, 385, 610, 'player', data.inventory);
       const player = this.player;
       player.body.setCollideWorldBounds(true);
   
@@ -61,7 +63,12 @@ class Forest extends Phaser.Scene {
         if (tile.index === 339) {
           tile.collisionCallback = (collidingPlayer, collidingTile) => {
             console.log("Scene transition exit Forest");
-            this.scene.start('Town', { comingFrom: 'Forest'});
+            this.scene.start('Town', { 
+              comingFrom: 'Forest',  
+              //currentHealth: player.health,
+              inventory: player.inventory,
+              sampleLocations: data.sampleLocations
+             });
             this.scene.stop('Forest');
           }
         }

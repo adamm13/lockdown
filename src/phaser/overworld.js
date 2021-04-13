@@ -4,6 +4,7 @@ import { Zombie } from "./Zombie";
 import { NPC } from "./NPC1"
 
 const gameTileSize = 32;
+let initialInventory = []; // only need this for opening game scene --> reassigned to data.inventory in init()
 
 /* ------------------------------------ Overworld Scene Class ------------------------ */
 
@@ -14,8 +15,13 @@ class Town extends Phaser.Scene {
 
   startingX = 208; 
   startingY = 240;
+  
 
   init(data) {
+    console.log(data);
+    if (data.inventory) {
+      initialInventory = data.inventory;
+    }
     if (data.comingFrom === "Forest") {
       this.startingX = 180;
       this.startingY = 464;
@@ -35,7 +41,8 @@ class Town extends Phaser.Scene {
   }
   
 
-  create() {
+  create(data) {
+    console.log("I AM overworld CREATE: ", data);
     // environment
 
     const map = this.make.tilemap({ key: 'map' });
@@ -49,7 +56,7 @@ class Town extends Phaser.Scene {
     this.cameras.main.setZoom(2);
 
     // Create player at start location and scale him
-    this.player = new Player(this, 200, 300, 'player');
+    this.player = new Player(this, this.startingX, this.startingY, 'player', initialInventory);
     const player = this.player;
     player.body.setCollideWorldBounds(false);
 
@@ -125,14 +132,22 @@ class Town extends Phaser.Scene {
       if (tile.index === 83) {
         tile.collisionCallback = (collidingPlayer, collidingTile) => {
           console.log("Scene transition exit Town");
-          this.scene.start('Forest');
+          this.scene.start('Forest', { 
+            comingFrom: "Town",
+            inventory: player.inventory,
+            sampleLocations: data.sampleLocations
+          });
           this.scene.stop('Town');
         }
       }
       if (tile.index === 205) {
-        tile.collisionCallback = (collidingPlayer, collidingTile) => {
+        tile.collisionCallback = (player, collidingTile) => {
           console.log("Scene transition exit Town");
-          this.scene.start('Dungeon');
+          this.scene.start('Dungeon', { 
+            comingFrom: "Town",
+            inventory: player.inventory,
+            sampleLocations: data.sampleLocations
+          });
           this.scene.stop('Town');
         }
       }

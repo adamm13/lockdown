@@ -4,9 +4,12 @@ import { Entity } from "./Entity";
   
 class Player extends Entity {
   
-  constructor(scene, x, y, textureKey) {
+  constructor(scene, x, y, textureKey, inventory) {
     super(scene, x, y, textureKey);
 
+    this.inventory = inventory // initialized as []
+
+    
     /////////// Walk animation
     const animFrameRate = 10;
     const anims = scene.anims;
