@@ -5,6 +5,7 @@ import { Zombie } from "./Zombie";
 
 const gameTileSize = 32; 
 let samples;
+//let initialInventory = []; // only need this for opening game scene --> reassigned to data.inventory in init()
 
 /* ------------------------------------ Dungeon Scene Class ------------------------ */
 
@@ -13,7 +14,6 @@ export default class Dungeon extends Phaser.Scene {
     super('Dungeon');
   }
 
-  samples;
   
   sampleLocations = [
     {x: 16, y: 80}, 
@@ -25,6 +25,14 @@ export default class Dungeon extends Phaser.Scene {
     {x: 272, y: 556}, 
     {x: 624, y: 272}, 
   ];
+
+  init(data) {
+    console.log(data);
+
+    if (data.sampleLocations) {
+      this.sampleLocations = data.sampleLocations;
+    }
+  }
   
   preload() {
     // this.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
@@ -39,7 +47,8 @@ export default class Dungeon extends Phaser.Scene {
     this.load.spritesheet('zombieKing', 'src/assets/characters/enemies/zombie2.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
   }
   
-  create() {
+  create(data) {
+    console.log("I AM DUNGEON CREATE: ", data);
     // Render environment
     const map = this.make.tilemap({key:'dungMap'});
     //const tileset = map.addTilesetImage('dungeon-tileset', 'dungeonTiles');
@@ -60,14 +69,14 @@ export default class Dungeon extends Phaser.Scene {
     const spawnZombie2Pos = map.findObject("zombieSpawn", obj => obj.name === "zombieKing");
     
     // Create player at start location
-    this.player = new Player(this, spawnPlayerPos.x, spawnPlayerPos.y, 'player');
+    this.player = new Player(this, spawnPlayerPos.x, spawnPlayerPos.y, 'player', data.inventory);
     this.player.body.setCollideWorldBounds(true);
     this.cameras.main.startFollow(this.player); 
 
     //Create zombies (always give a unique zombie key name e.g. zombie1, zombie2. (It's not Phaser's spritesheet key, but it can be the same if there is only 1)
     //Args: startX, startY, spritesheetKey, target, zombieKeyName, obstacles
-    this.createZombie(spawnZombie1Pos.x, spawnZombie1Pos.y, 'zombie', this.player, 'zombieGirl', obstacles);
-    this.createZombie(spawnZombie2Pos.x, spawnZombie2Pos.y, 'zombieKing', this.player, 'zombieKing', obstacles);
+    // this.createZombie(spawnZombie1Pos.x, spawnZombie1Pos.y, 'zombie', this.player, 'zombieGirl', obstacles);
+    // this.createZombie(spawnZombie2Pos.x, spawnZombie2Pos.y, 'zombieKing', this.player, 'zombieKing', obstacles);
 
 
     /* -----  Player-Scene physics properties ----- */
@@ -91,8 +100,10 @@ export default class Dungeon extends Phaser.Scene {
         tile.collisionCallback = (collidingPlayer, collidingTile) => {
           console.log("Scene transition exit Dungeon");
           this.scene.start('Town', { 
-            comingFrom: "Dungeon"
-            // currentHealth: this.player.health
+            comingFrom: "Dungeon",
+            //currentHealth: this.player.health,
+            inventory: player.inventory,
+            sampleLocations: this.sampleLocations
            });
           this.scene.stop('Dungeon');
         }
@@ -103,9 +114,11 @@ export default class Dungeon extends Phaser.Scene {
     // Implement player select key?
 
 
-    // Sample collecting 
-    this.numOfSamples = 8;
+    // Sample creation and overlap collecting
 
+    this.numOfSamples = this.sampleLocations.length;
+
+    
     // Create samples
     samples = this.physics.add.staticGroup({
       key: 'samples',
@@ -122,7 +135,7 @@ export default class Dungeon extends Phaser.Scene {
     });
 
     samples.refresh(); // does this refresh upon scene exit/enter?
-
+    
     this.physics.add.overlap(this.player, samples, this.collectSample);
     
 
@@ -133,13 +146,15 @@ export default class Dungeon extends Phaser.Scene {
     //   fill: '#ffffff'
     // });
     // text.setScrollFactor(0);
-  }
+
+
+  } // end create() function
   
   update() {
     //  Input Events
     this.player.update();
-    this.zombies['zombieGirl'].update();
-    this.zombies['zombieKing'].update();
+    // this.zombies['zombieGirl'].update();
+    // this.zombies['zombieKing'].update();
   }
 
 
@@ -167,17 +182,24 @@ export default class Dungeon extends Phaser.Scene {
     // console.log("Health: ", this.player.health);
   }
 
+  // Sample collecting 
   collectSample(player, sample) {
-    // maybe the player should have an inventory object that is updated and transfered between scenes
-    console.log("Increment sample count!"); 
-    //  Hide the sprite
+    //  Hide the sample sprite
+    const sampleLocations = player.scene.sampleLocations;
     samples.killAndHide(sample);
     //  And disable the body
     sample.body.enable = false;
     // update sample count - to be put into React component!
-    const sampleIndex = samples.getChildren().indexOf(sample); // grab this object if you need it
-    samples.getChildren().splice(sampleIndex, 1);
-    console.log(`The dungeon has ${samples.getChildren().length} remaining!`);
+    const sampleIndex = samples.getChildren().indexOf(sample); 
+    const newSampleForPlayer = samples.getChildren().splice(sampleIndex, 1); // grab this object 
+    sampleLocations.splice(sampleIndex, 1);
+    console.log(sampleLocations);
+    console.log(player.scene.sampleLocations);
+    console.log(`The dungeon has ${samples.getChildren().length} samples remaining!`);
+    
+    // Add the collected item obj to the player inv
+    player.inventory.push(newSampleForPlayer);
+    console.log(player.inventory);
 
     // Another alternative if needed
     // function collectCoin(player, coin) {
@@ -187,6 +209,8 @@ export default class Dungeon extends Phaser.Scene {
     //   return false;
     // }
   }
+
+
 
 
 }
