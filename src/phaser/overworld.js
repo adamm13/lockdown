@@ -43,7 +43,7 @@ class Town extends Phaser.Scene {
     const trees = map.createLayer("trees", tileset, 0, 0);
 
     // camera
-    this.cameras.main.setZoom(1);
+    this.cameras.main.setZoom(1.4);
 
     // Create player at start location and scale him
     this.player = new Player(this, 1000, 300, 'player');
