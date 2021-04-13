@@ -10,9 +10,10 @@ class Forest extends Phaser.Scene {
     this.player;
   }
   preload() {
-    //images for map
-    this.load.image('forest', 'src/assets/images/forest-tileset.png');
-    this.load.image('graveyard', 'src/assets/images/graveyard-tileset.png');
+    // this.load.image('forest', 'src/assets/images/forest-tileset.png');
+    this.load.image('forest', 'src/assets/images/forest-tileset-extruded.png');
+    //this.load.image('graveyard', 'src/assets/images/graveyard-tileset.png');
+    this.load.image('graveyard', 'src/assets/images/graveyard-tileset-extruded.png');
     this.load.tilemapTiledJSON('forestMap', 'src/assets/maps/finalForest.json');
     //spritesheet for character
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: 32, frameHeight: 32 });
@@ -22,8 +23,10 @@ class Forest extends Phaser.Scene {
   create() {
     // environment
     const map = this.make.tilemap({ key: 'forestMap' });
-    const tileset1 = map.addTilesetImage('Forest', 'forest');
-    const tileset2 = map.addTilesetImage('Graveyard', 'graveyard');
+    // const tileset1 = map.addTilesetImage('Forest', 'forest');
+    // const tileset2 = map.addTilesetImage('Graveyard', 'graveyard');
+    const tileset1 = map.addTilesetImage('Forest-extruded', 'forest', 32, 32, 1, 2);
+    const tileset2 = map.addTilesetImage('Graveyard-extruded', 'graveyard', 32, 32, 1, 2);
 
     const ground = map.createLayer("ground", tileset1);
     const below_player_2 = map.createLayer("below-player-2", tileset2);

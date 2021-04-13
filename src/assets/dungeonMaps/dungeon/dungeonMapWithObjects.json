@@ -138,11 +138,11 @@
         {
          "columns":19,
          "firstgid":1,
-         "image":"lockdown assets\/dungeon-tileset.png",
+         "image":"lockdown assets\/dungeon-tileset-extruded.png",
          "imageheight":288,
          "imagewidth":608,
          "margin":0,
-         "name":"dungeon-tileset",
+         "name":"dungeon-tileset-extruded",
          "spacing":0,
          "tilecount":171,
          "tileheight":32,
