@@ -71,7 +71,7 @@ class Forest extends Phaser.Scene {
       this.shots = new Shots(this);
 
 
-        this.input.on('pointerdown', (pointer) => {
+        this.input.keyboard.on('keydown-SPACE', () => {
 
             this.shots.fireBullet(this.player.x, this.player.y);
 
