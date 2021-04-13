@@ -7,7 +7,7 @@ import { Town } from "./phaser/overworld";
 import { Dungeon } from "./phaser/DungeonScene";
 import { Menu } from "./phaser/menu";
 
-//console.log(App);
+
 
 // var Menu = new Phaser.Class({
 
