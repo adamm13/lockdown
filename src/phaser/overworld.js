@@ -26,6 +26,7 @@ class Town extends Phaser.Scene {
   }
 
   preload() {
+
     this.load.image('tiles', 'src/assets/town32.png');
     this.load.tilemapTiledJSON('map', 'src/assets/overworldv3.json');
     this.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
@@ -38,16 +39,16 @@ class Town extends Phaser.Scene {
     const map = this.make.tilemap({ key: 'map' });
     const tileset = map.addTilesetImage('town32', 'tiles')
     const ground = map.createLayer("ground", tileset, 0, 0,);
-    const house = map.createLayer("house", tileset, 0, 0);
+    //const house = map.createLayer("house", tileset, 0, 0);
     const trees = map.createLayer("trees", tileset, 0, 0);
 
     // camera
     this.cameras.main.setZoom(2);
 
     // Create player at start location and scale him
-    this.player = new Player(this, 200, 300, 'player');
+    this.player = new Player(this, 1000, 300, 'player');
     const player = this.player;
-     player.body.setCollideWorldBounds(false);
+    player.body.setCollideWorldBounds(false);
 
     // Create NPC and pass in player as last argument for a target
     this.npc = new NPC(this, 250, 300, 'npc');
@@ -61,12 +62,14 @@ class Town extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
     
     //  Player physics properties.
+    //house.setCollisionBetween(1, 2000);
     trees.setCollisionBetween(1, 2000);
-    house.setCollisionBetween(1, 2000);
    
-    this.physics.add.collider(npc, trees);
+    //this.physics.add.collider(npc, trees);
+
     // allows you to move the player by pushing him.
-       this.physics.add.collider(player, npc);
+    this.physics.add.collider(player, npc);
+    
     
     /* ----- Finding portals ----- */
     // Note the transition callback only gets assigned on the 1st collision with the tile,
@@ -84,11 +87,6 @@ class Town extends Phaser.Scene {
           this.scene.stop('Town');
         }
       }
-    });
-
-    this.physics.add.collider(player, house, (player, tile) => {
-      // Enter Dungeon portal Tile (change to where you put the stairs)
-      // The stair tile has to be in the house layer right now...
       if (tile.index === 205) {
         tile.collisionCallback = (collidingPlayer, collidingTile) => {
           console.log("Scene transition exit Town");
@@ -97,6 +95,18 @@ class Town extends Phaser.Scene {
         }
       }
     });
+
+    // this.physics.add.collider(player, trees, (player, tile) => {
+    //   // Enter Dungeon portal Tile (change to where you put the stairs)
+    //   // The stair tile has to be in the house layer right now...
+    //   if (tile.index === 205) {
+    //     tile.collisionCallback = (collidingPlayer, collidingTile) => {
+    //       console.log("Scene transition exit Town");
+    //       this.scene.start('Dungeon');
+    //       this.scene.stop('Town');
+    //     }
+    //   }
+    // });
 
   }
   update() {
