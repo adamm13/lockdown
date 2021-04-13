@@ -41,14 +41,12 @@ class Shots extends Phaser.Physics.Arcade.Group
         });
     }
 
-    fireBullet (x, y)
-    {
-        let shot = this.getFirstDead(false);
+    fireBullet (x, y){
+      let shot = this.getFirstDead(false);
 
-        if (shot)
-        {
-            shot.fire(x, y);
-        }
+      if (shot){
+        shot.fire(x, y);
+      }
     }
 }
 

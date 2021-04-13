@@ -70,13 +70,6 @@ class Forest extends Phaser.Scene {
 
       this.shots = new Shots(this);
 
-        //this.player = this.add.image(400, 500, 's');
-
-        this.input.on('pointermove', (pointer) => {
-
-            this.player.x = pointer.x;
-
-        });
 
         this.input.on('pointerdown', (pointer) => {
 
