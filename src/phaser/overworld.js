@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import { Player } from "./Player";
 import { Zombie } from "./Zombie";
-import { NPC } from "./NPC1"
+import { NPC } from "./NPC1";
+import { Shots, Shot } from './Shots';
 
 const gameTileSize = 32;
 
@@ -32,6 +33,8 @@ class Town extends Phaser.Scene {
     this.load.tilemapTiledJSON('map', 'src/assets/overworldv3.json');
     this.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
     this.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+    // image for shots
+    this.load.image('shot', 'src/assets/images/redBlast.png');
   }
 
   create() {
@@ -46,6 +49,9 @@ class Town extends Phaser.Scene {
 
     // camera
     this.cameras.main.setZoom(1.4);
+
+    //creates shots
+    this.shots = new Shots(this);
 
     // Create player at start location and scale him
     this.player = new Player(this, 1000, 300, 'player');
@@ -109,6 +115,11 @@ class Town extends Phaser.Scene {
     //     }
     //   }
     // });
+
+    // Adds controls for firing
+    this.input.keyboard.on('keydown-SPACE', () => {
+      this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
+    });
 
   }
   update() {

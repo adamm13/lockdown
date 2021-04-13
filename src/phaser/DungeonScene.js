@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { Player } from "./Player";
 import { Zombie } from "./Zombie";
+import { Shots, Shot } from './Shots';
 
 
 const gameTileSize = 32; 
@@ -37,6 +38,8 @@ export default class Dungeon extends Phaser.Scene {
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
     this.load.spritesheet('zombie', "src/assets/characters/enemies/zombie1.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
     this.load.spritesheet('zombieKing', 'src/assets/characters/enemies/zombie2.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
+    // image for shots
+    this.load.image('shot', 'src/assets/images/redBlast.png');
   }
   
   create() {
@@ -59,6 +62,9 @@ export default class Dungeon extends Phaser.Scene {
     const spawnZombie1Pos = map.findObject("zombieSpawn", obj => obj.name === "zombieGirl");
     const spawnZombie2Pos = map.findObject("zombieSpawn", obj => obj.name === "zombieKing");
     
+    //create shots
+    this.shots = new Shots(this);
+
     // Create player at start location
     this.player = new Player(this, spawnPlayerPos.x, spawnPlayerPos.y, 'player');
     this.player.body.setCollideWorldBounds(true);
@@ -133,6 +139,12 @@ export default class Dungeon extends Phaser.Scene {
     //   fill: '#ffffff'
     // });
     // text.setScrollFactor(0);
+
+    // Adds controls for shooting
+    this.input.keyboard.on('keydown-SPACE', () => {
+      this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
+    });
+
   }
   
   update() {

@@ -6,7 +6,7 @@ import { Shots, Shot } from './Shots';
 class Forest extends Phaser.Scene {
   constructor() {
     super({ key: "Forest" });
-    this.bullets;
+    this.shots;
     this.player;
   }
   preload() {
@@ -18,7 +18,7 @@ class Forest extends Phaser.Scene {
     //spritesheet for character
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: 32, frameHeight: 32 });
     //image for bullets
-    this.load.image('shot', 'src/assets/images/laserBlue02.png');
+    this.load.image('shot', 'src/assets/images/redBlast.png');
   }
   create() {
     // environment
@@ -34,22 +34,24 @@ class Forest extends Phaser.Scene {
     const obstacles_2 = map.createLayer("obstacles-2", tileset2);
     const below_player = map.createLayer("below-player", tileset1);
 
+    //creates shots
+    this.shots = new Shots(this);
 
-      // camera
-      this.cameras.main.setZoom(2);
-      // Create player at start location
-      this.player = new Player(this, 385, 610, 'player');
-      const player = this.player;
-      player.body.setCollideWorldBounds(true);
+    // camera
+    this.cameras.main.setZoom(2);
+    // Create player at start location
+    this.player = new Player(this, 385, 610, 'player');
+    const player = this.player;
+    player.body.setCollideWorldBounds(true);
   
-      //create layer above player
-      const above_player = map.createLayer("above-player", tileset1, 0, 0);
+    //create layer above player
+    const above_player = map.createLayer("above-player", tileset1, 0, 0);
 
-      // Make camera stop at edge of map
-      this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+    // Make camera stop at edge of map
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
   
-      // make camera follow player
-      this.cameras.main.startFollow(this.player);
+    // make camera follow player
+    this.cameras.main.startFollow(this.player);
   
       //  Player physics properties.
       obstacles.setCollisionBetween(0, 300);
@@ -69,16 +71,10 @@ class Forest extends Phaser.Scene {
           }
         }
       });
-
-
-      this.shots = new Shots(this);
-
-
-        this.input.keyboard.on('keydown-SPACE', () => {
-
-            this.shots.fireBullet(this.player.x, this.player.y);
-
-        });
+      // Adds controls for firing
+      this.input.keyboard.on('keydown-SPACE', () => {
+        this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
+      });
 
       
     }
