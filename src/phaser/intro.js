@@ -14,7 +14,7 @@ paleo banh mi +1 mixtape umami flexitarian direct trade, \n
 
 pork belly chambray. Fingerstache XOXO kogi cardigan sdfs\n
 tacos migas man bun sriracha. Etsy narwhal pour-over sdfs\n
-paleo banh mi +1 PLEASE PRESS 2 TO BEGIN "`
+paleo banh mi +1 PLEASE PRESS 2 TO BEGIN`
 
 
 const textStyle = {
@@ -37,12 +37,12 @@ const Intro = new Phaser.Class({
 
     preload() 
     {
-      this.load.image("bg", "src/assets/introbackground.jpeg");
+      this.load.image("background", "src/assets/introbackground.jpeg");
     },
 
 
     create() {
-      this.add.image(0, 0, "bg").setOrigin(0, 0).setVisible(!debug);
+      this.add.image(0, 0, "background").setOrigin(0, 0).setVisible(!debug);
 
       this.add.text(32, 32, passage, textStyle).setAlpha(0.25).setVisible(debug);
 
