@@ -16,9 +16,10 @@ const Menu = new Phaser.Class({
 
         this.input.keyboard.once('keyup-ONE', function () {
 
-        this.scene.start('Town')}, this);
+        this.scene.start('Intro')}, this);
 
     }
+    
 });
 
 
