@@ -92,7 +92,11 @@ class Town extends Phaser.Scene {
       if (tile.index === 83) {
         tile.collisionCallback = (collidingPlayer, collidingTile) => {
           console.log("Scene transition exit Town");
-          this.scene.start('Forest');
+          this.scene.start('Forest', { 
+            comingFrom: "Town",
+            inventory: player.inventory,
+            sampleLocations: data.sampleLocations
+          });
           this.scene.stop('Town');
         }
       }

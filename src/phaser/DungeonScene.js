@@ -48,7 +48,6 @@ export default class Dungeon extends Phaser.Scene {
   }
   
   create(data) {
-    console.log("I AM DUNGEON CREATE: ", data);
     // Render environment
     const map = this.make.tilemap({key:'dungMap'});
     //const tileset = map.addTilesetImage('dungeon-tileset', 'dungeonTiles');
