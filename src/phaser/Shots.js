@@ -1,7 +1,7 @@
-class Shots extends Phaser.Physics.Arcade.Sprite{
+class Shot extends Phaser.Physics.Arcade.Sprite{
     constructor (scene, x, y)
     {
-        super(scene, x, y, 'shots');
+        super(scene, x, y, 'shot');
     }
 
     fire (x, y)
@@ -13,6 +13,44 @@ class Shots extends Phaser.Physics.Arcade.Sprite{
 
         this.setVelocityY(-300);
     }
+
+    preUpdate (time, delta)
+    {
+        super.preUpdate(time, delta);
+
+        if (this.y <= -32)
+        {
+            this.setActive(false);
+            this.setVisible(false);
+        }
+    }
 }
 
-module.exports = { Shots }
+class Shots extends Phaser.Physics.Arcade.Group
+{
+    constructor (scene)
+    {
+        super(scene.physics.world, scene);
+
+        this.createMultiple({
+            frameQuantity: 5,
+            key: 'shot',
+            active: false,
+            visible: false,
+            classType: Shot
+        });
+    }
+
+    fireBullet (x, y)
+    {
+        let shot = this.getFirstDead(false);
+
+        if (shot)
+        {
+            shot.fire(x, y);
+        }
+    }
+}
+
+
+module.exports = { Shots, Shot }

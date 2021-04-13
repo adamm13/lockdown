@@ -1,12 +1,13 @@
 import Phaser from 'phaser';
 import { Player, Entity } from './Player';
+import { Shots, Shot } from './Shots';
 
 
 class Forest extends Phaser.Scene {
   constructor() {
-    super({
-      key: "Forest"
-    });
+    super({ key: "Forest" });
+    this.bullets;
+    this.player;
   }
   preload() {
     //images for map
@@ -16,7 +17,7 @@ class Forest extends Phaser.Scene {
     //spritesheet for character
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: 32, frameHeight: 32 });
     //image for bullets
-    this.load.image('bullet', 'src/assets/images/laserBlue02.png');
+    this.load.image('shot', 'src/assets/images/laserBlue02.png');
   }
   create() {
     // environment
@@ -65,6 +66,23 @@ class Forest extends Phaser.Scene {
           }
         }
       });
+
+
+      this.shots = new Shots(this);
+
+        //this.player = this.add.image(400, 500, 's');
+
+        this.input.on('pointermove', (pointer) => {
+
+            this.player.x = pointer.x;
+
+        });
+
+        this.input.on('pointerdown', (pointer) => {
+
+            this.shots.fireBullet(this.player.x, this.player.y);
+
+        });
 
       
     }
