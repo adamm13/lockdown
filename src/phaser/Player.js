@@ -6,11 +6,12 @@ import { Entity } from "./Entity";
 
 class Player extends Entity {
   
-  constructor(scene, x, y, textureKey, inventory) {
+  constructor(scene, x, y, textureKey, inventory, health, sampleLocations) {
     super(scene, x, y, textureKey);
-
-    this.inventory = inventory // initialized as []
-
+    this.gameData = {}
+    this.gameData.inventory = inventory ? inventory : []; // initialized as [] in overworld
+    this.gameData.health = health ? health : 500; // initialized as 500 
+    this.gameData.sampleLocations = sampleLocations // see DungeonScene for initial locations
     
     /////////// Walk animation
     const animFrameRate = 10;
