@@ -5,6 +5,7 @@ const DOWN = 1
 const LEFT = 2
 const RIGHT = 3
 
+
 export default class testnpc extends Phaser.Physics.Arcade.Sprite
 {
   private_direction = DOWN
@@ -13,7 +14,10 @@ export default class testnpc extends Phaser.Physics.Arcade.Sprite
   {
     super(scene, x, y, texture, frame)
 
-    this.anims.play('walk')
+  
+      // this.anims.play("walk")
+      // this.anims.play("left")
+      // this.anims.play("right")
 
     scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.private_handleTileCollision, this)
     
@@ -27,6 +31,7 @@ export default class testnpc extends Phaser.Physics.Arcade.Sprite
     }
     const newDirection = Phaser.Math.Between(0,3)
     this.private_direction = newDirection
+    
   }
 
   preUpdate(t = number, dt = number)
@@ -38,19 +43,19 @@ export default class testnpc extends Phaser.Physics.Arcade.Sprite
     switch (this.private_direction)
     {
 			case UP:
-				this.setVelocity(0, -speed)
+				this.setVelocity(0, -speed) && this.anims.play("back", this)
 				break
 
 			case DOWN:
-				this.setVelocity(0, speed)
+				this.setVelocity(0, speed) && this.anims.play("walk", this)
 				break
 
 			case LEFT:
-				this.setVelocity(-speed, 0)
+				this.setVelocity(-speed, 0) && this.anims.play("left", this)
 				break
 
 			case RIGHT:
-				this.setVelocity(speed, 0)
+				this.setVelocity(speed, 0) && this.anims.play("right", this)
 				break
     }
 
