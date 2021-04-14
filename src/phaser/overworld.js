@@ -3,8 +3,8 @@ import { Player } from "./Player";
 import { Zombie } from "./Zombie";
 import { NPC } from "./NPC1";
 import { Shots, Shot } from './Shots';
-import { createTestnpc } from './testnpcanims';
 import { testnpc } from './testnpc'
+import { createNpcAnims } from './testnpcanims';
 
 const gameTileSize = 32;
 let initialInventory = []; // only need this for opening game scene --> reassigned to data.inventory in init()
@@ -50,6 +50,8 @@ class Town extends Phaser.Scene {
   
 
   create(data) {
+
+
     console.log("I AM overworld CREATE: ", data);
     // environment
 
@@ -192,17 +194,17 @@ class Town extends Phaser.Scene {
     // ----------- Create NPC from Texture Atlas ---------- // 
 
     // creates the npc sprite
-    // const testnpc = this.physics.add.sprite(200, 300, "testnpc", "01.png")
-
+    //  const testnpc = this.physics.add.sprite(200, 300, "testnpc", "01.png")
+     createNpcAnims(this.anims)
 
     const npcs = this.physics.add.group({
       classType: testnpc
     })
 
-    npcs.get(200, 300, 'boynpc')
+     npcs.get(200, 300, 'boynpc')
 
 
-    // animates the npc sprite
+    //animates the npc sprite
     // this.anims.create({
     //   key: "still",
     //   frames: this.anims.generateFrameNames("boynpc", {start: 1, end: 1, prefix: "0", suffix: ".png"}),
@@ -218,7 +220,7 @@ class Town extends Phaser.Scene {
     // })
 
     //tests the npc anims command
-    // testnpc.anims.play('walk')
+    //  testnpc.anims.play('walk')
 
   }
   update() {
