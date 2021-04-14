@@ -1,8 +1,10 @@
 import Phaser from 'phaser';
 import { Player } from "./Player";
 import { Zombie } from "./Zombie";
-import { NPC } from "./NPC1";
+// import { NPC } from "./NPC1";
 import { Shots, Shot } from './Shots';
+import { testnpc } from './testnpc'
+import { createNpcAnims } from './testnpcanims';
 
 const gameTileSize = 32;
 let initialInventory = []; // only need this for opening game scene --> reassigned to data.inventory in init()
@@ -15,8 +17,10 @@ class Town extends Phaser.Scene {
   }
 
   // Set these to where you want the game to drop the player on start
-  startingX = 1320; 
-  startingY = 237;
+  // startingX = 1320; 
+  // startingY = 237;
+  startingX = 250; 
+  startingY = 300;
   
 
   init(data) {
@@ -40,7 +44,8 @@ class Town extends Phaser.Scene {
     this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
     this.load.tilemapTiledJSON('map', 'src/assets/overworldv4.json');
     this.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
-    this.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+    // this.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+    this.load.atlas('boy1', "src/assets/testnpc.png", "src/assets/testnpc.json")
     // image for shots
     this.load.image('shot', 'src/assets/images/smBlueBlast.png');
     // zombie spritesheet(s)
@@ -82,10 +87,10 @@ class Town extends Phaser.Scene {
     //creates shots
     this.shots = new Shots(this);
     
-    // Create NPC and pass in player as last argument for a target
-    this.npc = new NPC(this, 250, 300, 'npc');
-    const npc = this.npc;
-    npc.body.setCollideWorldBounds(false);
+    // // Create NPC and pass in player as last argument for a target < ---- OLD NPC
+    // this.npc = new NPC(this, 250, 300, 'npc');
+    // const npc = this.npc;
+    // npc.body.setCollideWorldBounds(false);
 
     // Get zombie array for map
     const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
@@ -146,7 +151,7 @@ class Town extends Phaser.Scene {
     //this.physics.add.collider(npc, trees);
 
     // allows you to move the player by pushing him.
-    this.physics.add.collider(player, npc);
+    // this.physics.add.collider(player, npc);
     
 
      // Physics properties for shots
@@ -203,11 +208,48 @@ class Town extends Phaser.Scene {
       this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
     });
 
+    // ----------- Create NPC from Texture Atlas ---------- // 
+
+    // creates the npc sprite
+    //  const testnpc = this.physics.add.sprite(200, 300, "testnpc", "01.png")
+     createNpcAnims(this.anims)
+
+    const npcs = this.physics.add.group({
+      classType: testnpc,
+      createCallback: (go) => {
+        const npcwalk = go 
+        npcwalk.body.onCollide = true
+      }
+    })
+
+    // ADD a new NPC 
+     npcs.get(180, 300, 'boy1')
+     npcs.get(1200, 300, 'boy1')
+
+    this.physics.add.collider(npcs, trees)
+
+    //animates the npc sprite
+    // this.anims.create({
+    //   key: "still",
+    //   frames: this.anims.generateFrameNames("boynpc", {start: 1, end: 1, prefix: "0", suffix: ".png"}),
+    //   repeat: -1,
+    //   framerate: 10
+    // })
+
+    // this.anims.create({
+    //   key: "walk",
+    //   frames: this.anims.generateFrameNames("boynpc", {start: 0, end: 2, prefix: "0", suffix: ".png"}),
+    //   repeat: -1,
+    //   framerate: 10
+    // })
+
+    //tests the npc anims command
+    //  testnpc.anims.play('walk')
+
   }
   update() {
     //  Input Events
     this.player.update();
-    this.npc.update();
     this.zombies.forEach(z => z.update());
   }
 
@@ -218,6 +260,7 @@ class Town extends Phaser.Scene {
       this.zombies[i] = new Zombie(this, zombie.x, zombie.y, spritesheetKey, target, 50);
       this.physics.add.collider(this.zombies[i], obstacles);
     });
+
   }
 
 }
