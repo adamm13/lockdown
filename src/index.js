@@ -7,6 +7,7 @@ import { Town } from "./phaser/overworld";
 import { Dungeon } from "./phaser/DungeonScene";
 import { Menu } from "./phaser/menu";
 import { Intro } from "./phaser/intro";
+import GameUI from './phaser/GameUI';
 
 
 
@@ -48,7 +49,7 @@ const config = {
             debug: true
         }
       },
-    scene: [ Menu, Intro, Town, Forest, Dungeon ]
+    scene: [ Menu, Intro, Town, Forest, Dungeon, GameUI ]
   };
 const game = new Phaser.Game(config);
 

@@ -3,6 +3,7 @@ import { Player, Entity } from './Player';
 import { Shots, Shot } from './Shots';
 import { Zombie } from './Zombie';
 
+
 class Forest extends Phaser.Scene {
   constructor() {
     super({ key: "Forest" });
@@ -26,6 +27,10 @@ class Forest extends Phaser.Scene {
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: 32, frameHeight: 32 });
     //image for bullets
     this.load.image('shot', 'src/assets/images/smBlueBlast.png');
+    //image for hearts
+    this.load.image('empty-heart', "src/assets/images/ui_heart_empty.png");
+    this.load.image('full-heart', "src/assets/images/ui_heart_full32.png");
+    this.load.image('half-heart', "src/assets/images/ui_heart_half.png");
   }
   create(data) {
     // environment
@@ -42,6 +47,9 @@ class Forest extends Phaser.Scene {
     const below_player = map.createLayer("below-player", tileset1);
     const exitShrubs = map.createLayer("exitForest", tileset1);
     
+
+    //render hearts
+    this.scene.run('GameUI');
     
       // camera
       this.cameras.main.setZoom(2);

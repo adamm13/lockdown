@@ -45,6 +45,10 @@ class Town extends Phaser.Scene {
     this.load.image('shot', 'src/assets/images/smBlueBlast.png');
     // zombie spritesheet(s)
     this.load.spritesheet('zombie7', "src/assets/characters/enemies/zombie7.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+     //image for hearts
+     this.load.image('empty-heart', "src/assets/images/ui_heart_empty.png");
+     this.load.image('full-heart', "src/assets/images/ui_heart_full32.png");
+     this.load.image('half-heart', "src/assets/images/ui_heart_half.png");
   }
   
 
@@ -60,6 +64,9 @@ class Town extends Phaser.Scene {
     const trees = map.createLayer("trees", tileset, 0, 0);
     const downStairs = map.createLayer("downstairs", dungObjs, 0, 0);
     const intoForest = map.createLayer("intoTrees", dungObjs, 0, 0);
+
+    //render hearts
+    this.scene.run('GameUI');
 
     // camera
     this.cameras.main.setZoom(2);
