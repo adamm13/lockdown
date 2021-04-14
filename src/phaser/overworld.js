@@ -5,6 +5,7 @@ import { NPC } from "./NPC1";
 import { Shots, Shot } from './Shots';
 
 const gameTileSize = 32;
+let initialInventory = []; // only need this for opening game scene --> reassigned to data.inventory in init()
 
 /* ------------------------------------ Overworld Scene Class ------------------------ */
 
@@ -19,6 +20,10 @@ class Town extends Phaser.Scene {
   
 
   init(data) {
+    console.log(data);
+    if (data.inventory) {
+      initialInventory = data.inventory;
+    }
     if (data.comingFrom === "Forest") {
       this.startingX = 1276;
       this.startingY = 57;
@@ -39,8 +44,10 @@ class Town extends Phaser.Scene {
     // image for shots
     this.load.image('shot', 'src/assets/images/smBlueBlast.png');
   }
+  
 
-  create() {
+  create(data) {
+    console.log("I AM overworld CREATE: ", data);
     // environment
 
     const map = this.make.tilemap({ key: 'map' });
@@ -54,13 +61,13 @@ class Town extends Phaser.Scene {
     const intoForest = map.createLayer("intoTrees", dungObjs, 0, 0);
 
     // camera
-    this.cameras.main.setZoom(1.4);
+    this.cameras.main.setZoom(2);
 
     //creates shots
     this.shots = new Shots(this);
 
     // Create player at start location and scale him
-    this.player = new Player(this, 1000, 300, 'player');
+    this.player = new Player(this, this.startingX, this.startingY, 'player', initialInventory);
     const player = this.player;
     player.body.setCollideWorldBounds(false);
 
@@ -68,6 +75,43 @@ class Town extends Phaser.Scene {
     this.npc = new NPC(this, 250, 300, 'npc');
     const npc = this.npc;
     npc.body.setCollideWorldBounds(false);
+
+   // causes NPC to move and follow a path; can use for a ghost? 
+    // this.tweens.add({
+    //     targets: npc,
+    //     x: { value: 1, duration: 4000, ease: 'Power2', yoyo: 1 },
+    //     y: { value: 1, duration: 10000, ease: 'Bounce.easeOut', yoyo: -1 }
+    // });
+
+// creates the button you can press to move the npc (looping)
+
+//         var tween = this.tweens.add({
+//         targets: npc,
+//         x: -1,
+//         duration: 3000,
+//         ease: 'Power1',
+//         yoyo: true,
+//         delay: 1000,
+//         paused: true,
+//         loop: 1000,
+//         onStart: onStartHandler,
+//         onStartParams: [ player ]
+//     });
+
+//     this.input.keyboard.once('keyup-ONE', function () {
+
+//         tween.play();
+
+//     });
+
+//     //  The callback is always sent a reference to the Tween as the first argument and the targets as the second,
+// //  then whatever you provided in the onStartParams array follows
+// function onStartHandler (tween, targets, gameObject)
+// {
+//     console.log(arguments);
+
+//     gameObject.setAlpha(1);
+// }
 
      // camera to follow the player 
     this.cameras.main.startFollow(this.player);

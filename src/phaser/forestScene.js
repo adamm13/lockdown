@@ -11,6 +11,9 @@ class Forest extends Phaser.Scene {
   init(data) {
     console.log(data);
   }
+  init(data) {
+    console.log(data);
+  }
   preload() {
     // this.load.image('forest', 'src/assets/images/forest-tileset.png');
     this.load.image('forest', 'src/assets/images/forest-tileset-extruded.png');
