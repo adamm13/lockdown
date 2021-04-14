@@ -116,7 +116,11 @@ const Intro = new Phaser.Class({
   });
         this.input.keyboard.once('keyup-TWO', function () {
 
-        this.scene.start('Town')}, this);
+          // Suppress WebGL warnings before changing scenes
+          text.texture = this.renderer.blankTexture; // Should be wrapped in conditional when rendering direct to canvas?
+          this.scene.start('Town');
+          this.scene.stop('Intro');
+      }, this);
 }
 
 
