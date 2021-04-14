@@ -34,7 +34,7 @@ class Town extends Phaser.Scene {
     this.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
     this.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
     // image for shots
-    this.load.image('shot', 'src/assets/images/redBlast.png');
+    this.load.image('shot', 'src/assets/images/blueBlast.png');
   }
 
   create() {
@@ -49,7 +49,7 @@ class Town extends Phaser.Scene {
 
     // camera
     this.cameras.main.setZoom(1.4);
-
+    
     //creates shots
     this.shots = new Shots(this);
 

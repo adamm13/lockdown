@@ -5,7 +5,7 @@ class Shot extends Phaser.Physics.Arcade.Sprite{
     }
 
     fire (x, y, playerDirection)
-    {
+    {   
         this.body.reset(x, y);
 
         this.setActive(true);
@@ -28,7 +28,6 @@ class Shot extends Phaser.Physics.Arcade.Sprite{
     preUpdate (time, delta)
     {
         super.preUpdate(time, delta);
-        console.log(this.y)
         if (this.y <= -32){
             this.setActive(false);
             this.setVisible(false);
@@ -44,6 +43,10 @@ class Shot extends Phaser.Physics.Arcade.Sprite{
             this.setActive(false);
             this.setVisible(false);
         }
+
+        if (!this.visible){
+           this.setActive(false);
+        }
     }
 }
 
@@ -54,7 +57,7 @@ class Shots extends Phaser.Physics.Arcade.Group
         super(scene.physics.world, scene);
 
         this.createMultiple({
-            frameQuantity: 20,
+            frameQuantity: 1,
             key: 'shot',
             active: false,
             visible: false,
@@ -64,7 +67,7 @@ class Shots extends Phaser.Physics.Arcade.Group
 
     fireShot (x, y, playerDirection){
       let shot = this.getFirstDead(false);
-
+        console.log(this);
       if (shot){
         shot.fire(x, y, playerDirection);
       }

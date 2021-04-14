@@ -18,7 +18,7 @@ class Forest extends Phaser.Scene {
     //spritesheet for character
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: 32, frameHeight: 32 });
     //image for bullets
-    this.load.image('shot', 'src/assets/images/redBlast.png');
+    this.load.image('shot', 'src/assets/images/blueBlast.png');
   }
   create() {
     // environment
@@ -42,6 +42,8 @@ class Forest extends Phaser.Scene {
     // Create player at start location
     this.player = new Player(this, 385, 610, 'player');
     const player = this.player;
+    this.player.health = 100;
+    console.log(this.player.health);
     player.body.setCollideWorldBounds(true);
   
     //create layer above player
@@ -56,7 +58,10 @@ class Forest extends Phaser.Scene {
       //  Player physics properties.
       obstacles.setCollisionBetween(0, 300);
       obstacles_2.setCollisionBetween(1, 400);
-      this.physics.add.collider(player, obstacles);
+      this.physics.add.collider(player, obstacles, () => {
+        this.player.health = this.player.health - 10;
+        console.log(this.player.health);
+      });
 
       /* ----------- Finding Portal ---------- */
       this.physics.add.collider(player, obstacles_2, (player, tile) => {
@@ -71,6 +76,17 @@ class Forest extends Phaser.Scene {
           }
         }
       });
+
+      // Physics properties for shots
+      this.physics.add.collider(this.shots, obstacles, () => {
+        this.shots.setVisible(false);
+      });
+      this.physics.add.collider(this.shots, obstacles_2, () => {
+        this.shots.setVisible(false);
+      });
+
+
+
       // Adds controls for firing
       this.input.keyboard.on('keydown-SPACE', () => {
         this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
@@ -78,6 +94,7 @@ class Forest extends Phaser.Scene {
 
       
     }
+
       update() {
         //  Input Events
        this.player.update();

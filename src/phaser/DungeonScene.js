@@ -39,7 +39,7 @@ export default class Dungeon extends Phaser.Scene {
     this.load.spritesheet('zombie', "src/assets/characters/enemies/zombie1.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
     this.load.spritesheet('zombieKing', 'src/assets/characters/enemies/zombie2.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
     // image for shots
-    this.load.image('shot', 'src/assets/images/redBlast.png');
+    this.load.image('shot', 'src/assets/images/blueBlast.png');
   }
   
   create() {

@@ -13,6 +13,7 @@ class Player extends Entity {
     const animFrameRate = 10;
     const anims = scene.anims;
 
+
     anims.create({
       key: 'left',
       frames: anims.generateFrameNumbers(this.textureKey, { start: 5, end: 3 }),
@@ -70,7 +71,9 @@ class Player extends Entity {
       fireKey: SPACE
     });
     
+
   } //// end constructor
+
 
   update() {
 
@@ -100,7 +103,6 @@ class Player extends Entity {
     } else {
       this.anims.stop();
     }
-
 
     // Normalize and scale the velocity so that player can't move faster along a diagonal
     this.body.velocity.normalize().scale(walkingSpeed);
