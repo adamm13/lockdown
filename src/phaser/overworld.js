@@ -81,7 +81,6 @@ class Town extends Phaser.Scene {
     // Get zombie array for map
     const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
     // Create zombies
-    // splice zombie out of zombieObjs if a zombie is killed, before passing into Factory
     this.zombieFactory(zombieObjs, 'zombie7', this.player, trees);
     
 
