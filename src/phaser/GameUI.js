@@ -5,7 +5,10 @@ export default class GameUI extends Phaser.Scene {
         super({key: 'GameUI'})
     }
 
-    create(){
+    init(data) {
+        console.log(data.inventory);
+    }
+    create(data){
         const hearts = this.add.group()
 
         hearts.createMultiple({
@@ -17,16 +20,16 @@ export default class GameUI extends Phaser.Scene {
                 stepX: 30
             }
         })
-
         const inventory = this.add.group()
 
         inventory.createMultiple({
             key: 'samples',
             quantity: 1,
             setXY: {
-                x: 20,
+                x: 17,
                 y: 55
             }
         })
+        const count = this.add.text(35, 50, '0');
     }
 }

@@ -13,9 +13,6 @@ class Forest extends Phaser.Scene {
   init(data) {
     console.log(data);
   }
-  init(data) {
-    console.log(data);
-  }
   preload() {
     // this.load.image('forest', 'src/assets/images/forest-tileset.png');
     this.load.image('forest', 'src/assets/images/forest-tileset-extruded.png');
@@ -31,6 +28,8 @@ class Forest extends Phaser.Scene {
     this.load.image('empty-heart', "src/assets/images/ui_heart_empty.png");
     this.load.image('full-heart', "src/assets/images/ui_heart_full32.png");
     this.load.image('half-heart', "src/assets/images/ui_heart_half.png");
+    //image for samples
+    this.load.image('samples', "src/assets/symbols-and-items/sample2.png");
   }
   create(data) {
     // environment

@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { Player } from "./Player";
 import { Zombie } from "./Zombie";
 import { Shots, Shot } from './Shots';
+import GameUI from "./GameUI";
 
 
 const gameTileSize = 32; 
@@ -68,6 +69,8 @@ export default class Dungeon extends Phaser.Scene {
     
     //render hearts
     this.scene.run('GameUI');
+
+    
 
     // camera
     this.cameras.main.setZoom(2);
@@ -164,6 +167,7 @@ export default class Dungeon extends Phaser.Scene {
     this.physics.add.overlap(this.player, samples, this.collectSample);
     
 
+
     // Probably will need this logic for keeping score of samples
     //score
     // text = this.add.text(570, 70, `Coins: ${coinScore}x`, {
@@ -176,6 +180,8 @@ export default class Dungeon extends Phaser.Scene {
     this.input.keyboard.on('keydown-SPACE', () => {
       this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
     });
+
+  
 
   
   } // end create() function
