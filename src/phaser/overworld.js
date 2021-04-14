@@ -17,8 +17,10 @@ class Town extends Phaser.Scene {
   }
 
   // Set these to where you want the game to drop the player on start
-  startingX = 1320; 
-  startingY = 237;
+  // startingX = 1320; 
+  // startingY = 237;
+  startingX = 250; 
+  startingY = 300;
   
 
   init(data) {
@@ -198,11 +200,16 @@ class Town extends Phaser.Scene {
      createNpcAnims(this.anims)
 
     const npcs = this.physics.add.group({
-      classType: testnpc
+      classType: testnpc,
+      createCallback: (go) => {
+        const npcwalk = go 
+        npcwalk.body.onCollide = true
+      }
     })
 
-     npcs.get(200, 300, 'boynpc')
+     npcs.get(180, 300, 'boynpc')
 
+    this.physics.add.collider(npcs, trees)
 
     //animates the npc sprite
     // this.anims.create({
