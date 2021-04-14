@@ -28,11 +28,25 @@ class Menu2 extends Phaser.Scene {
     hoverSprite.setScale(2)
     hoverSprite.setVisible(false)
 
+    this.anims.create({
+      key: "walk",
+      frameRate: 4,
+      repeat: -1,
+      frames: this.anims.generateFrameNumbers("player", {
+        frames: [0,1,2]
+      })
+    })
+
+    // this.sound.play("darkshadow", {
+    //   loop: true
+    // })
+
 
     playButton.setInteractive();
 
     playButton.on("pointerover", () => {
       hoverSprite.setVisible(true)
+      hoverSprite.play("walk")
       hoverSprite.x = playButton.x - playButton.width;
       hoverSprite.y = playButton.y;
       console.log("hovering")
@@ -44,6 +58,7 @@ class Menu2 extends Phaser.Scene {
     })
 
     playButton.on("pointerup", () => {
+      this.scene.start("Intro")
       console.log("time to meet zombies")
     })
 

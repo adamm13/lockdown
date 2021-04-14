@@ -25,6 +25,8 @@ const Menu = new Phaser.Class({
             frameWidth: 32
         });
 
+        this.load.audio("darkshadow", "/src/assets/darkshadows.mp3")
+
         // create loading bar 
 
         let loadingBar = this.add.graphics({
