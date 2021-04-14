@@ -6,7 +6,7 @@ export default class GameUI extends Phaser.Scene {
     }
 
     init(data) {
-        console.log(data.inventory);
+        console.log(data);
     }
     create(data){
         const hearts = this.add.group()
@@ -30,6 +30,16 @@ export default class GameUI extends Phaser.Scene {
                 y: 55
             }
         })
-        const count = this.add.text(35, 50, '0');
+        let count;
+        if (data.inventory){
+            console.log(data.inventory.length)
+            let count = this.add.text(35, 50, data.inventory.length)       
+        }else {
+            count = this.add.text(35, 50, '0');
+        }
+    }
+
+    update(data){
+       
     }
 }

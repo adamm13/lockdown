@@ -48,7 +48,8 @@ class Forest extends Phaser.Scene {
     
 
     //render hearts
-    this.scene.run('GameUI');
+    this.scene.run('GameUI', data);
+    console.log(data.inventory);
     
       // camera
       this.cameras.main.setZoom(2);
