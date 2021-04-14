@@ -13,8 +13,9 @@ class Town extends Phaser.Scene {
     super("Town");
   }
 
-  startingX = 400; 
-  startingY = 1000;
+  // Set these to where you want the game to drop the player on start
+  startingX = 1320; 
+  startingY = 237;
   
 
   init(data) {
@@ -23,8 +24,8 @@ class Town extends Phaser.Scene {
       initialInventory = data.inventory;
     }
     if (data.comingFrom === "Forest") {
-      this.startingX = 180;
-      this.startingY = 464;
+      this.startingX = 1276;
+      this.startingY = 57;
     } else if (data.comingFrom === "Dungeon") {
       this.startingX = 397; 
       this.startingY = 1003;
@@ -116,6 +117,7 @@ class Town extends Phaser.Scene {
     //house.setCollisionBetween(1, 2000);
     trees.setCollisionBetween(1, 2000);
     downStairs.setCollisionBetween(1, 2000);
+    intoForest.setCollisionBetween(1, 2000);
    
     //this.physics.add.collider(npc, trees);
 
@@ -123,6 +125,8 @@ class Town extends Phaser.Scene {
     this.physics.add.collider(player, npc);
 
 
+
+    /* ----------- Exit Town & Pass Data to DungeonScene ---------- */
     this.physics.add.collider(player, downStairs, (player, tile) => {
       if (tile.layer.name === "downstairs") {
         console.log("X: ", player.x);
@@ -138,18 +142,13 @@ class Town extends Phaser.Scene {
         }
       }
     });
-    
-    /* ----- Finding portals ----- */
-    // Note the transition callback only gets assigned on the 1st collision with the tile,
-    // The scenes transition on the 2nd collision, will fix later if we have time
 
-    this.physics.add.collider(player, trees, (player, tile) => {
-      // Enter Forest portal Tile (change to where you put the Forest entrance
-      // but it has be on tile in the trees layer right now, which makes sense i guess
-      // console.log(tile);
-      // Walk left into the tree above the tree stump just a few steps down from spawn 
-      if (tile.index === 83) {
-        tile.collisionCallback = (collidingPlayer, collidingTile) => {
+    /* ----------- Exit Town & Pass Data to Forest ---------- */
+    this.physics.add.collider(player, intoForest, (player, tile) => {
+      if (tile.layer.name === "intoTrees") {
+        console.log("X: ", player.x);
+        console.log("Y: ", player.y);
+        tile.collisionCallback = (player, collidingTile) => {
           console.log("Scene transition exit Town");
           this.scene.start('Forest', { 
             comingFrom: "Town",
@@ -159,22 +158,13 @@ class Town extends Phaser.Scene {
           this.scene.stop('Town');
         }
       }
-      if (tile.index === 205) {
-
-      }
     });
 
-    // this.physics.add.collider(player, trees, (player, tile) => {
-    //   // Enter Dungeon portal Tile (change to where you put the stairs)
-    //   // The stair tile has to be in the house layer right now...
-    //   if (tile.index === 205) {
-    //     tile.collisionCallback = (collidingPlayer, collidingTile) => {
-    //       console.log("Scene transition exit Town");
-    //       this.scene.start('Dungeon');
-    //       this.scene.stop('Town');
-    //     }
-    //   }
-    // });
+    this.physics.add.collider(player, trees, (player, tile) => {
+      console.log("OUCH!");
+      console.log("X: ", player.x);
+      console.log("Y: ", player.y);
+    });
 
   }
   update() {

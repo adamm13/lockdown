@@ -16,7 +16,7 @@ class Forest extends Phaser.Scene {
     this.load.image('forest', 'src/assets/images/forest-tileset-extruded.png');
     //this.load.image('graveyard', 'src/assets/images/graveyard-tileset.png');
     this.load.image('graveyard', 'src/assets/images/graveyard-tileset-extruded.png');
-    this.load.tilemapTiledJSON('forestMap', 'src/assets/maps/finalForest.json');
+    this.load.tilemapTiledJSON('forestMap', 'src/assets/maps/finalForest2.json');
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: 32, frameHeight: 32 });
   }
   create(data) {
@@ -26,20 +26,21 @@ class Forest extends Phaser.Scene {
     // const tileset2 = map.addTilesetImage('Graveyard', 'graveyard');
     const tileset1 = map.addTilesetImage('Forest-extruded', 'forest', 32, 32, 1, 2);
     const tileset2 = map.addTilesetImage('Graveyard-extruded', 'graveyard', 32, 32, 1, 2);
-
+    
     const ground = map.createLayer("ground", tileset1);
     const below_player_2 = map.createLayer("below-player-2", tileset2);
     const obstacles = map.createLayer("obstacles", tileset1);
     const obstacles_2 = map.createLayer("obstacles-2", tileset2);
     const below_player = map.createLayer("below-player", tileset1);
+    const exitShrubs = map.createLayer("exitForest", tileset1);
     
     
       // camera
       this.cameras.main.setZoom(2);
       // Create player at start location
-      this.player = new Player(this, 385, 610, 'player', data.inventory);
+      this.player = new Player(this, 385, 580, 'player', data.inventory);
       const player = this.player;
-      player.body.setCollideWorldBounds(true);
+      player.body.setCollideWorldBounds(false);
   
       //create layer above player
       const above_player = map.createLayer("above-player", tileset1, 0, 0);
@@ -53,14 +54,17 @@ class Forest extends Phaser.Scene {
       //  Player physics properties.
       obstacles.setCollisionBetween(0, 300);
       obstacles_2.setCollisionBetween(1, 400);
+      exitShrubs.setCollisionBetween(1, 400);
       this.physics.add.collider(player, obstacles);
-
-      /* ----------- Finding Portal ---------- */
       this.physics.add.collider(player, obstacles_2, (player, tile) => {
-        console.log("tile: ", tile);
-        // Right now the portal Tile has to be in the obstacles_2 layer, 
-        // If/When we implement object layers for transitions we can refactor
-        if (tile.index === 339) {
+        console.log("OUCH!");
+        console.log("X: ", player.x);
+        console.log("Y: ", player.y);
+      });
+
+      /* ----------- Exit Forest & Pass Data to Town ---------- */
+      this.physics.add.collider(player, exitShrubs, (player, tile) => {
+        if (tile.layer.name === "exitForest") {
           tile.collisionCallback = (collidingPlayer, collidingTile) => {
             console.log("Scene transition exit Forest");
             this.scene.start('Town', { 
@@ -68,11 +72,12 @@ class Forest extends Phaser.Scene {
               //currentHealth: player.health,
               inventory: player.inventory,
               sampleLocations: data.sampleLocations
-             });
+              });
             this.scene.stop('Forest');
           }
         }
       });
+
 
     }
       update() {
