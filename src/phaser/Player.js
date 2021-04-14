@@ -9,8 +9,8 @@ class Player extends Entity {
   constructor(scene, x, y, textureKey, inventory, health, sampleLocations) {
     super(scene, x, y, textureKey);
     this.gameData = {}
-    this.gameData.inventory = inventory // initialized as [] in overworld
-    this.gameData.health = health; // initialized as 500 in overworld
+    this.gameData.inventory = inventory ? inventory : []; // initialized as [] in overworld
+    this.gameData.health = health ? health : 500; // initialized as 500 
     this.gameData.sampleLocations = sampleLocations // see DungeonScene for initial locations
     
     /////////// Walk animation

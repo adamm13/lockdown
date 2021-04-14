@@ -7,8 +7,6 @@ import zombieHit from "./helpers/zombieHit";
 import portalCallback from './helpers/portalCallback';
 
 const gameTileSize = 32;
-let initialInventory = []; // only need this for opening game scene --> reassigned to data.inventory in init()
-let initialHealth = 500;
 
 /* ------------------------------------ Overworld Scene Class ------------------------ */
 
@@ -70,7 +68,7 @@ class Town extends Phaser.Scene {
 
     
     // Create player at start location and scale him
-    this.player = new Player(this, this.startingX, this.startingY, 'player', initialInventory, initialHealth, data.sampleLocations);
+    this.player = new Player(this, this.startingX, this.startingY, 'player', initialInventory, data.health, data.sampleLocations);
     const player = this.player;
     player.body.setCollideWorldBounds(false);
     
@@ -124,7 +122,7 @@ class Town extends Phaser.Scene {
 //     gameObject.setAlpha(1);
 // }
 
-     // camera to follow the player 
+    // camera to follow the player 
     this.cameras.main.startFollow(this.player);
 
     //make camera stop at edge of map

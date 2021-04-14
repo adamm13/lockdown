@@ -8,7 +8,6 @@ import portalCallback from './helpers/portalCallback';
 
 const gameTileSize = 32; 
 let samples;
-//let initialInventory = []; // only need this for opening game scene --> reassigned to data.inventory in init()
 
 /* ------------------------------------ Dungeon Scene Class ------------------------ */
 
@@ -149,15 +148,12 @@ export default class Dungeon extends Phaser.Scene {
     this.player.update();
     this.zombies['zombieGirl'].update();
     this.zombies['zombieKing'].update();
-
     if (this.player.body.embedded) {
       this.player.body.touching.none = false;
     }
-  
     if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
       this.player.clearTint();
     }
-    
   }
 
   zombies = {};
