@@ -80,8 +80,8 @@ export default class Dungeon extends Phaser.Scene {
 
     //Create zombies (always give a unique zombie key name e.g. zombie1, zombie2. (It's not Phaser's spritesheet key, but it can be the same if there is only 1)
     //Args: startX, startY, spritesheetKey, target, zombieKeyName, obstacles
-    // this.createZombie(spawnZombie1Pos.x, spawnZombie1Pos.y, 'zombie', this.player, 'zombieGirl', obstacles);
-    // this.createZombie(spawnZombie2Pos.x, spawnZombie2Pos.y, 'zombieKing', this.player, 'zombieKing', obstacles);
+    this.createZombie(spawnZombie1Pos.x, spawnZombie1Pos.y, 'zombie', this.player, 'zombieGirl', obstacles);
+    this.createZombie(spawnZombie2Pos.x, spawnZombie2Pos.y, 'zombieKing', this.player, 'zombieKing', obstacles);
 
 
     /* -----  Player-Scene physics properties ----- */
@@ -99,7 +99,7 @@ export default class Dungeon extends Phaser.Scene {
 
 
      // Physics properties for shots
-     this.physics.add.collider(this.shots, obstacles, () => {
+    this.physics.add.collider(this.shots, obstacles, () => {
       this.shots.setVisible(false);
     });
     this.physics.add.collider(this.shots, chest, () => {
@@ -126,6 +126,7 @@ export default class Dungeon extends Phaser.Scene {
 
     // Collect Chest Item 
     // Implement player select key?
+
 
 
     // Sample creation and overlap collecting
@@ -172,8 +173,8 @@ export default class Dungeon extends Phaser.Scene {
   update() {
     //  Input Events
     this.player.update();
-    // this.zombies['zombieGirl'].update();
-    // this.zombies['zombieKing'].update();
+    this.zombies['zombieGirl'].update();
+    this.zombies['zombieKing'].update();
   }
 
 
@@ -190,7 +191,7 @@ export default class Dungeon extends Phaser.Scene {
   zombies = {};
 
   createZombie(startX, startY, spritesheetKey, target, zombieKeyName, obstacles) {
-    this.zombies[zombieKeyName] = new Zombie(this, startX, startY, spritesheetKey, target);
+    this.zombies[zombieKeyName] = new Zombie(this, startX, startY, spritesheetKey, target, 150);
     this.zombies[zombieKeyName].body.setCollideWorldBounds(true);
     this.physics.add.collider(this.zombies[zombieKeyName], obstacles);
   }
