@@ -48,13 +48,12 @@ class Town extends Phaser.Scene {
     this.load.atlas('boy1', "src/assets/testnpc.png", "src/assets/testnpc.json")
     // image for shots
     this.load.image('shot', 'src/assets/images/smBlueBlast.png');
+    // zombie spritesheet(s)
+    this.load.spritesheet('zombie7', "src/assets/characters/enemies/zombie7.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
   }
   
 
   create(data) {
-
-
-    console.log("I AM overworld CREATE: ", data);
     // environment
 
     const map = this.make.tilemap({ key: 'map' });
@@ -83,6 +82,13 @@ class Town extends Phaser.Scene {
     // this.npc = new NPC(this, 250, 300, 'npc');
     // const npc = this.npc;
     // npc.body.setCollideWorldBounds(false);
+
+    // Get zombie array for map
+    const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
+    // Create zombies
+    this.zombieFactory(zombieObjs, 'zombie7', this.player, trees);
+    
+
 
    // causes NPC to move and follow a path; can use for a ghost? 
     // this.tweens.add({
@@ -235,7 +241,17 @@ class Town extends Phaser.Scene {
   update() {
     //  Input Events
     this.player.update();
-    // this.npc.update();
+    this.zombies.forEach(z => z.update());
+  }
+
+  zombies = [];
+
+  zombieFactory(zombieArray, spritesheetKey, target, obstacles) {
+    zombieArray.forEach((zombie, i) => {
+      this.zombies[i] = new Zombie(this, zombie.x, zombie.y, spritesheetKey, target, 50);
+      this.physics.add.collider(this.zombies[i], obstacles);
+    });
+
   }
 
 }

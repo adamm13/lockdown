@@ -2,11 +2,12 @@ import { Entity } from "./Entity";
 
 class Zombie extends Entity {
 
-  constructor(scene, x, y, textureKey, target) {
+  constructor(scene, x, y, textureKey, target, speed) {
     super(scene, x, y, textureKey);
 
     // set target to player
     this.target = target;
+    this.speed = speed; // px per second
 
     // Walk animation
     const animFrameRate = 10;
@@ -73,7 +74,7 @@ class Zombie extends Entity {
 
   update() {
 
-    const walkingSpeed = 200; // velocity is in px / second
+    const walkingSpeed = this.speed; //  px / second
     const prevVelocity = this.body.velocity.clone();
     const spriteKey = this.textureKey; 
 

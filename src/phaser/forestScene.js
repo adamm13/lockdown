@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { Player, Entity } from './Player';
 import { Shots, Shot } from './Shots';
+import { Zombie } from './Zombie';
 
 class Forest extends Phaser.Scene {
   constructor() {
@@ -20,6 +21,8 @@ class Forest extends Phaser.Scene {
     //this.load.image('graveyard', 'src/assets/images/graveyard-tileset.png');
     this.load.image('graveyard', 'src/assets/images/graveyard-tileset-extruded.png');
     this.load.tilemapTiledJSON('forestMap', 'src/assets/maps/finalForest2.json');
+    // spritesheets
+    this.load.spritesheet('zombieGhost', "src/assets/characters/enemies/zombieGhost.png", { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: 32, frameHeight: 32 });
     //image for bullets
     this.load.image('shot', 'src/assets/images/smBlueBlast.png');
@@ -70,6 +73,11 @@ class Forest extends Phaser.Scene {
         console.log("Y: ", player.y);
       });
 
+      // Get zombie obj array from map
+      const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
+      // Create zombies // Right now the zombieGhost sprite can pass through obstacles_2 just b/c thats the way the Factory is set up lol
+      this.zombieFactory(zombieObjs, 'zombieGhost', this.player, obstacles);
+
       /* ----------- Exit Forest & Pass Data to Town ---------- */
       this.physics.add.collider(player, exitShrubs, (player, tile) => {
         if (tile.layer.name === "exitForest") {
@@ -107,8 +115,17 @@ class Forest extends Phaser.Scene {
       update() {
         //  Input Events
        this.player.update();
-      
+       this.zombies.forEach(z => z.update());
       } 
+
+      zombies = [];
+
+      zombieFactory(zombieArray, spritesheetKey, target, obstacles) {
+        zombieArray.forEach((zombie, i) => {
+          this.zombies[i] = new Zombie(this, zombie.x, zombie.y, spritesheetKey, target, 50);
+          this.physics.add.collider(this.zombies[i], obstacles);
+        });
+      }
 }
 
 module.exports = { Forest }
