@@ -1,11 +1,14 @@
 import Phaser from 'phaser';
 import { Player } from "./Player";
-import { Zombie } from "./Zombie";
 import { NPC } from "./NPC1";
 import { Shots, Shot } from './Shots';
+import zombieFactory from './helpers/zombieFactory';
+import zombieHit from "./helpers/zombieHit";
+import portalCallback from './helpers/portalCallback';
 
 const gameTileSize = 32;
 let initialInventory = []; // only need this for opening game scene --> reassigned to data.inventory in init()
+let initialHealth = 500;
 
 /* ------------------------------------ Overworld Scene Class ------------------------ */
 
@@ -15,9 +18,9 @@ class Town extends Phaser.Scene {
   }
 
   // Set these to where you want the game to drop the player on start
-  startingX = 1320; 
-  startingY = 237;
-  
+  startingX = 450; 
+  startingY = 1000;
+  zombies = [];
 
   init(data) {
     console.log(data);
@@ -43,6 +46,7 @@ class Town extends Phaser.Scene {
     this.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
     // image for shots
     this.load.image('shot', 'src/assets/images/smBlueBlast.png');
+    this.load.image('big-heart', 'src/assets/symbols-and-items/big-heart.png');
     // zombie spritesheet(s)
     this.load.spritesheet('zombie7', "src/assets/characters/enemies/zombie7.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
   }
@@ -66,7 +70,7 @@ class Town extends Phaser.Scene {
 
     
     // Create player at start location and scale him
-    this.player = new Player(this, this.startingX, this.startingY, 'player', initialInventory);
+    this.player = new Player(this, this.startingX, this.startingY, 'player', initialInventory, initialHealth, data.sampleLocations);
     const player = this.player;
     player.body.setCollideWorldBounds(false);
     
@@ -81,9 +85,7 @@ class Town extends Phaser.Scene {
     // Get zombie array for map
     const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
     // Create zombies
-    this.zombieFactory(zombieObjs, 'zombie7', this.player, trees);
-    
-
+    zombieFactory(this, zombieObjs, 'zombie7', this.player, trees);
 
    // causes NPC to move and follow a path; can use for a ghost? 
     // this.tweens.add({
@@ -126,9 +128,10 @@ class Town extends Phaser.Scene {
     this.cameras.main.startFollow(this.player);
 
     //make camera stop at edge of map
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     
     //  Player physics properties.
+
     //house.setCollisionBetween(1, 2000);
     trees.setCollisionBetween(1, 2000);
     downStairs.setCollisionBetween(1, 2000);
@@ -145,70 +148,37 @@ class Town extends Phaser.Scene {
       this.shots.setVisible(false);
     });
     
-    /* ----- Finding portals ----- */
-    // Note the transition callback only gets assigned on the 1st collision with the tile,
-    // The scenes transition on the 2nd collision, will fix later if we have time
-
-    /* ----------- Exit Town & Pass Data to DungeonScene ---------- */
-    this.physics.add.collider(player, downStairs, (player, tile) => {
-      if (tile.layer.name === "downstairs") {
-        console.log("X: ", player.x);
-        console.log("Y: ", player.y);
-        tile.collisionCallback = (player, collidingTile) => {
-          console.log("Scene transition exit Town");
-          this.scene.start('Dungeon', { 
-            comingFrom: "Town",
-            inventory: player.inventory,
-            sampleLocations: data.sampleLocations
-          });
-          this.scene.stop('Town');
-        }
-      }
+    /* ----------- Exit Scene Colliders & pass data within player object ---------- */
+    this.physics.add.collider(player, intoForest, (player, tile) => { 
+      portalCallback(player, tile, this);
+    });
+    this.physics.add.collider(player, downStairs, (player, tile) => { 
+      portalCallback(player, tile, this);
     });
 
-    /* ----------- Exit Town & Pass Data to Forest ---------- */
-    this.physics.add.collider(player, intoForest, (player, tile) => {
-      if (tile.layer.name === "intoTrees") {
-        console.log("X: ", player.x);
-        console.log("Y: ", player.y);
-        tile.collisionCallback = (player, collidingTile) => {
-          console.log("Scene transition exit Town");
-          this.scene.start('Forest', { 
-            comingFrom: "Town",
-            inventory: player.inventory,
-            sampleLocations: data.sampleLocations
-          });
-          this.scene.stop('Town');
-        }
-      }
-    });
-
-    this.physics.add.collider(player, trees, (player, tile) => {
-      console.log("OUCH!");
-      console.log("X: ", player.x);
-      console.log("Y: ", player.y);
-    });
+    this.physics.add.collider(player, trees);
 
     // Adds controls for firing
     this.input.keyboard.on('keydown-SPACE', () => {
       this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
     });
 
+    this.zombies.forEach(zombie => {
+      this.physics.add.overlap(player, zombie, zombieHit);
+    });
   }
+
   update() {
     //  Input Events
     this.player.update();
     this.npc.update();
     this.zombies.forEach(z => z.update());
-  }
-
-  zombies = [];
-
-  zombieFactory(zombieArray, spritesheetKey, target, obstacles) {
-    zombieArray.forEach((zombie, i) => {
-      this.zombies[i] = new Zombie(this, zombie.x, zombie.y, spritesheetKey, target, 50);
-      this.physics.add.collider(this.zombies[i], obstacles);
-    });
+    if (this.player.body.embedded) {
+      this.player.body.touching.none = false;
+    }
+    if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
+      this.player.clearTint();
+    }
   }
 
 }
