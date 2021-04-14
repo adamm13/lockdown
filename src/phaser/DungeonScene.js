@@ -3,7 +3,7 @@ import { Player } from "./Player";
 import { Zombie } from "./Zombie";
 import { Shots, Shot } from './Shots';
 import GameUI from "./GameUI";
-
+import sceneEvents from "./SceneEvents";
 
 const gameTileSize = 32; 
 let samples;
@@ -219,7 +219,7 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   // Sample collecting 
-  collectSample(player, sample) {
+  collectSample(player, sample, data) {
     //  Hide the sample sprite
     const sampleLocations = player.scene.sampleLocations;
     samples.killAndHide(sample);
@@ -236,6 +236,9 @@ export default class Dungeon extends Phaser.Scene {
     // Add the collected item obj to the player inv
     player.inventory.push(newSampleForPlayer);
     console.log(player.inventory);
+
+    //emit event to update inventory
+    sceneEvents.emit('sample-collected', player.inventory);
 
     // Another alternative if needed
     // function collectCoin(player, coin) {

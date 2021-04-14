@@ -68,7 +68,7 @@ class Town extends Phaser.Scene {
     const intoForest = map.createLayer("intoTrees", dungObjs, 0, 0);
 
     //render hearts
-    this.scene.run('GameUI');
+    this.scene.run('GameUI', data);
 
     // camera
     this.cameras.main.setZoom(2);

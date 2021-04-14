@@ -1,6 +1,11 @@
 import Phaser from 'phaser';
+import sceneEvents from "./SceneEvents";
+
+let count = 0;
+let inventoryDisplay;
 
 export default class GameUI extends Phaser.Scene {
+    
     constructor(){
         super({key: 'GameUI'})
     }
@@ -8,6 +13,8 @@ export default class GameUI extends Phaser.Scene {
     init(data) {
         console.log(data);
     }
+
+
     create(data){
         const hearts = this.add.group()
 
@@ -30,16 +37,22 @@ export default class GameUI extends Phaser.Scene {
                 y: 55
             }
         })
-        let count;
+
+        //ui for inventory
         if (data.inventory){
-            console.log(data.inventory.length)
-            let count = this.add.text(35, 50, data.inventory.length)       
-        }else {
-            count = this.add.text(35, 50, '0');
+            inventoryDisplay = this.add.text(35, 50, ': ' + data.inventory.length)
+        } else {
+            inventoryDisplay = this.add.text(35, 50, ': ' + 0);
         }
+        //event listener for when sample is collected
+        sceneEvents.on('sample-collected', (playerInventory) => {
+            console.log('sample collected!')
+            this.updateInventory(playerInventory.length);
+
+        })
     }
 
-    update(data){
-       
+    updateInventory(playerInventory){
+        inventoryDisplay.setText(': ' + playerInventory);
     }
 }
