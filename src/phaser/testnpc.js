@@ -5,16 +5,34 @@ const DOWN = 1
 const LEFT = 2
 const RIGHT = 3
 
+const randomDirection = (exclude = this.private_direction) => {
+  let newDirection = Phaser.Math.Between(0,3)
+  while (newDirection === exclude)
+  {
+    newDirection = Phaser.Math.Between(0,3)
+  }
+  return newDirection
+}
+
 
 export default class testnpc extends Phaser.Physics.Arcade.Sprite
 {
   private_direction = DOWN
+  private_moveEvent = Phaser.Time.TimerEvent
   
   constructor(scene = Phaser.scene, x = number, y = number, texture = string, frame = string || number)
   {
     super(scene, x, y, texture, frame)
 
     scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.private_handleTileCollision, this)
+
+    this.private_moveEvent = scene.time.addEvent({
+      delay: 2000,
+      callback: () => {
+        
+      },
+      loop: true
+    })
     
   }
 
@@ -24,8 +42,8 @@ export default class testnpc extends Phaser.Physics.Arcade.Sprite
     {
       return
     }
-    const newDirection = Phaser.Math.Between(0,3)
-    this.private_direction = newDirection
+
+    this.private_direction = randomDirection(this.private_direction)
     
   }
 
