@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { Player } from "./Player";
 import { Zombie } from "./Zombie";
-import { NPC } from "./NPC1";
+// import { NPC } from "./NPC1";
 import { Shots, Shot } from './Shots';
 import { testnpc } from './testnpc'
 import { createNpcAnims } from './testnpcanims';
@@ -44,8 +44,8 @@ class Town extends Phaser.Scene {
     this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
     this.load.tilemapTiledJSON('map', 'src/assets/overworldv4.json');
     this.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
-    this.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
-    this.load.atlas('boynpc', "src/assets/testnpc.png", "src/assets/testnpc.json")
+    // this.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
+    this.load.atlas('boy1', "src/assets/testnpc.png", "src/assets/testnpc.json")
     // image for shots
     this.load.image('shot', 'src/assets/images/smBlueBlast.png');
   }
@@ -79,10 +79,10 @@ class Town extends Phaser.Scene {
     //creates shots
     this.shots = new Shots(this);
     
-    // Create NPC and pass in player as last argument for a target
-    this.npc = new NPC(this, 250, 300, 'npc');
-    const npc = this.npc;
-    npc.body.setCollideWorldBounds(false);
+    // // Create NPC and pass in player as last argument for a target < ---- OLD NPC
+    // this.npc = new NPC(this, 250, 300, 'npc');
+    // const npc = this.npc;
+    // npc.body.setCollideWorldBounds(false);
 
    // causes NPC to move and follow a path; can use for a ghost? 
     // this.tweens.add({
@@ -136,7 +136,7 @@ class Town extends Phaser.Scene {
     //this.physics.add.collider(npc, trees);
 
     // allows you to move the player by pushing him.
-    this.physics.add.collider(player, npc);
+    // this.physics.add.collider(player, npc);
     
 
      // Physics properties for shots
@@ -207,7 +207,9 @@ class Town extends Phaser.Scene {
       }
     })
 
-     npcs.get(180, 300, 'boynpc')
+    // ADD a new NPC 
+     npcs.get(180, 300, 'boy1')
+     npcs.get(1200, 300, 'boy1')
 
     this.physics.add.collider(npcs, trees)
 
@@ -233,7 +235,7 @@ class Town extends Phaser.Scene {
   update() {
     //  Input Events
     this.player.update();
-    this.npc.update();
+    // this.npc.update();
   }
 
 }

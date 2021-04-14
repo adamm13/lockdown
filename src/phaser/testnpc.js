@@ -14,11 +14,6 @@ export default class testnpc extends Phaser.Physics.Arcade.Sprite
   {
     super(scene, x, y, texture, frame)
 
-  
-      // this.anims.play("walk")
-      // this.anims.play("left")
-      // this.anims.play("right")
-
     scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.private_handleTileCollision, this)
     
   }
