@@ -6,6 +6,7 @@ import { Forest } from "./phaser/forestScene";
 import { Town } from "./phaser/overworld";
 import { Dungeon } from "./phaser/DungeonScene";
 import { Menu } from "./phaser/menu";
+import { Intro } from "./phaser/intro";
 
 
 
@@ -33,6 +34,8 @@ import { Menu } from "./phaser/menu";
 
 
 
+
+
 const config = {
   type: Phaser.AUTO,
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -45,7 +48,7 @@ const config = {
             debug: true
         }
       },
-    scene: [ Menu, Town, Forest, Dungeon ]
+    scene: [ Menu, Intro, Town, Forest, Dungeon ]
   };
 const game = new Phaser.Game(config);
 

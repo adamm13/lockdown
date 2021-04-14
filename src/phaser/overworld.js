@@ -13,16 +13,18 @@ class Town extends Phaser.Scene {
     super("Town");
   }
 
-  startingX = 208; 
-  startingY = 240;
+  // Set these to where you want the game to drop the player on start
+  startingX = 1320; 
+  startingY = 237;
+  
 
   init(data) {
     if (data.comingFrom === "Forest") {
-      this.startingX = 180;
-      this.startingY = 464;
+      this.startingX = 1276;
+      this.startingY = 57;
     } else if (data.comingFrom === "Dungeon") {
-      this.startingX = 208; 
-      this.startingY = 240;
+      this.startingX = 397; 
+      this.startingY = 1003;
     }
   }
 
@@ -30,11 +32,12 @@ class Town extends Phaser.Scene {
 
     // this.load.image('tiles', 'src/assets/town32.png');
     this.load.image('tiles', 'src/assets/town32-extruded.png');
-    this.load.tilemapTiledJSON('map', 'src/assets/overworldv3.json');
+    this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
+    this.load.tilemapTiledJSON('map', 'src/assets/overworldv4.json');
     this.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
     this.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
     // image for shots
-    this.load.image('shot', 'src/assets/images/blueBlast.png');
+    this.load.image('shot', 'src/assets/images/smBlueBlast.png');
   }
 
   create() {
@@ -43,13 +46,16 @@ class Town extends Phaser.Scene {
     const map = this.make.tilemap({ key: 'map' });
     // const tileset = map.addTilesetImage('town32', 'tiles')
     const tileset = map.addTilesetImage('town32-extruded', 'tiles', 32, 32, 1, 2);
+    const dungObjs = map.addTilesetImage('dungeon-objects', 'obj-tiles');
     const ground = map.createLayer("ground", tileset, 0, 0,);
     //const house = map.createLayer("house", tileset, 0, 0);
     const trees = map.createLayer("trees", tileset, 0, 0);
+    const downStairs = map.createLayer("downstairs", dungObjs, 0, 0);
+    const intoForest = map.createLayer("intoTrees", dungObjs, 0, 0);
 
     // camera
     this.cameras.main.setZoom(1.4);
-    
+
     //creates shots
     this.shots = new Shots(this);
 
@@ -72,49 +78,63 @@ class Town extends Phaser.Scene {
     //  Player physics properties.
     //house.setCollisionBetween(1, 2000);
     trees.setCollisionBetween(1, 2000);
+    downStairs.setCollisionBetween(1, 2000);
+    intoForest.setCollisionBetween(1, 2000);
    
     //this.physics.add.collider(npc, trees);
 
     // allows you to move the player by pushing him.
     this.physics.add.collider(player, npc);
     
+
+     // Physics properties for shots
+    this.physics.add.collider(this.shots, trees, () => {
+      this.shots.setVisible(false);
+    });
     
     /* ----- Finding portals ----- */
     // Note the transition callback only gets assigned on the 1st collision with the tile,
     // The scenes transition on the 2nd collision, will fix later if we have time
 
-    this.physics.add.collider(player, trees, (player, tile) => {
-      // Enter Forest portal Tile (change to where you put the Forest entrance
-      // but it has be on tile in the trees layer right now, which makes sense i guess
-      console.log(tile);
-      // Walk left into the tree above the tree stump just a few steps down from spawn 
-      if (tile.index === 83) {
-        tile.collisionCallback = (collidingPlayer, collidingTile) => {
+    /* ----------- Exit Town & Pass Data to DungeonScene ---------- */
+    this.physics.add.collider(player, downStairs, (player, tile) => {
+      if (tile.layer.name === "downstairs") {
+        console.log("X: ", player.x);
+        console.log("Y: ", player.y);
+        tile.collisionCallback = (player, collidingTile) => {
           console.log("Scene transition exit Town");
-          this.scene.start('Forest');
-          this.scene.stop('Town');
-        }
-      }
-      if (tile.index === 205) {
-        tile.collisionCallback = (collidingPlayer, collidingTile) => {
-          console.log("Scene transition exit Town");
-          this.scene.start('Dungeon');
+          this.scene.start('Dungeon', { 
+            comingFrom: "Town",
+            inventory: player.inventory,
+            sampleLocations: data.sampleLocations
+          });
           this.scene.stop('Town');
         }
       }
     });
 
-    // this.physics.add.collider(player, trees, (player, tile) => {
-    //   // Enter Dungeon portal Tile (change to where you put the stairs)
-    //   // The stair tile has to be in the house layer right now...
-    //   if (tile.index === 205) {
-    //     tile.collisionCallback = (collidingPlayer, collidingTile) => {
-    //       console.log("Scene transition exit Town");
-    //       this.scene.start('Dungeon');
-    //       this.scene.stop('Town');
-    //     }
-    //   }
-    // });
+    /* ----------- Exit Town & Pass Data to Forest ---------- */
+    this.physics.add.collider(player, intoForest, (player, tile) => {
+      if (tile.layer.name === "intoTrees") {
+        console.log("X: ", player.x);
+        console.log("Y: ", player.y);
+        tile.collisionCallback = (player, collidingTile) => {
+          console.log("Scene transition exit Town");
+          this.scene.start('Forest', { 
+            comingFrom: "Town",
+            inventory: player.inventory,
+            sampleLocations: data.sampleLocations
+          });
+          this.scene.stop('Town');
+        }
+      }
+    });
+
+    this.physics.add.collider(player, trees, (player, tile) => {
+      console.log("OUCH!");
+      console.log("X: ", player.x);
+      console.log("Y: ", player.y);
+    });
 
     // Adds controls for firing
     this.input.keyboard.on('keydown-SPACE', () => {

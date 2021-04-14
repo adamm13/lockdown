@@ -2,9 +2,16 @@ import React from "react";
 
 export default class App extends React.Component {
 	render() {
+		const titleStyle = {
+		  color: "red",
+      // backgroundColor: "black",
+      padding: "5px",
+      fontFamily: "Courier",
+			textAlign: "center"
+    };
 		return (
-			<div style={{ textAlign: "center" }}>
-				<h1>Hello World</h1>
+			<div>
+				<h1 style={titleStyle}>LockDown</h1>
 			</div>
 		);
 	}
