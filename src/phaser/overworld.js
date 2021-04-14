@@ -63,14 +63,15 @@ class Town extends Phaser.Scene {
     // camera
     this.cameras.main.setZoom(2);
 
-    //creates shots
-    this.shots = new Shots(this);
-
+    
     // Create player at start location and scale him
     this.player = new Player(this, this.startingX, this.startingY, 'player', initialInventory);
     const player = this.player;
     player.body.setCollideWorldBounds(false);
-
+    
+    //creates shots
+    this.shots = new Shots(this);
+    
     // Create NPC and pass in player as last argument for a target
     this.npc = new NPC(this, 250, 300, 'npc');
     const npc = this.npc;

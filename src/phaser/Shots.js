@@ -28,18 +28,18 @@ class Shot extends Phaser.Physics.Arcade.Sprite{
     preUpdate (time, delta)
     {
         super.preUpdate(time, delta);
-        if (this.y <= -32){
+        if (this.y <= -3000){
             this.setActive(false);
             this.setVisible(false);
-        } else if (this.y >= 800){
+        } else if (this.y >= 3000){
             this.setActive(false);
             this.setVisible(false);
         }
 
-        if (this.x <= -32){
+        if (this.x <= -3000){
             this.setActive(false);
             this.setVisible(false);
-        } else if (this.x >= 800){
+        } else if (this.x >= 3000){
             this.setActive(false);
             this.setVisible(false);
         }
