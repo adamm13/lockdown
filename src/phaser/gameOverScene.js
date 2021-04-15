@@ -34,16 +34,14 @@ class GameOver extends Phaser.Scene {
 
     let yesButton = this.add.image(this.game.renderer.width /2, this.game.renderer.height / 1.5 + 30, "yes").setDepth(1)
 
-    let noButton = this.add.image(this.game.renderer.width /2, this.game.renderer.height / 1.5 + 80, "no").setDepth(1)
+    let noButton = this.add.image(this.game.renderer.width /2, this.game.renderer.height / 1.5 + 100, "no").setDepth(1)
     
-    let hoverSprite2 = this.add.sprite(100,100, "skull")
+    let hoverSprite2 = this.add.image(100,100, "skull")
     hoverSprite2.setScale(1)
     hoverSprite2.setVisible(false)
 
+    // takes you to the intro scene again 
     yesButton.setInteractive();
-    noButton.setInteractive();
-
-
     yesButton.on("pointerover", () => {
       hoverSprite2.setVisible(true)
       hoverSprite2.x = yesButton.x - yesButton.width * 1.5;
@@ -55,22 +53,26 @@ class GameOver extends Phaser.Scene {
       console.log("no more hover")
     })
     yesButton.on("pointerup", () => {
+      this.scene.start("Intro")
       console.log("restart game")
     })
 
-      noButton.on("pointerover", () => {
-        hoverSprite2.setVisible(true)
-        hoverSprite2.x = yesButton.x - yesButton.width * 1.5;
-        hoverSprite2.y = yesButton.y;
-        console.log("hovering")
-      })
+    // takes you back to the start screen
+    noButton.setInteractive();
+    noButton.on("pointerover", () => {
+      hoverSprite2.setVisible(true)
+      hoverSprite2.x = noButton.x - noButton.width * 2.1;
+      hoverSprite2.y = noButton.y;
+      console.log("hovering")
+    })
       noButton.on("pointerout", () => {
-        hoverSprite2.setVisible(false)
-        console.log("no more hover")
-      })
+      hoverSprite2.setVisible(false)
+      console.log("no more hover")
+    })
       noButton.on("pointerup", () => {
-        console.log("restart game")
-      })
+      this.scene.start("startMenu")
+      console.log("back to menu")
+    })
 
   
   }

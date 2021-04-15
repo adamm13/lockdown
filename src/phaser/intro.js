@@ -35,14 +35,14 @@ const Intro = new Phaser.Class({
         Phaser.Scene.call(this, 'Intro');
     },
 
-    preload() 
-    {
-      this.load.image("background", "src/assets/title_bg.jpeg");
-    },
+    // preload() 
+    // {
+    //   this.load.image("background", "src/assets/title_bg.jpeg");
+    // },
 
 
     create() {
-      this.add.image(0, 0, "background").setOrigin(0, 0).setVisible(!debug);
+      this.add.image(0, 0, "title_bg").setOrigin(0, 0).setVisible(!debug);
 
       this.add.text(32, 32, passage, textStyle).setAlpha(0.25).setVisible(debug);
 
