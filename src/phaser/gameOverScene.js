@@ -1,6 +1,6 @@
 import Phaser from "phaser"
 
-/* ------------------------------------ Start Menu Scene  ------------------------ */
+/* ------------------------------------ GameOver Scene  ------------------------ */
  
 class GameOver extends Phaser.Scene {
   constructor() {
