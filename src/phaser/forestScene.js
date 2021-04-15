@@ -66,6 +66,7 @@ class Forest extends Phaser.Scene {
 
     //create shots
     this.shots = new Shots(this);
+
   
     //create layer above player
     const above_player = map.createLayer("above-player", tileset1, 0, 0);
@@ -86,6 +87,7 @@ class Forest extends Phaser.Scene {
         console.log("X: ", player.x);
         console.log("Y: ", player.y);
       });
+
 
       // Get zombie obj array from map
       const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;

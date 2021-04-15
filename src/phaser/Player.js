@@ -6,6 +6,7 @@ import { Entity } from "./Entity";
 
 class Player extends Entity {
   
+
   constructor(scene, x, y, textureKey, inventory, health, sampleLocations) {
     super(scene, x, y, textureKey);
     this.gameData = {}
@@ -75,7 +76,8 @@ class Player extends Entity {
       fireKey: SPACE
     });
     
-
+    
+    
   } //// end constructor
 
 
@@ -92,6 +94,7 @@ class Player extends Entity {
       this.body.setVelocityY(0);
       this.body.setVelocityX(-walkingSpeed);
       this.anims.play('left', true);
+      console.log(this.anims.currentAnim.key);
     } else if (keys.right.isDown || keys.d.isDown) {
       this.body.setVelocityY(0);
       this.body.setVelocityX(walkingSpeed);
@@ -107,6 +110,7 @@ class Player extends Entity {
     } else {
       this.anims.stop();
     }
+  
 
     // Normalize and scale the velocity so that player can't move faster along a diagonal
     this.body.velocity.normalize().scale(walkingSpeed);
