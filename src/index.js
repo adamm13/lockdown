@@ -50,14 +50,11 @@ const config = {
             debug: true
         }
       },
-<<<<<<< HEAD
-    scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon ],
+
+    scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon, GameUI ],
     render: {
       pixelArt: true
     }
-=======
-    scene: [ Menu, Intro, Town, Forest, Dungeon, GameUI ]
->>>>>>> 17b065c2f7e494727b9148496747aed57c9a2831
   };
 const game = new Phaser.Game(config);
 
