@@ -182,6 +182,7 @@ class Town extends Phaser.Scene {
 
     const npcs = this.physics.add.group({
       classType: testnpc,
+      collider: this.player,
       createCallback: (go) => {
         const npcwalk = go 
         npcwalk.body.onCollide = true
@@ -193,6 +194,7 @@ class Town extends Phaser.Scene {
      npcs.get(1200, 300, 'boy1')
 
     this.physics.add.collider(npcs, trees)
+    this.physics.add.collider(npcs, this.player)
 
     //animates the npc sprite
     // this.anims.create({
