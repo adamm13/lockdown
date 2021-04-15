@@ -2,11 +2,14 @@ import Phaser from "phaser";
 import { Player } from "./Player";
 import { Zombie } from "./Zombie";
 import { Shots, Shot } from './Shots';
+import GameUI from "./GameUI";
+import sceneEvents from "./SceneEvents";
+import zombieHit from './helpers/zombieHit';
+import portalCallback from './helpers/portalCallback';
 
 
 const gameTileSize = 32; 
 let samples;
-//let initialInventory = []; // only need this for opening game scene --> reassigned to data.inventory in init()
 
 /* ------------------------------------ Dungeon Scene Class ------------------------ */
 
@@ -14,7 +17,6 @@ export default class Dungeon extends Phaser.Scene {
   constructor() {
     super('Dungeon');
   }
-
   
   sampleLocations = [
     {x: 16, y: 80}, 
@@ -30,7 +32,9 @@ export default class Dungeon extends Phaser.Scene {
   init(data) {
     console.log(data);
 
-    if (data.sampleLocations) {
+    if (!data.sampleLocations) {
+      data.sampleLocations = this.sampleLocations;
+    } else {
       this.sampleLocations = data.sampleLocations;
     }
   }
@@ -48,6 +52,11 @@ export default class Dungeon extends Phaser.Scene {
     this.load.spritesheet('zombieKing', 'src/assets/characters/enemies/zombie2.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
     // image for shots
     this.load.image('shot', 'src/assets/images/smBlueBlast.png');
+
+     //image for hearts
+     this.load.image('empty-heart', "src/assets/images/ui_heart_empty.png");
+     this.load.image('full-heart', "src/assets/images/ui_heart_full32.png");
+     this.load.image('half-heart', "src/assets/images/ui_heart_half.png");
   }
   
   create(data) {
@@ -61,6 +70,11 @@ export default class Dungeon extends Phaser.Scene {
     const chest = map.createLayer('chest', dungObjs, 0, 0);
     const upStairs = map.createLayer('exitDungeon', dungObjs, 0, 0);
     
+    //render hearts
+    this.scene.run('GameUI');
+
+    
+
     // camera
     this.cameras.main.setZoom(2);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels); // Make camera stop at edge of map
@@ -74,7 +88,7 @@ export default class Dungeon extends Phaser.Scene {
     this.shots = new Shots(this);
 
     // Create player at start location
-    this.player = new Player(this, spawnPlayerPos.x, spawnPlayerPos.y, 'player', data.inventory);
+    this.player = new Player(this, spawnPlayerPos.x, spawnPlayerPos.y, 'player', data.inventory, data.health, this.sampleLocations);
     this.player.body.setCollideWorldBounds(true);
     this.cameras.main.startFollow(this.player); 
 
@@ -92,12 +106,8 @@ export default class Dungeon extends Phaser.Scene {
     chest.setCollisionBetween(1, 400);
     this.physics.add.collider(this.player, obstacles);
     this.physics.add.collider(this.player, chest); // temporary
-    
-    // this.renderObjects(map, samples, 'samples', 0.7);
-    // const chests = this.physics.add.group();
-    // this.renderObjects(map, chests, 'chest', 0.7);
-    // const stairs = this.physics.add.group();
-    // this.renderObjects(map, stairs, 'exitDungeon', 1);
+    this.physics.add.overlap(this.player, this.zombies['zombieGirl'], zombieHit);
+    this.physics.add.overlap(this.player, this.zombies['zombieKing'], zombieHit);
 
 
      // Physics properties for shots
@@ -109,40 +119,22 @@ export default class Dungeon extends Phaser.Scene {
     });
 
 
-    // Set scene transition callback on portalTile
-  
-    this.physics.add.collider(this.player, upStairs, (player, tile) => {
-      if (tile.index === 228) {
-        tile.collisionCallback = (collidingPlayer, collidingTile) => {
-          console.log("Scene transition exit Dungeon");
-          this.scene.start('Town', { 
-            comingFrom: "Dungeon",
-            //currentHealth: this.player.health,
-            inventory: player.inventory,
-            sampleLocations: this.sampleLocations
-           });
-          this.scene.stop('Dungeon');
-        }
-      }
+    /* ----- Exit Dungeon & Pass Data to Town ---- */
+    this.physics.add.collider(this.player, upStairs, (player, tile) => { 
+      portalCallback(player, tile, this);
     });
 
     // Collect Chest Item 
     // Implement player select key?
 
-
-
     // Sample creation and overlap collecting
-
     this.numOfSamples = this.sampleLocations.length;
-
-    
     // Create samples
     samples = this.physics.add.staticGroup({
       key: 'samples',
       frameQuantity: this.numOfSamples,
       immovable: true
     });
-
     // Distribute samples over map
     samples.getChildren().forEach((sample, i) => {
       let x = this.sampleLocations[i].x;
@@ -151,43 +143,28 @@ export default class Dungeon extends Phaser.Scene {
       sample.setPosition(x, y);
     });
 
-    samples.refresh(); // does this refresh upon scene exit/enter?
+    samples.refresh();
     
     this.physics.add.overlap(this.player, samples, this.collectSample);
-    
-
-    // Probably will need this logic for keeping score of samples
-    //score
-    // text = this.add.text(570, 70, `Coins: ${coinScore}x`, {
-    //   fontSize: '20px',
-    //   fill: '#ffffff'
-    // });
-    // text.setScrollFactor(0);
+  
 
     // Adds controls for shooting
     this.input.keyboard.on('keydown-SPACE', () => {
       this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
     });
 
-  
   } // end create() function
   
   update() {
-    //  Input Events
     this.player.update();
     this.zombies['zombieGirl'].update();
     this.zombies['zombieKing'].update();
-  }
-
-
-  /* ---------- Custom Helpers -------- */
-  renderObjects(map, group, objString, scale) {
-    // let newLayer = map.getObjectLayer(objString)["objects"];
-    // newLayer.forEach(obj => {
-    //   let object = group
-    //     .create(obj.x + 16, obj.y - 16, objString)
-    //     .setScale(scale)
-    // });
+    if (this.player.body.embedded) {
+      this.player.body.touching.none = false;
+    }
+    if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
+      this.player.clearTint();
+    }
   }
 
   zombies = {};
@@ -198,14 +175,8 @@ export default class Dungeon extends Phaser.Scene {
     this.physics.add.collider(this.zombies[zombieKeyName], obstacles);
   }
 
-  zombieHit() {
-    console.log("ZOMBIE EATS FLESH");
-    // this.player.health -= 1; 
-    // console.log("Health: ", this.player.health);
-  }
-
   // Sample collecting 
-  collectSample(player, sample) {
+  collectSample(player, sample, data) {
     //  Hide the sample sprite
     const sampleLocations = player.scene.sampleLocations;
     samples.killAndHide(sample);
@@ -215,27 +186,15 @@ export default class Dungeon extends Phaser.Scene {
     const sampleIndex = samples.getChildren().indexOf(sample); 
     const newSampleForPlayer = samples.getChildren().splice(sampleIndex, 1); // grab this object 
     sampleLocations.splice(sampleIndex, 1);
-    console.log(sampleLocations);
-    console.log(player.scene.sampleLocations);
-    console.log(`The dungeon has ${samples.getChildren().length} samples remaining!`);
-    
     // Add the collected item obj to the player inv
-    player.inventory.push(newSampleForPlayer);
-    console.log(player.inventory);
+    player.gameData.inventory.push(newSampleForPlayer);
+    console.log(player.gameData.inventory);
 
-    // Another alternative if needed
-    // function collectCoin(player, coin) {
-    //   coin.destroy(coin.x, coin.y); // remove the tile/coin
-    //   coinScore ++; // increment the score
-    //   text.setText(`Coins: ${coinScore}x`); // set the text to show the current score
-    //   return false;
-    // }
+    //emit event to update inventory icon
+    sceneEvents.emit('sample-collected', player.gameData.inventory);
+
   }
 
-
-
-
 }
-
 
 module.exports = { Dungeon };

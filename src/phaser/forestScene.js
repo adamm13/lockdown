@@ -1,7 +1,10 @@
 import Phaser from 'phaser';
 import { Player, Entity } from './Player';
 import { Shots, Shot } from './Shots';
-import { Zombie } from './Zombie';
+import zombieHit from './helpers/zombieHit';
+import zombieFactory from './helpers/zombieFactory';
+import portalCallback from './helpers/portalCallback';
+
 
 class Forest extends Phaser.Scene {
   constructor() {
@@ -9,9 +12,9 @@ class Forest extends Phaser.Scene {
     this.shots;
     this.player;
   }
-  init(data) {
-    console.log(data);
-  }
+
+  zombies = [];
+
   init(data) {
     console.log(data);
   }
@@ -26,6 +29,12 @@ class Forest extends Phaser.Scene {
     this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: 32, frameHeight: 32 });
     //image for bullets
     this.load.image('shot', 'src/assets/images/smBlueBlast.png');
+    //image for hearts
+    this.load.image('empty-heart', "src/assets/images/ui_heart_empty.png");
+    this.load.image('full-heart', "src/assets/images/ui_heart_full32.png");
+    this.load.image('half-heart', "src/assets/images/ui_heart_half.png");
+    //image for samples
+    this.load.image('samples', "src/assets/symbols-and-items/sample2.png");
   }
   create(data) {
     // environment
@@ -42,13 +51,17 @@ class Forest extends Phaser.Scene {
     const below_player = map.createLayer("below-player", tileset1);
     const exitShrubs = map.createLayer("exitForest", tileset1);
     
+
+    //render hearts
+    this.scene.run('GameUI', data);
+    console.log(data.inventory);
     
-      // camera
-      this.cameras.main.setZoom(2);
-      // Create player at start location
-      this.player = new Player(this, 385, 580, 'player', data.inventory);
-      const player = this.player;
-      player.body.setCollideWorldBounds(false);
+    // camera
+    this.cameras.main.setZoom(2);
+    // Create player at start location
+    this.player = new Player(this, 385, 580, 'player', data.inventory, data.health, data.sampleLocations);
+    const player = this.player;
+    player.body.setCollideWorldBounds(false);
 
     //create shots
     this.shots = new Shots(this);
@@ -76,22 +89,15 @@ class Forest extends Phaser.Scene {
       // Get zombie obj array from map
       const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
       // Create zombies // Right now the zombieGhost sprite can pass through obstacles_2 just b/c thats the way the Factory is set up lol
-      this.zombieFactory(zombieObjs, 'zombieGhost', this.player, obstacles);
+      zombieFactory(this, zombieObjs, 'zombieGhost', this.player, obstacles);
 
-      /* ----------- Exit Forest & Pass Data to Town ---------- */
-      this.physics.add.collider(player, exitShrubs, (player, tile) => {
-        if (tile.layer.name === "exitForest") {
-          tile.collisionCallback = (collidingPlayer, collidingTile) => {
-            console.log("Scene transition exit Forest");
-            this.scene.start('Town', { 
-              comingFrom: 'Forest',  
-              //currentHealth: player.health,
-              inventory: player.inventory,
-              sampleLocations: data.sampleLocations
-              });
-            this.scene.stop('Forest');
-          }
-        }
+      this.zombies.forEach(zombie => {
+        this.physics.add.overlap(player, zombie, zombieHit);
+      });
+
+      // Exit scene & pass data through player object (player.gameData property)
+      this.physics.add.collider(player, exitShrubs, (player, tile) => { 
+        portalCallback(player, tile, this);
       });
 
       // Physics properties for shots
@@ -102,8 +108,6 @@ class Forest extends Phaser.Scene {
         this.shots.setVisible(false);
       });
 
-
-
       // Adds controls for firing
       this.input.keyboard.on('keydown-SPACE', () => {
         this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
@@ -112,20 +116,18 @@ class Forest extends Phaser.Scene {
       
     }
 
-      update() {
-        //  Input Events
-       this.player.update();
-       this.zombies.forEach(z => z.update());
-      } 
-
-      zombies = [];
-
-      zombieFactory(zombieArray, spritesheetKey, target, obstacles) {
-        zombieArray.forEach((zombie, i) => {
-          this.zombies[i] = new Zombie(this, zombie.x, zombie.y, spritesheetKey, target, 50);
-          this.physics.add.collider(this.zombies[i], obstacles);
-        });
+    update() {
+      //  Input Events
+      this.player.update();
+      this.zombies.forEach(z => z.update());
+      if (this.player.body.embedded) {
+        this.player.body.touching.none = false;
       }
+      if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
+        this.player.clearTint();
+      }
+    } 
+
 }
 
 module.exports = { Forest }
