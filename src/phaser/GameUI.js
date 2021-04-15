@@ -63,12 +63,16 @@ export default class GameUI extends Phaser.Scene {
     }
 
     updateHealth(playerHealth){
-
         this.hearts.children.each((individualHeart, index)=> {
             const heart = individualHeart;
             if (index < playerHealth){
                 heart.setTexture('full-heart');
-            } else {
+            } 
+            //will look into half hearts when collisions aren't so chaotic
+            // else if (playerHealth === index + 0.5){
+            //     heart.setTexture('half-heart');
+            // } 
+            else {    
                 heart.setTexture('empty-heart');
             }
         })
