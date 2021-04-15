@@ -50,9 +50,40 @@ export default class GameUI extends Phaser.Scene {
             this.updateInventory(playerInventory.length);
 
         })
+
+        //event listener for zombie attack
+        sceneEvents.on('zombieHit', () => {
+            console.log('zombie attack!!');
+            console.log(hearts);
+        })
     }
 
     updateInventory(playerInventory){
         inventoryDisplay.setText(': ' + playerInventory);
+    }
+
+    updateHealth(playerHealth){
+        if (playerHealth >= 450){
+
+        } else if (playerHealth >= 400 && playerHealth < 450){
+
+        } else if (playerHealth >= 350 && playerHealth < 400){
+            
+        } else if (playerHealth >= 300 && playerHealth < 350){
+            
+        } else if (playerHealth >= 250 && playerHealth < 300){
+            
+        } else if (playerHealth >= 200 && playerHealth < 250){
+            
+        } else if (playerHealth >= 150 && playerHealth < 200){
+            
+        } else if (playerHealth >= 100 && playerHealth < 150){
+            
+        } else if (playerHealth >= 50 && playerHealth < 100){
+            
+        } else if (playerHealth >= 0 && playerHealth < 50){
+            
+        } 
+    
     }
 }
