@@ -2,16 +2,10 @@ import Phaser from "phaser"
 
 /* ------------------------------------ Loading Screen Scene  ------------------------ */
 
-const loadingScene = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function loadingScene ()
-    {
-        Phaser.Scene.call(this, 'loadingscene');
-    },
+class loadingScene extends Phaser.Scene {
+    constructor() {
+        super("loadingScene");
+    }
 
     preload()
     {
@@ -76,7 +70,7 @@ const loadingScene = new Phaser.Class({
         this.load.on("complete", () => {
             //this.scene.start()
         })
-    },
+    }
 
     create()
     {
@@ -92,7 +86,7 @@ const loadingScene = new Phaser.Class({
         // this.scene.stop('Menu');
     }
     
-});
+};
 
 
 module.exports = { loadingScene };

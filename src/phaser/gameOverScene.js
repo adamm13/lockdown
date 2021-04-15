@@ -7,22 +7,6 @@ class GameOver extends Phaser.Scene {
     super("GameOver");
   }
 
-
-    // preload()
-    // {
-    //     //Loading the Assets for the GameOver
-
-    //     this.load.image("title_bg", "src/assets/title_bg.jpeg");
-
-    //     this.load.image("gameover", "src/assets/gameover.png");
-
-    //     this.load.image("tryagain", "src/assets/tryagain.png");
-
-    //     this.load.image("yes", "src/assets/yes.png");
-
-    //     this.load.image("no", "src/assets/no.png");  
-    // },
-
     create()
     {
 
