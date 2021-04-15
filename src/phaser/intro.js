@@ -3,25 +3,29 @@ import Phaser from 'phaser'
 
 const debug = false;
 
-const passage = `The Year 2099,  \n
-Franzen kombucha dreamcatcher try-hard direct trade pok pok dsfdf sdfd \n
-PBR&B gastropub disrupt vinyl letterpress blue bottle.sdfd \n
-Pabst glossier shaman church-key sartorial chillwave sdfsd\n
-pork belly chambray. Fingerstache XOXO kogi cardigan sdfs\n
-tacos migas man bun sriracha. Etsy narwhal pour-over sdfs\n
-paleo banh mi +1 mixtape umami flexitarian direct trade, \n
-................\n
+const passage = `\n
+\n
+The Year 2099,  \n
+Zombies have consumed most of humanity and few resources remain
+as humankind struggles to survive. After many attempts, you have
+finally found the antidote to the virus that has eliminated
+most of the human population. Unfortunately, time is running out.
+Zombies have begun to devour your colony and you’ll need to produce 
+more of the antidote quickly.
 
-pork belly chambray. Fingerstache XOXO kogi cardigan sdfs\n
-tacos migas man bun sriracha. Etsy narwhal pour-over sdfs\n
-paleo banh mi +1 PLEASE PRESS 2 TO BEGIN`
+Collect enough samples of the virus to produce enough of your  
+antidote to save the survivors.
+
+Beware of the zombies who have infiltrated your colony... 
+
+Press Spacebar to start your Journey....`
 
 
 const textStyle = {
-  fontSize: 18,
-  lineSpacing: 1,
-  fontFamily: "courier",
-  color: "RED",
+  fontSize: 20,
+  lineSpacing:0,
+  fontFamily: "verdana",
+  color: "WHITE",
 };
 
 const Intro = new Phaser.Class({
