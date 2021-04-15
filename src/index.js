@@ -5,7 +5,8 @@ import App from "./components/App.jsx";
 import { Forest } from "./phaser/forestScene";
 import { Town } from "./phaser/overworld";
 import { Dungeon } from "./phaser/DungeonScene";
-import { Menu } from "./phaser/menu";
+import { loadingScene } from "./phaser/loadingScene";
+import { startMenu } from "./phaser/startMenu";
 import { Intro } from "./phaser/intro";
 import GameUI from './phaser/GameUI';
 
@@ -49,7 +50,11 @@ const config = {
             debug: true
         }
       },
-    scene: [ Menu, Intro, Town, Forest, Dungeon, GameUI ]
+
+    scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon, GameUI ],
+    render: {
+      pixelArt: true
+    }
   };
 const game = new Phaser.Game(config);
 

@@ -1,7 +1,8 @@
 import React from "react";
 
 export default class App extends React.Component {
-	render() {
+	render() 
+	{
 		const titleStyle = {
 		  color: "red",
       // backgroundColor: "black",
@@ -11,7 +12,7 @@ export default class App extends React.Component {
     };
 		return (
 			<div>
-				<h1 style={titleStyle}>LockDown</h1>
+				{/* <h1 style={titleStyle}>LockDown</h1> */}
 			</div>
 		);
 	}
