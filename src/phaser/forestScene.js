@@ -6,6 +6,7 @@ import zombieDamage from "./helpers/zombieDamage";
 import zombieFactory from './helpers/zombieFactory';
 import portalCallback from './helpers/portalCallback';
 import gameOver from "./helpers/gameOver";
+import preloadAssets from './helpers/preloadAssets';
 
 
 class Forest extends Phaser.Scene {
@@ -20,23 +21,9 @@ class Forest extends Phaser.Scene {
   init(data) {
     console.log(data);
   }
+
   preload() {
-    // this.load.image('forest', 'src/assets/images/forest-tileset.png');
-    this.load.image('forest', 'src/assets/images/forest-tileset-extruded.png');
-    //this.load.image('graveyard', 'src/assets/images/graveyard-tileset.png');
-    this.load.image('graveyard', 'src/assets/images/graveyard-tileset-extruded.png');
-    this.load.tilemapTiledJSON('forestMap', 'src/assets/maps/finalForest2.json');
-    // spritesheets
-    this.load.spritesheet('zombieGhost', "src/assets/characters/enemies/zombieGhost.png", { frameWidth: 32, frameHeight: 32 });
-    this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: 32, frameHeight: 32 });
-    //image for bullets
-    this.load.image('shot', 'src/assets/images/smBlueBlast.png');
-    //image for hearts
-    this.load.image('empty-heart', "src/assets/images/ui_heart_empty32.png");
-    this.load.image('full-heart', "src/assets/images/ui_heart_full32.png");
-    this.load.image('half-heart', "src/assets/images/ui_heart_half.png");
-    //image for samples
-    this.load.image('samples', "src/assets/symbols-and-items/sample2.png");
+    preloadAssets(this);
   }
   create(data) {
     // environment

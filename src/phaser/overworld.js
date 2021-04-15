@@ -10,6 +10,7 @@ import zombieHit from "./helpers/zombieHit";
 import portalCallback from './helpers/portalCallback';
 import zombieDamage from './helpers/zombieDamage';
 import gameOver from './helpers/gameOver';
+import preloadAssets from './helpers/preloadAssets';
 
 const gameTileSize = 32;
 
@@ -48,25 +49,7 @@ class Town extends Phaser.Scene {
   }
 
   preload() {
-
-    // this.load.image('tiles', 'src/assets/town32.png');
-    this.load.image('tiles', 'src/assets/town32-extruded.png');
-    this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
-    this.load.tilemapTiledJSON('map', 'src/assets/overworldv4.json');
-    this.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
-    // this.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
-    this.load.atlas('boy1', "src/assets/testnpc.png", "src/assets/testnpc.json")
-    // image for shots
-    this.load.image('shot', 'src/assets/images/smBlueBlast.png');
-    this.load.image('big-heart', 'src/assets/symbols-and-items/big-heart.png');
-    // zombie spritesheet(s)
-    this.load.spritesheet('zombie7', "src/assets/characters/enemies/zombie7.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
-     //image for hearts
-     this.load.image('empty-heart', "src/assets/images/ui_heart_empty32.png");
-     this.load.image('full-heart', "src/assets/images/ui_heart_full32.png");
-     this.load.image('half-heart', "src/assets/images/ui_heart_half.png");
-     //image for samples
-     this.load.image('samples', "src/assets/symbols-and-items/sample2.png");
+    preloadAssets(this);
   }
   
 

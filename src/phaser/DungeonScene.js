@@ -8,9 +8,8 @@ import zombieHit from './helpers/zombieHit';
 import portalCallback from './helpers/portalCallback';
 import zombieDamage from "./helpers/zombieDamage";
 import gameOver from "./helpers/gameOver";
+import preloadAssets from "./helpers/preloadAssets";
 
-
-const gameTileSize = 32; 
 let samples;
 
 /* ------------------------------------ Dungeon Scene Class ------------------------ */
@@ -44,23 +43,7 @@ export default class Dungeon extends Phaser.Scene {
   }
   
   preload() {
-    // this.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
-    this.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset-extruded.png");
-    this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
-    this.load.image('samples', "src/assets/symbols-and-items/sample2.png");
-    // this.load.image('chest', "src/assets/symbols-and-items/chest.png");
-    // this.load.image('exitDungeon', "src/assets/symbols-and-items/up-stairs.png");
-    this.load.tilemapTiledJSON('dungMap', "src/assets/dungeonMaps/dungeon/dungeonMapWithObjects.json");
-    this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
-    this.load.spritesheet('zombie', "src/assets/characters/enemies/zombie1.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
-    this.load.spritesheet('zombieKing', 'src/assets/characters/enemies/zombie2.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
-    // image for shots
-    this.load.image('shot', 'src/assets/images/smBlueBlast.png');
-
-     //image for hearts
-     this.load.image('empty-heart', "src/assets/images/ui_heart_empty32.png");
-     this.load.image('full-heart', "src/assets/images/ui_heart_full32.png");
-     this.load.image('half-heart', "src/assets/images/ui_heart_half.png");
+    preloadAssets(this);
   }
   
   create(data) {
