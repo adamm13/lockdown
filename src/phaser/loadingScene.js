@@ -26,6 +26,8 @@ const loadingScene = new Phaser.Class({
 
         this.load.image("no", "src/assets/no.png");  
 
+        this.load.image("skull", "src/assets/skull.png");
+
         //Loading the assets for the Main Menu
         this.load.image("title_bg", "src/assets/title_bg.jpeg");
 
