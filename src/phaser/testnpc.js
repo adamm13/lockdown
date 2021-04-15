@@ -36,9 +36,10 @@ export default class testnpc extends Phaser.Physics.Arcade.Sprite
     
   }
   private_handleTileCollision(go = Phaser.GameObjects.GameObject, tile = Phaser.Tile, player = this.player) {
-    if (go !== this || this.player) {
+    if (go !== this) {
       return
     }
+
 
     this.private_direction = randomDirection(this.private_direction)
 
