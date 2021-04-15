@@ -1,17 +1,11 @@
 import Phaser from "phaser"
+
+/* ------------------------------------ Start Menu Scene  ------------------------ */
  
-class Menu2 extends Phaser.Scene {
+class startMenu extends Phaser.Scene {
   constructor() {
-    super("Menu2");
+    super("startMenu");
   }
-
-    // preload()
-    // {
-    //   this.load.image("title_bg", "src/assets/title_bg.jpeg");
-
-    //   this.load.image("logo", "src/assets/menuname.png");
-    // }
-
 
     create()
     {
@@ -20,9 +14,9 @@ class Menu2 extends Phaser.Scene {
 
     this.add.image(0,0, "title_bg").setOrigin(0).setDepth(0)
 
-    let playButton = this.add.image(this.game.renderer.width /2, this.game.renderer.height / 2, "play_button").setDepth(1)
+    let playButton = this.add.image(this.game.renderer.width /2, this.game.renderer.height / 1.5, "play_button").setDepth(1)
 
-    this.add.image(this.game.renderer.width /2, this.game.renderer.height / 2 + 100, "options_button").setDepth(1)
+    let optionButton = this.add.image(this.game.renderer.width /2, this.game.renderer.height / 1.5 + 100, "options_button").setDepth(1)
 
     let hoverSprite = this.add.sprite(100,100, "player")
     hoverSprite.setScale(2)
@@ -37,6 +31,11 @@ class Menu2 extends Phaser.Scene {
       })
     })
 
+
+    // keeps sound playing even if not in the browser
+    //this.sound.pauseOnBlur = false
+
+    //plays the sound
     // this.sound.play("darkshadow", {
     //   loop: true
     // })
@@ -46,8 +45,9 @@ class Menu2 extends Phaser.Scene {
 
     playButton.on("pointerover", () => {
       hoverSprite.setVisible(true)
+      this.sound.play("blood")
       hoverSprite.play("walk")
-      hoverSprite.x = playButton.x - playButton.width;
+      hoverSprite.x = playButton.x - playButton.width / 1.5;
       hoverSprite.y = playButton.y;
       console.log("hovering")
     })
@@ -67,5 +67,5 @@ class Menu2 extends Phaser.Scene {
 };
 
 
-module.exports = { Menu2 };
+module.exports = { startMenu };
 

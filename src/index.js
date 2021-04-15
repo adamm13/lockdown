@@ -5,8 +5,8 @@ import App from "./components/App.jsx";
 import { Forest } from "./phaser/forestScene";
 import { Town } from "./phaser/overworld";
 import { Dungeon } from "./phaser/DungeonScene";
-import { Menu } from "./phaser/menu";
-import { Menu2 } from "./phaser/menu2";
+import { loadingScene } from "./phaser/loadingScene";
+import { startMenu } from "./phaser/startMenu";
 import { Intro } from "./phaser/intro";
 
 
@@ -49,7 +49,7 @@ const config = {
             debug: true
         }
       },
-    scene: [ Menu, Menu2, Intro, Town, Forest, Dungeon ],
+    scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon ],
     render: {
       pixelArt: true
     }

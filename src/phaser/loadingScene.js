@@ -1,13 +1,16 @@
+import Phaser from "phaser"
 
-const Menu = new Phaser.Class({
+/* ------------------------------------ Loading Screen Scene  ------------------------ */
+
+const loadingScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
 
     initialize:
 
-    function Menu ()
+    function loadingScene ()
     {
-        Phaser.Scene.call(this, 'menu');
+        Phaser.Scene.call(this, 'loadingscene');
     },
 
     preload()
@@ -26,6 +29,8 @@ const Menu = new Phaser.Class({
         });
 
         this.load.audio("darkshadow", "/src/assets/darkshadows.mp3")
+
+        this.load.audio("blood", "/src/assets/bloodshed.mp3")
 
         // create loading bar 
 
@@ -62,7 +67,7 @@ const Menu = new Phaser.Class({
     create()
     {
 
-        this.scene.start('Menu2')
+        this.scene.start('startMenu')
 
         // let text = this.add.text(10, 10, 'LOCKDOWN PT 1 - Press 1 to Start the Game', { font: '24px Courier', fill: '#DC143C' });
         // this.input.keyboard.once('keyup-ONE', function () {
@@ -76,5 +81,5 @@ const Menu = new Phaser.Class({
 });
 
 
-module.exports = { Menu };
+module.exports = { loadingScene };
 

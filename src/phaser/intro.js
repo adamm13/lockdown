@@ -37,7 +37,7 @@ const Intro = new Phaser.Class({
 
     preload() 
     {
-      this.load.image("background", "src/assets/introbackground.jpeg");
+      this.load.image("background", "src/assets/title_bg.jpeg");
     },
 
 
