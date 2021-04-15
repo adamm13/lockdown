@@ -64,7 +64,7 @@ class Town extends Phaser.Scene {
     // zombie spritesheet(s)
     this.load.spritesheet('zombie7', "src/assets/characters/enemies/zombie7.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
      //image for hearts
-     this.load.image('empty-heart', "src/assets/images/ui_heart_empty.png");
+     this.load.image('empty-heart', "src/assets/images/ui_heart_empty32.png");
      this.load.image('full-heart', "src/assets/images/ui_heart_full32.png");
      this.load.image('half-heart', "src/assets/images/ui_heart_half.png");
      //image for samples

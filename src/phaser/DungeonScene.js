@@ -54,7 +54,7 @@ export default class Dungeon extends Phaser.Scene {
     this.load.image('shot', 'src/assets/images/smBlueBlast.png');
 
      //image for hearts
-     this.load.image('empty-heart', "src/assets/images/ui_heart_empty.png");
+     this.load.image('empty-heart', "src/assets/images/ui_heart_empty32.png");
      this.load.image('full-heart', "src/assets/images/ui_heart_full32.png");
      this.load.image('half-heart', "src/assets/images/ui_heart_half.png");
   }

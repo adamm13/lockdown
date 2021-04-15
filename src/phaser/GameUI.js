@@ -3,6 +3,7 @@ import sceneEvents from "./SceneEvents";
 
 let count = 0;
 let inventoryDisplay;
+let hearts;
 
 export default class GameUI extends Phaser.Scene {
     
@@ -14,11 +15,10 @@ export default class GameUI extends Phaser.Scene {
         console.log(data);
     }
 
-
     create(data){
-        const hearts = this.add.group()
+        this.hearts = this.add.group()
 
-        hearts.createMultiple({
+        this.hearts.createMultiple({
             key: 'full-heart',
             quantity: 5,
             setXY: {
@@ -50,11 +50,11 @@ export default class GameUI extends Phaser.Scene {
             this.updateInventory(playerInventory.length);
 
         })
-
         //event listener for zombie attack
-        sceneEvents.on('zombieHit', () => {
+        sceneEvents.on('zombieHit', (playerHealth) => {
+            console.log(playerHealth);
             console.log('zombie attack!!');
-            console.log(hearts);
+            this.updateHealth(playerHealth);
         })
     }
 
@@ -63,27 +63,15 @@ export default class GameUI extends Phaser.Scene {
     }
 
     updateHealth(playerHealth){
-        if (playerHealth >= 450){
 
-        } else if (playerHealth >= 400 && playerHealth < 450){
-
-        } else if (playerHealth >= 350 && playerHealth < 400){
-            
-        } else if (playerHealth >= 300 && playerHealth < 350){
-            
-        } else if (playerHealth >= 250 && playerHealth < 300){
-            
-        } else if (playerHealth >= 200 && playerHealth < 250){
-            
-        } else if (playerHealth >= 150 && playerHealth < 200){
-            
-        } else if (playerHealth >= 100 && playerHealth < 150){
-            
-        } else if (playerHealth >= 50 && playerHealth < 100){
-            
-        } else if (playerHealth >= 0 && playerHealth < 50){
-            
-        } 
+        this.hearts.children.each((individualHeart, index)=> {
+            const heart = individualHeart;
+            if (index < playerHealth){
+                heart.setTexture('full-heart');
+            } else {
+                heart.setTexture('empty-heart');
+            }
+        })
     
     }
 }
