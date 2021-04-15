@@ -32,6 +32,6 @@ export default function preloadAssets(scene) {
   // Dungeon preload
   scene.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset-extruded.png");
   scene.load.image('samples', "src/assets/symbols-and-items/sample2.png");
-  scene.load.tilemapTiledJSON('dungMap', "src/assets/dungeonMaps/dungeon/dungeonMapWithObjects.json");
+  scene.load.tilemapTiledJSON('dungMap', "src/assets/dungeonMaps/dungeon/dungeonMap.json");
 
 };

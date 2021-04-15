@@ -6,38 +6,20 @@ import sceneEvents from "./SceneEvents";
 import zombieHit from './helpers/zombieHit';
 import portalCallback from './helpers/portalCallback';
 import zombieDamage from "./helpers/zombieDamage";
+import zombieFactory from "./helpers/zombieFactory";
 import gameOver from "./helpers/gameOver";
 import preloadAssets from "./helpers/preloadAssets";
-
-let samples;
-
-/* ------------------------------------ Dungeon Scene Class ------------------------ */
 
 export default class Dungeon extends Phaser.Scene {
   constructor() {
     super('Dungeon');
   }
-  
-  sampleLocations = [
-    {x: 16, y: 80}, 
-    {x: 272, y: 144}, 
-    {x: 336, y: 144}, 
-    {x: 432, y: 528}, 
-    {x: 432, y: 556}, 
-    {x: 272, y: 528}, 
-    {x: 272, y: 556}, 
-    {x: 624, y: 272}, 
-  ];
+
+  zombies = []
+  samplesTouched = false;
 
   init(data) {
     console.log(data);
-    if (!data.sampleLocations) {
-      console.log("New Samples!");
-      data.sampleLocations = this.sampleLocations;
-    } else {
-      console.log("Old Samples!");
-      this.sampleLocations = data.sampleLocations;
-    }
   }
   
   preload() { 
@@ -52,7 +34,7 @@ export default class Dungeon extends Phaser.Scene {
     const dungObjs = map.addTilesetImage('dungeon-objects', 'obj-tiles');
     const ground = map.createLayer("belowPlayer", tileset, 0, 0); // creates floor tiles
     const obstacles = map.createLayer("walls", tileset, 0, 0);
-    const chest = map.createLayer('chest', dungObjs, 0, 0);
+    // const chest = map.createLayer('chest', dungObjs, 0, 0);
     const upStairs = map.createLayer('exitDungeon', dungObjs, 0, 0);
     
     //render hearts and inventory
@@ -62,46 +44,70 @@ export default class Dungeon extends Phaser.Scene {
     this.cameras.main.setZoom(2);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels); // Make camera stop at edge of map
     
-    // Get spawn/despawn points --> findObject arguments (layerName, callback), find by object name from Tiled
+    // Get player spawn point --> findObject arguments (layerName, callback), find by object name from Tiled
     const spawnPlayerPos = map.findObject("enterDungeon", obj => obj.name === "enterDungeon");
-    const spawnZombie1Pos = map.findObject("zombieSpawn", obj => obj.name === "zombieGirl");
-    const spawnZombie2Pos = map.findObject("zombieSpawn", obj => obj.name === "zombieKing");
+    
+    // Get sample object layer from Tiled data if the player doesn't already have sample data
+    if (this.samplesTouched) {
+      this.sampleObjs = [...data.sampleLocations["Dungeon"]];
+    } else {
+      this.sampleObjs = map.objects.find(layer => layer.name === 'samples').objects;
+    }
+    
+    // Create player at start location
+    this.player = new Player(this, spawnPlayerPos.x, spawnPlayerPos.y, 'player', data.inventory, data.health, data.sampleLocations);
+    this.player.body.setCollideWorldBounds(true);
+    this.cameras.main.startFollow(this.player); 
+
+    // Sample creation
+    this.numOfSamples = this.sampleObjs.length;
+    // Create samples
+    this.samples = this.physics.add.staticGroup({
+      key: 'samples',
+      frameQuantity: this.numOfSamples,
+      immovable: true
+    });
+    // Distribute samples over map
+    this.samples.getChildren().forEach((sample, i) => {
+      let x = this.sampleObjs[i].x;
+      let y = this.sampleObjs[i].y;
+      sample.setScale(0.8);
+      sample.setPosition(x, y);
+    });
+
+    this.samples.refresh();
+    
+    this.physics.add.overlap(this.player, this.samples, (player, sample) => {
+      this.collectSample(player, sample, this); 
+    });
+
+    // Get zombie obj coords & Create zombies 
+    const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
+    zombieFactory(this, zombieObjs, 'zombie', this.player, obstacles);
     
     //create shots
     this.shots = new Shots(this);
 
-    // Create player at start location
-    this.player = new Player(this, spawnPlayerPos.x, spawnPlayerPos.y, 'player', data.inventory, data.health, this.sampleLocations);
-    this.player.body.setCollideWorldBounds(true);
-    this.cameras.main.startFollow(this.player); 
-
-    //Create zombies (always give a unique zombie key name e.g. zombie1, zombie2. (It's not Phaser's spritesheet key, but it can be the same if there is only 1)
-    //Args: startX, startY, spritesheetKey, target, zombieKeyName, obstacles
-    // splice zombie out of zombieObjs if a zombie is killed, before passing into Factory
-    // Need to create an array of zombie objs, maybe redo the tiled map to put them on one layer
-    this.createZombie(spawnZombie1Pos.x, spawnZombie1Pos.y, 'zombie', this.player, 'zombieGirl', obstacles);
-    this.createZombie(spawnZombie2Pos.x, spawnZombie2Pos.y, 'zombieKing', this.player, 'zombieKing', obstacles);
-
-
     /* -----  Player-Scene physics properties ----- */
     obstacles.setCollisionBetween(0, 520);
     upStairs.setCollisionBetween(1, 400);
-    chest.setCollisionBetween(1, 400);
     this.physics.add.collider(this.player, obstacles);
-    this.physics.add.collider(this.player, chest); // temporary
-    this.physics.add.overlap(this.player, this.zombies['zombieGirl'], zombieHit);
-    this.physics.add.overlap(this.player, this.zombies['zombieKing'], zombieHit);
 
 
     // Physics properties for shots and zombies
     this.physics.add.collider(this.shots, obstacles, () => {
       this.shots.setVisible(false);
     });
-    this.physics.add.collider(this.shots, chest, () => {
-      this.shots.setVisible(false);
+    // Zombie-Player collisions
+    this.zombies.forEach(zombie => {
+      this.physics.add.overlap(this.player, zombie, zombieHit);
     });
-    this.physics.add.collider(this.shots, this.zombies['zombieGirl'], zombieDamage);
-    this.physics.add.collider(this.shots, this.zombies['zombieKing'], zombieDamage);
+    // Zombie-shot collisions
+    this.zombies.forEach(zombie => {
+      this.physics.add.collider(this.shots, zombie, (shot, zombie) => {
+        zombieDamage(shot, zombie, this);
+      });
+    });
 
 
     /* ----- Exit Dungeon & Pass Data to Town ---- */
@@ -109,30 +115,7 @@ export default class Dungeon extends Phaser.Scene {
       portalCallback(player, tile, this);
     });
 
-    // Collect Chest Item 
-    // Implement player select key?
 
-    // Sample creation and overlap collecting
-    this.numOfSamples = this.sampleLocations.length;
-    // Create samples
-    samples = this.physics.add.staticGroup({
-      key: 'samples',
-      frameQuantity: this.numOfSamples,
-      immovable: true
-    });
-    // Distribute samples over map
-    samples.getChildren().forEach((sample, i) => {
-      let x = this.sampleLocations[i].x;
-      let y = this.sampleLocations[i].y;
-      sample.setScale(0.8);
-      sample.setPosition(x, y);
-    });
-
-    samples.refresh();
-    
-    this.physics.add.overlap(this.player, samples, (player, sample) => {
-      this.collectSample(player, sample, this); 
-    });
   
 
     // Adds controls for shooting
@@ -143,13 +126,15 @@ export default class Dungeon extends Phaser.Scene {
   } // end create() function
   
   update() {
+
     if (this.player.isDead) {
       gameOver(this.player, this);
     } else {
       this.player.update();
     }
-    this.zombies['zombieGirl'].update();
-    this.zombies['zombieKing'].update();
+
+    this.zombies.forEach(z => z.update());
+
     if (this.player.body.embedded) {
       this.player.body.touching.none = false;
     }
@@ -158,24 +143,17 @@ export default class Dungeon extends Phaser.Scene {
     }
   }
 
-  zombies = {};
-
-  createZombie(startX, startY, spritesheetKey, target, zombieKeyName, obstacles) {
-    this.zombies[zombieKeyName] = new Zombie(this, startX, startY, spritesheetKey, target, 120);
-    this.zombies[zombieKeyName].body.setCollideWorldBounds(true);
-    this.physics.add.collider(this.zombies[zombieKeyName], obstacles);
-  }
-
   // Sample collecting 
   collectSample(player, sample, scene) {
+    scene.samplesTouched = true
     //  Hide the sample sprite
-    const sampleLocations = scene.sampleLocations;
-    samples.killAndHide(sample);
+    const sampleLocations = scene.sampleObjs; // aka this.sampleObjs
+    scene.samples.killAndHide(sample);
     //  And disable the body
     sample.body.enable = false;
     // update sample count - to be put into React component!
-    const sampleIndex = samples.getChildren().indexOf(sample); 
-    const newSampleForPlayer = samples.getChildren().splice(sampleIndex, 1); // grab this object 
+    const sampleIndex = scene.samples.getChildren().indexOf(sample); 
+    const newSampleForPlayer = scene.samples.getChildren().splice(sampleIndex, 1)[0]; // grab this object 
     sampleLocations.splice(sampleIndex, 1);
     // Add the collected item obj to the player inv
     player.gameData.inventory.push(newSampleForPlayer);
@@ -183,9 +161,23 @@ export default class Dungeon extends Phaser.Scene {
 
     //emit event to update inventory icon
     sceneEvents.emit('sample-collected', player.gameData.inventory);
-
   }
 
 }
 
 module.exports = { Dungeon };
+
+
+
+//Create zombies (always give a unique zombie key name e.g. zombie1, zombie2. (It's not Phaser's spritesheet key, but it can be the same if there is only 1)
+    //Args: startX, startY, spritesheetKey, target, zombieKeyName, obstacles
+    // Need to create an array of zombie objs, maybe edit the tiled map to put them on one layer
+    // this.createZombie(spawnZombie1Pos.x, spawnZombie1Pos.y, 'zombie', this.player, 'zombieGirl', obstacles);
+    // this.createZombie(spawnZombie2Pos.x, spawnZombie2Pos.y, 'zombieKing', this.player, 'zombieKing', obstacles);
+
+  // zombies = {}
+  // createZombie(startX, startY, spritesheetKey, target, zombieKeyName, obstacles) {
+  //   this.zombies[zombieKeyName] = new Zombie(this, startX, startY, spritesheetKey, target, 120);
+  //   this.zombies[zombieKeyName].body.setCollideWorldBounds(true);
+  //   this.physics.add.collider(this.zombies[zombieKeyName], obstacles);
+  // }

@@ -27,11 +27,16 @@ export default function portalCallback(player, tile, thisScene) {
   
   tile.collisionCallback = (collidingPlayer, collidingTile) => {
     console.log(`Leaving ${comingFrom}, entering ${destination}`);
+    
+    const sceneSamples = thisScene.sampleObjs; // []
+    player.gameData.sampleLocations[comingFrom] = sceneSamples;
+    
+    // We pass in the 'data' object to the next scene
     thisScene.scene.start(destination, { 
-      comingFrom: comingFrom,  
-      health: player.gameData.health,
-      inventory: player.gameData.inventory,
-      sampleLocations: player.gameData.sampleLocations
+      comingFrom: comingFrom,  // string
+      health: player.gameData.health, // number
+      inventory: player.gameData.inventory, // []
+      sampleLocations: player.gameData.sampleLocations // { [], [], [] }
       });
     thisScene.scene.stop(comingFrom);
   }
