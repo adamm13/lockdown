@@ -2,19 +2,27 @@ import Phaser from "phaser"
 
 /* ------------------------------------ Loading Screen Scene  ------------------------ */
 
-const loadingScene = new Phaser.Class({
-
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function loadingScene ()
-    {
-        Phaser.Scene.call(this, 'loadingscene');
-    },
+class loadingScene extends Phaser.Scene {
+    constructor() {
+        super("loadingScene");
+    }
 
     preload()
     {
+        //Loading the Assets for the GameOver
+        this.load.image("title_bg", "src/assets/title_bg.jpeg");
+
+        this.load.image("game_over", "src/assets/gameover.png");
+
+        this.load.image("try_again", "src/assets/tryagain.png");
+
+        this.load.image("yes", "src/assets/yes.png");
+
+        this.load.image("no", "src/assets/no.png");  
+
+        this.load.image("skull", "src/assets/skull.png");
+
+        //Loading the assets for the Main Menu
         this.load.image("title_bg", "src/assets/title_bg.jpeg");
 
         this.load.image("options_button", "src/assets/menuoptions.png");
@@ -62,7 +70,7 @@ const loadingScene = new Phaser.Class({
         this.load.on("complete", () => {
             //this.scene.start()
         })
-    },
+    }
 
     create()
     {
@@ -78,7 +86,7 @@ const loadingScene = new Phaser.Class({
         // this.scene.stop('Menu');
     }
     
-});
+};
 
 
 module.exports = { loadingScene };
