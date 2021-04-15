@@ -13,7 +13,7 @@ class Player extends Entity {
     this.gameData.inventory = inventory ? inventory : []; // initialized as [] 
     this.gameData.health = health ? health : 500; // initialized as 500 
     this.gameData.sampleLocations = sampleLocations // see DungeonScene for initial locations
-    
+    this.scene = scene;
     /////////// Walk animation
     const animFrameRate = 10;
     const anims = scene.anims;
@@ -82,6 +82,10 @@ class Player extends Entity {
 
 
   update() {
+
+    if (this.gameData.health <= 0) {
+      this.isDead = true;
+    }
 
     const { keys } = this; 
     const walkingSpeed = 200; // velocity is in px / second

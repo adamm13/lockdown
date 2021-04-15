@@ -49,13 +49,13 @@ export default class GameUI extends Phaser.Scene {
         }
         //event listener for when sample is collected
         sceneEvents.on('sample-collected', (playerInventory) => {
-            console.log('sample collected!')
+            //console.log('sample collected!')
             this.updateInventory(playerInventory.length);
         })
         //event listener for zombie attack
         sceneEvents.on('zombieHit', (playerHealth) => {
             //console.log(playerHealth);
-            console.log('zombie attack!!');
+            //console.log('zombie attack!!');
             this.updateHealth(playerHealth);
         })
     }

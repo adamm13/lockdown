@@ -2,14 +2,13 @@ import Phaser from "phaser";
 import { Player } from "./Player";
 import { Zombie } from "./Zombie";
 import { Shots, Shot } from './Shots';
-import GameUI from "./GameUI";
 import sceneEvents from "./SceneEvents";
 import zombieHit from './helpers/zombieHit';
 import portalCallback from './helpers/portalCallback';
 import zombieDamage from "./helpers/zombieDamage";
+import gameOver from "./helpers/gameOver";
+import preloadAssets from "./helpers/preloadAssets";
 
-
-const gameTileSize = 32; 
 let samples;
 
 /* ------------------------------------ Dungeon Scene Class ------------------------ */
@@ -32,32 +31,17 @@ export default class Dungeon extends Phaser.Scene {
 
   init(data) {
     console.log(data);
-
     if (!data.sampleLocations) {
+      console.log("New Samples!");
       data.sampleLocations = this.sampleLocations;
     } else {
+      console.log("Old Samples!");
       this.sampleLocations = data.sampleLocations;
     }
   }
   
-  preload() {
-    // this.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset.png");
-    this.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset-extruded.png");
-    this.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
-    this.load.image('samples', "src/assets/symbols-and-items/sample2.png");
-    // this.load.image('chest', "src/assets/symbols-and-items/chest.png");
-    // this.load.image('exitDungeon', "src/assets/symbols-and-items/up-stairs.png");
-    this.load.tilemapTiledJSON('dungMap', "src/assets/dungeonMaps/dungeon/dungeonMapWithObjects.json");
-    this.load.spritesheet('player', "src/assets/characters/player.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
-    this.load.spritesheet('zombie', "src/assets/characters/enemies/zombie1.png", { frameWidth: gameTileSize, frameHeight: gameTileSize });
-    this.load.spritesheet('zombieKing', 'src/assets/characters/enemies/zombie2.png', { frameWidth: gameTileSize, frameHeight: gameTileSize });
-    // image for shots
-    this.load.image('shot', 'src/assets/images/smBlueBlast.png');
-
-     //image for hearts
-     this.load.image('empty-heart', "src/assets/images/ui_heart_empty32.png");
-     this.load.image('full-heart', "src/assets/images/ui_heart_full32.png");
-     this.load.image('half-heart', "src/assets/images/ui_heart_half.png");
+  preload() { 
+    preloadAssets(this) 
   }
   
   create(data) {
@@ -66,7 +50,7 @@ export default class Dungeon extends Phaser.Scene {
     //const tileset = map.addTilesetImage('dungeon-tileset', 'dungeonTiles');
     const tileset = map.addTilesetImage('dungeon-tileset-extruded', 'dungeonTiles', 32, 32, 1, 2);
     const dungObjs = map.addTilesetImage('dungeon-objects', 'obj-tiles');
-    const ground = map.createLayer("belowPlayer", tileset, 0, 0);
+    const ground = map.createLayer("belowPlayer", tileset, 0, 0); // creates floor tiles
     const obstacles = map.createLayer("walls", tileset, 0, 0);
     const chest = map.createLayer('chest', dungObjs, 0, 0);
     const upStairs = map.createLayer('exitDungeon', dungObjs, 0, 0);
@@ -74,7 +58,7 @@ export default class Dungeon extends Phaser.Scene {
     //render hearts and inventory
     this.scene.run('GameUI', data);
 
-    // camera
+    // camera setup
     this.cameras.main.setZoom(2);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels); // Make camera stop at edge of map
     
@@ -146,7 +130,9 @@ export default class Dungeon extends Phaser.Scene {
 
     samples.refresh();
     
-    this.physics.add.overlap(this.player, samples, this.collectSample);
+    this.physics.add.overlap(this.player, samples, (player, sample) => {
+      this.collectSample(player, sample, this); 
+    });
   
 
     // Adds controls for shooting
@@ -157,7 +143,11 @@ export default class Dungeon extends Phaser.Scene {
   } // end create() function
   
   update() {
-    this.player.update();
+    if (this.player.isDead) {
+      gameOver(this.player, this);
+    } else {
+      this.player.update();
+    }
     this.zombies['zombieGirl'].update();
     this.zombies['zombieKing'].update();
     if (this.player.body.embedded) {
@@ -177,9 +167,9 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   // Sample collecting 
-  collectSample(player, sample, data) {
+  collectSample(player, sample, scene) {
     //  Hide the sample sprite
-    const sampleLocations = player.scene.sampleLocations;
+    const sampleLocations = scene.sampleLocations;
     samples.killAndHide(sample);
     //  And disable the body
     sample.body.enable = false;

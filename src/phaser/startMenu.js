@@ -7,7 +7,7 @@ class startMenu extends Phaser.Scene {
     super("startMenu");
   }
 
-    create()
+    create(data)
     {
 
     this.add.image(this.game.renderer.width /2, this.game.renderer.height * 0.20, "logo").setDepth(1)
@@ -59,7 +59,7 @@ class startMenu extends Phaser.Scene {
 
     playButton.on("pointerup", () => {
       this.sound.play("blood")
-      this.scene.start("Intro")
+      this.scene.start("Intro", data);
       console.log("time to meet zombies")
     })
 

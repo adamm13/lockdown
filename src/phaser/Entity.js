@@ -12,11 +12,7 @@ class Entity extends Phaser.GameObjects.Sprite {
   }
 
   explode() {
-    if(!this.isDead) {
-      this.isDead = true;
-      this.destroy();
-      console.log("entity explode!");
-    }
+    //this.destroy();
   }
 }
 
