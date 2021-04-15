@@ -71,7 +71,7 @@ export default class Dungeon extends Phaser.Scene {
     const upStairs = map.createLayer('exitDungeon', dungObjs, 0, 0);
     
     //render hearts and inventory
-    this.scene.run('GameUI');
+    this.scene.run('GameUI', data);
 
     // camera
     this.cameras.main.setZoom(2);

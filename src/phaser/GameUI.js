@@ -27,6 +27,9 @@ export default class GameUI extends Phaser.Scene {
                 stepX: 30
             }
         })
+
+        this.updateHealth(data.health ? data.health : 500);
+
         const inventory = this.add.group()
 
         inventory.createMultiple({
@@ -48,11 +51,10 @@ export default class GameUI extends Phaser.Scene {
         sceneEvents.on('sample-collected', (playerInventory) => {
             console.log('sample collected!')
             this.updateInventory(playerInventory.length);
-
         })
         //event listener for zombie attack
         sceneEvents.on('zombieHit', (playerHealth) => {
-            console.log(playerHealth);
+            //console.log(playerHealth);
             console.log('zombie attack!!');
             this.updateHealth(playerHealth);
         })
@@ -62,19 +64,20 @@ export default class GameUI extends Phaser.Scene {
         inventoryDisplay.setText(': ' + playerInventory);
     }
 
-    updateHealth(playerHealth){
+    updateHealth(playerHealth) {
+        const fullHeartsToRender = Math.floor((playerHealth / 500) * 5);
+        const abovePointFive = playerHealth / 100; 
+
         this.hearts.children.each((individualHeart, index)=> {
             const heart = individualHeart;
-            if (index < playerHealth){
+            if (index < fullHeartsToRender){
                 heart.setTexture('full-heart');
+            } else if (abovePointFive >= index + 0.5){
+                heart.setTexture('half-heart').setScale(2); 
             } 
-            //will look into half hearts when collisions aren't so chaotic
-            // else if (playerHealth === index + 0.5){
-            //     heart.setTexture('half-heart');
-            // } 
             else {    
-                heart.setTexture('empty-heart');
-            }
+                heart.setTexture('empty-heart').setScale(1);
+            }        
         })
     
     }
