@@ -2,7 +2,6 @@ import Phaser from "phaser";
 import { Player } from "./Player";
 import { Zombie } from "./Zombie";
 import { Shots, Shot } from './Shots';
-import GameUI from "./GameUI";
 import sceneEvents from "./SceneEvents";
 import zombieHit from './helpers/zombieHit';
 import portalCallback from './helpers/portalCallback';
@@ -32,7 +31,6 @@ export default class Dungeon extends Phaser.Scene {
 
   init(data) {
     console.log(data);
-
     if (!data.sampleLocations) {
       console.log("New Samples!");
       data.sampleLocations = this.sampleLocations;
@@ -42,8 +40,8 @@ export default class Dungeon extends Phaser.Scene {
     }
   }
   
-  preload() {
-    preloadAssets(this);
+  preload() { 
+    preloadAssets(this) 
   }
   
   create(data) {
@@ -52,7 +50,7 @@ export default class Dungeon extends Phaser.Scene {
     //const tileset = map.addTilesetImage('dungeon-tileset', 'dungeonTiles');
     const tileset = map.addTilesetImage('dungeon-tileset-extruded', 'dungeonTiles', 32, 32, 1, 2);
     const dungObjs = map.addTilesetImage('dungeon-objects', 'obj-tiles');
-    const ground = map.createLayer("belowPlayer", tileset, 0, 0);
+    const ground = map.createLayer("belowPlayer", tileset, 0, 0); // creates floor tiles
     const obstacles = map.createLayer("walls", tileset, 0, 0);
     const chest = map.createLayer('chest', dungObjs, 0, 0);
     const upStairs = map.createLayer('exitDungeon', dungObjs, 0, 0);
@@ -60,7 +58,7 @@ export default class Dungeon extends Phaser.Scene {
     //render hearts and inventory
     this.scene.run('GameUI', data);
 
-    // camera
+    // camera setup
     this.cameras.main.setZoom(2);
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels); // Make camera stop at edge of map
     
