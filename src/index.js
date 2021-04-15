@@ -8,33 +8,8 @@ import { Dungeon } from "./phaser/DungeonScene";
 import { loadingScene } from "./phaser/loadingScene";
 import { startMenu } from "./phaser/startMenu";
 import { Intro } from "./phaser/intro";
+import { GameOver } from "./phaser/gameOverScene";
 import GameUI from './phaser/GameUI';
-
-
-
-// var Menu = new Phaser.Class({
-
-//     Extends: Phaser.Scene,
-
-//     initialize:
-
-//     function Menu ()
-//     {
-//         Phaser.Scene.call(this, 'menu');
-//     },
-
-//     create()
-//     {
-//         this.add.text(10, 10, 'LOCKDOWN PT 1 - Press 1 to Start the Game', { font: '24px Courier', fill: '#00ff00' });
-
-//         this.input.keyboard.once('keyup-ONE', function () {
-
-//         this.scene.start('Town')}, this);
-
-//     }
-// });
-
-
 
 
 
@@ -51,7 +26,7 @@ const config = {
         }
       },
 
-    scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon, GameUI ],
+    scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon, GameUI, GameOver ],
     render: {
       pixelArt: true
     }

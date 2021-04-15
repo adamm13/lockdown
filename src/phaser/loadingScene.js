@@ -15,6 +15,18 @@ const loadingScene = new Phaser.Class({
 
     preload()
     {
+        //Loading the Assets for the GameOver
+        this.load.image("title_bg", "src/assets/title_bg.jpeg");
+
+        this.load.image("game_over", "src/assets/gameover.png");
+
+        this.load.image("try_again", "src/assets/tryagain.png");
+
+        this.load.image("yes", "src/assets/yes.png");
+
+        this.load.image("no", "src/assets/no.png");  
+
+        //Loading the assets for the Main Menu
         this.load.image("title_bg", "src/assets/title_bg.jpeg");
 
         this.load.image("options_button", "src/assets/menuoptions.png");

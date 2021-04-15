@@ -30,6 +30,7 @@ class startMenu extends Phaser.Scene {
         frames: [0,1,2]
       })
     })
+    
 
 
     // keeps sound playing even if not in the browser
@@ -59,7 +60,7 @@ class startMenu extends Phaser.Scene {
 
     playButton.on("pointerup", () => {
       this.sound.play("blood")
-      this.scene.start("Intro")
+      this.scene.start("GameOver")
       console.log("time to meet zombies")
     })
 
