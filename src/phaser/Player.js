@@ -1,3 +1,4 @@
+import { Physics } from "phaser";
 import { Entity } from "./Entity";
   
   /* --------------------------------- Player Class ----------------------------------- */
@@ -14,9 +15,11 @@ class Player extends Entity {
     this.gameData.health = health ? health : 500; // initialized as 500 
     this.gameData.sampleLocations = sampleLocations // see DungeonScene for initial locations
     this.scene = scene;
+    //this.knives = knives
     /////////// Walk animation
     const animFrameRate = 10;
     const anims = scene.anims;
+    // const knives = knives;
 
 
     anims.create({
@@ -80,6 +83,38 @@ class Player extends Entity {
     
   } //// end constructor
 
+  // setKnives(knives){
+  //   this.knives = knives;
+  // }
+
+  // throwKnife(){
+  //   console.log(this.anims.currentAnim.key);
+  //   const direction = this.anims.currentAnim.key;
+  //   const throwingDirection = new Phaser.Math.Vector2(0, 0);
+
+  //   const knife = this.knives.get(this.x, this.y, 'knife');
+
+  //   knife.setActive(true);
+
+  //   switch(direction){
+  //     case 'up':
+  //       throwingDirection.y = -1;
+  //       knife.setVelocityY(-300);
+  //       break
+  //     case 'down':
+  //       knife.setVelocityY(300);
+  //       break
+  //     case 'left':
+  //       knife.setVelocityX(-300);
+  //       break
+  //     case 'right':
+  //       knife.setVelocityY(300);
+  //       break
+  //   }
+
+  //  // knife.setVelocity(throwingDirection.x = 300, throwingDirection.y = 300)
+  // }
+
 
   update() {
 
@@ -114,6 +149,11 @@ class Player extends Entity {
     } else {
       this.anims.stop();
     }
+
+    //control for shooting
+    // if(keys.fireKey.isDown){
+    //   this.throwKnife();
+    // }
   
 
     // Normalize and scale the velocity so that player can't move faster along a diagonal

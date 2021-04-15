@@ -44,6 +44,11 @@ class Forest extends Phaser.Scene {
     //render hearts
     this.scene.run('GameUI', data);
     console.log(data.inventory);
+
+    //knives
+    // const knives = this.add.group({
+    //   quantity: 5
+    // })
     
     // camera
     this.cameras.main.setZoom(2);
@@ -51,6 +56,10 @@ class Forest extends Phaser.Scene {
     this.player = new Player(this, 385, 580, 'player', data.inventory, data.health, data.sampleLocations);
     const player = this.player;
     player.body.setCollideWorldBounds(false);
+
+    //gives player knives
+
+   // this.player.setKnives(knives);
 
     //create shots
     this.shots = new Shots(this);
@@ -76,6 +85,12 @@ class Forest extends Phaser.Scene {
         console.log("Y: ", player.y);
       });
 
+      //knives collisions
+      // this.physics.add.collider(knives, obstacles);
+      // this.physics.add.collider(knives, obstacles_2);
+      // //add event listener after collisions are figured out
+      // this.physics.add.collider(knives, zombieObjs);
+
 
       // Get zombie obj array from map
       const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
@@ -93,15 +108,31 @@ class Forest extends Phaser.Scene {
 
       // Physics properties for shots
       this.physics.add.collider(this.shots, obstacles, () => {
-        this.shots.setVisible(false);
+        console.log(this.shots.children);
+        let shot = this.shots.getFirstAlive();
+        console.log(shot);
+        if(shot){
+          shot.setVisible(false);
+        }
+        //this.shots.setVisible(false);
       });
       this.physics.add.collider(this.shots, obstacles_2, () => {
-        this.shots.setVisible(false);
+        let shot = this.shots.getFirstAlive();
+        console.log(shot)
+        if(shot){
+          shot.setVisible(false);
+        }
+       // this.shots.setVisible(false);
       });
       // Physics for shots/zombies
       this.zombies.forEach(zombie => {
         this.physics.add.collider(this.shots, zombie, (shot, zombie) => {
-          zombieDamage(shot, zombie, this);
+          let individualShot = this.shots.getFirstAlive();
+          if (individualShot){
+            individualShot.setVisible(false);
+            individualShot.setActive(false);
+            zombieDamage(shot, zombie, this);
+          }
         });
       });
 

@@ -10,6 +10,7 @@ export default function preloadAssets(scene) {
   
   // image for shots
   scene.load.image('shot', 'src/assets/images/smBlueBlast.png');
+  scene.load.image('knife', 'src/assets/images/blueBlast.png');
 
   // zombie spritesheet(s)
   scene.load.spritesheet('zombie7', "src/assets/characters/enemies/zombie7.png", { frameWidth: 32, frameHeight: 32 });

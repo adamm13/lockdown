@@ -7,7 +7,7 @@ class Zombie extends Entity {
 
     //zombie health
     this.zombieData = {}
-    this.zombieData.health = health ? health: 40;
+    this.zombieData.health = health ? health: 2;
 
     // set target to player
     this.target = target;
