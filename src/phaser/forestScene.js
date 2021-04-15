@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { Player, Entity } from './Player';
 import { Shots, Shot } from './Shots';
 import zombieHit from './helpers/zombieHit';
+import zombieDamage from "./helpers/zombieDamage";
 import zombieFactory from './helpers/zombieFactory';
 import portalCallback from './helpers/portalCallback';
 
@@ -106,6 +107,12 @@ class Forest extends Phaser.Scene {
       });
       this.physics.add.collider(this.shots, obstacles_2, () => {
         this.shots.setVisible(false);
+      });
+      // Physics for shots/zombies
+      this.zombies.forEach(zombie => {
+        this.physics.add.collider(this.shots, zombie, (shot, zombie) => {
+          zombieDamage(shot, zombie, this);
+        });
       });
 
       // Adds controls for firing

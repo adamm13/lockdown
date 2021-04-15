@@ -47,7 +47,7 @@ const loadingScene = new Phaser.Class({
             //progress - loader number progress in decimals
 
         //fake loading bar 
-        for (let i = 0; i < 1000; i++){
+        for (let i = 0; i < 10; i++){
         this.load.spritesheet("player" + i, "src/assets/player.png", {
             frameHeight: 32,
             frameWidth: 32

@@ -1,3 +1,5 @@
+import zombieDamage from "./helpers/zombieDamage"
+
 class Shot extends Phaser.Physics.Arcade.Sprite{
     constructor (scene, x, y)
     {
@@ -67,8 +69,7 @@ class Shots extends Phaser.Physics.Arcade.Group
 
     fireShot (x, y, playerDirection){
       let shot = this.getFirstDead(false);
-        console.log(this);
-      if (shot){
+      if (shot) {
         shot.fire(x, y, playerDirection);
       }
     }

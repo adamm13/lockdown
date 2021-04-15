@@ -8,6 +8,7 @@ import { Shots, Shot } from './Shots';
 import zombieFactory from './helpers/zombieFactory';
 import zombieHit from "./helpers/zombieHit";
 import portalCallback from './helpers/portalCallback';
+import zombieDamage from './helpers/zombieDamage';
 
 const gameTileSize = 32;
 
@@ -167,6 +168,13 @@ class Town extends Phaser.Scene {
       this.shots.setVisible(false);
     });
     
+    this.zombies.forEach(zombie => {
+      this.physics.add.collider(this.shots, zombie, (shot, zombie) => {
+        zombieDamage(shot, zombie, this);
+      });
+    });
+    
+    
     /* ----------- Exit Scene Colliders & pass data within player object ---------- */
     this.physics.add.collider(player, intoForest, (player, tile) => { 
       portalCallback(player, tile, this);
@@ -240,12 +248,6 @@ class Town extends Phaser.Scene {
 
   zombies = [];
 
-  // zombieFactory(zombieArray, spritesheetKey, target, obstacles) {
-  //   zombieArray.forEach((zombie, i) => {
-  //     this.zombies[i] = new Zombie(this, zombie.x, zombie.y, spritesheetKey, target, 50);
-  //     this.physics.add.collider(this.zombies[i], obstacles);
-  //   });
-  // }
 
 }
 

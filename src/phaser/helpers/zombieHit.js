@@ -6,4 +6,5 @@ export default function zombieHit(player, zombie) {
   player.tint = Math.random() * 0xffffff;
   console.log(player.gameData.health);
   sceneEvents.emit('zombieHit', player.gameData.health);
+  //this.sound.play("blood") // throttle this sound to play once/second
 }

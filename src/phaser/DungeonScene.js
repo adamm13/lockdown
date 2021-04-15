@@ -6,6 +6,7 @@ import GameUI from "./GameUI";
 import sceneEvents from "./SceneEvents";
 import zombieHit from './helpers/zombieHit';
 import portalCallback from './helpers/portalCallback';
+import zombieDamage from "./helpers/zombieDamage";
 
 
 const gameTileSize = 32; 
@@ -108,13 +109,15 @@ export default class Dungeon extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.zombies['zombieKing'], zombieHit);
 
 
-     // Physics properties for shots
+    // Physics properties for shots and zombies
     this.physics.add.collider(this.shots, obstacles, () => {
       this.shots.setVisible(false);
     });
     this.physics.add.collider(this.shots, chest, () => {
       this.shots.setVisible(false);
     });
+    this.physics.add.collider(this.shots, this.zombies['zombieGirl'], zombieDamage);
+    this.physics.add.collider(this.shots, this.zombies['zombieKing'], zombieDamage);
 
 
     /* ----- Exit Dungeon & Pass Data to Town ---- */
