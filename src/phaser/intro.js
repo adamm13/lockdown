@@ -122,7 +122,7 @@ const Intro = new Phaser.Class({
 
           // Suppress WebGL warnings before changing scenes
           text.texture = this.renderer.blankTexture; // Should be wrapped in conditional when rendering direct to canvas?
-          this.scene.start('Town', data);
+          this.scene.start('Town');
           this.scene.stop('Intro');
       }, this);
 }
