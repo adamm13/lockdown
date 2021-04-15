@@ -9,6 +9,7 @@ import zombieFactory from './helpers/zombieFactory';
 import zombieHit from "./helpers/zombieHit";
 import portalCallback from './helpers/portalCallback';
 import zombieDamage from './helpers/zombieDamage';
+import gameOver from './helpers/gameOver';
 
 const gameTileSize = 32;
 
@@ -236,7 +237,12 @@ class Town extends Phaser.Scene {
 
   update() {
     //  Input Events
-    this.player.update();
+    if (this.player.isDead) {
+      gameOver(this.player, this);
+    } else {
+      this.player.update();
+    }
+
     this.zombies.forEach(z => z.update());
     if (this.player.body.embedded) {
       this.player.body.touching.none = false;

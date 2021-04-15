@@ -7,6 +7,7 @@ import sceneEvents from "./SceneEvents";
 import zombieHit from './helpers/zombieHit';
 import portalCallback from './helpers/portalCallback';
 import zombieDamage from "./helpers/zombieDamage";
+import gameOver from "./helpers/gameOver";
 
 
 const gameTileSize = 32; 
@@ -34,8 +35,10 @@ export default class Dungeon extends Phaser.Scene {
     console.log(data);
 
     if (!data.sampleLocations) {
+      console.log("New Samples!");
       data.sampleLocations = this.sampleLocations;
     } else {
+      console.log("Old Samples!");
       this.sampleLocations = data.sampleLocations;
     }
   }
@@ -146,7 +149,9 @@ export default class Dungeon extends Phaser.Scene {
 
     samples.refresh();
     
-    this.physics.add.overlap(this.player, samples, this.collectSample);
+    this.physics.add.overlap(this.player, samples, (player, sample) => {
+      this.collectSample(player, sample, this); 
+    });
   
 
     // Adds controls for shooting
@@ -157,7 +162,11 @@ export default class Dungeon extends Phaser.Scene {
   } // end create() function
   
   update() {
-    this.player.update();
+    if (this.player.isDead) {
+      gameOver(this.player, this);
+    } else {
+      this.player.update();
+    }
     this.zombies['zombieGirl'].update();
     this.zombies['zombieKing'].update();
     if (this.player.body.embedded) {
@@ -177,9 +186,9 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   // Sample collecting 
-  collectSample(player, sample, data) {
+  collectSample(player, sample, scene) {
     //  Hide the sample sprite
-    const sampleLocations = player.scene.sampleLocations;
+    const sampleLocations = scene.sampleLocations;
     samples.killAndHide(sample);
     //  And disable the body
     sample.body.enable = false;
