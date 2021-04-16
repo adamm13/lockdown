@@ -24,7 +24,7 @@ class GameOver extends Phaser.Scene {
     hoverSprite2.setScale(1)
     hoverSprite2.setVisible(false)
 
-    // takes you to the intro scene again 
+    // takes you to the Town scene again, with resetSamples = true
     yesButton.setInteractive();
     yesButton.on("pointerover", () => {
       hoverSprite2.setVisible(true)
@@ -37,7 +37,7 @@ class GameOver extends Phaser.Scene {
       console.log("no more hover")
     })
     yesButton.on("pointerup", () => {
-      this.scene.start("Intro", data)
+      this.scene.start("Town", data)
       console.log("restart game")
     })
 
