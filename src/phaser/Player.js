@@ -98,7 +98,7 @@ class Player extends Entity {
     
     if (playerHit > 0){
       playerHit++;
-      if (playerHit > 15){
+      if (playerHit >  5){
         playerHit = 0;
       }
     } else {
