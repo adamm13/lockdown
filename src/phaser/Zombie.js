@@ -7,6 +7,7 @@ class Zombie extends Entity {
   constructor(scene, x, y, textureKey, target, speed, health) {
     super(scene, x, y, textureKey);
 
+    this.scene = scene;
     //zombie health
     this.zombieData = {}
     this.zombieData.health = health ? health: 2;
@@ -14,7 +15,7 @@ class Zombie extends Entity {
     // set target to player
     this.target = target;
     this.speed = speed; // px per second
-
+    
     // Walk animation
     const animFrameRate = 10;
     const anims = scene.anims;
@@ -60,21 +61,6 @@ class Zombie extends Entity {
     }
 
     this.setFrame(this.idleFrame.down);
-
-    /////////// Keyboard Inputs 
-    //keys = this.input.keyboard.createCursorKeys();
-    // const {LEFT, RIGHT, UP, DOWN, W, A, S, D} = Phaser.Input.Keyboard.KeyCodes;
-
-    // this.keys = scene.input.keyboard.addKeys({
-    //   left: LEFT, 
-    //   right: RIGHT, 
-    //   up: UP, 
-    //   down: DOWN,
-    //   w: W, 
-    //   a: A, 
-    //   s: S, 
-    //   d: D
-    // });
     
   } //// end constructor
 
@@ -87,8 +73,6 @@ class Zombie extends Entity {
     const walkingSpeed = this.speed; //  px / second
     const prevVelocity = this.body.velocity.clone();
     const spriteKey = this.textureKey; 
-
-    //this.body.setVelocity(0);
 
     if (zombieShot > 0){
       zombieShot++;
@@ -105,9 +89,6 @@ class Zombie extends Entity {
 
     const dx = targetX - this.x;
     const dy = targetY - this.y;
-
-    // const rotation = Phaser.Math.Angle.Between(this.x, this.y, targetX, targetY);
-    // this.setRotation(rotation);
 
     ////// Set velocity // reset Y and X to zero for orthogonal movements to prevent diagonal movement
     
@@ -135,26 +116,26 @@ class Zombie extends Entity {
       } 
     }
     
-    if (targetX === this.x && targetY === this.y) {
-      this.anims.stop();
-    }
+    // if (targetX === this.x && targetY === this.y) {
+    //   this.anims.stop();
+    // }
 
     // Normalize and scale the velocity so that zombie can't move faster along a diagonal
     this.body.velocity.normalize().scale(walkingSpeed);
 
-    //// Set Idle animation frame
-    if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
-      // show idle animation frame
-      if (prevVelocity.x < 0) {
-        this.setFrame(this.idleFrame.left);
-      } else if (prevVelocity.x > 0) {
-        this.setFrame(this.idleFrame.right);
-      } else if (prevVelocity.y < 0) {
-        this.setFrame(this.idleFrame.up);
-      } else if (prevVelocity.y > 0) {
-        this.setFrame(this.idleFrame.down)
-      }
-    }
+    // //// Set Idle animation frame
+    // if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
+    //   // show idle animation frame
+    //   if (prevVelocity.x < 0) {
+    //     this.setFrame(this.idleFrame.left);
+    //   } else if (prevVelocity.x > 0) {
+    //     this.setFrame(this.idleFrame.right);
+    //   } else if (prevVelocity.y < 0) {
+    //     this.setFrame(this.idleFrame.up);
+    //   } else if (prevVelocity.y > 0) {
+    //     this.setFrame(this.idleFrame.down)
+    //   }
+    // }
 
   }
 

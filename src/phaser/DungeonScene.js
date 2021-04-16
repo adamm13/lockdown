@@ -79,6 +79,9 @@ export default class Dungeon extends Phaser.Scene {
     obstacles.setCollisionBetween(0, 520);
     upStairs.setCollisionBetween(1, 400);
     this.physics.add.collider(this.player, obstacles);
+    
+    // Zombie-Zombie collisions
+    this.physics.add.collider(this.zombies, this.zombies);
 
     // Physics properties for shots and zombies
     this.physics.add.collider(this.shots, obstacles, () => {

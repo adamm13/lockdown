@@ -171,6 +171,9 @@ class Town extends Phaser.Scene {
     this.physics.add.collider(this.shots, trees, () => {
       this.shots.setVisible(false);
     });
+
+    // Zombie-Zombie collisions
+    this.physics.add.collider(this.zombies, this.zombies);
     
     this.zombies.forEach(zombie => {
       this.physics.add.collider(this.shots, zombie, (shot, zombie) => {
