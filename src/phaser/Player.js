@@ -13,11 +13,7 @@ class Player extends Entity {
     this.gameData = {}
     this.gameData.inventory = inventory ? inventory : []; // initialized as [] 
     this.gameData.health = health ? health : 500; // initialized as 500 
-    this.gameData.sampleLocations = sampleLocations ? sampleLocations : {
-      "Dungeon": [],
-      "Town": [],
-      "Forest": []
-    };
+    this.gameData.sampleLocations = sampleLocations;
     this.scene = scene;
  
     /////////// Walk animation

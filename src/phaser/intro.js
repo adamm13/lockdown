@@ -125,15 +125,14 @@ const Intro = new Phaser.Class({
           
           // When starting the game fresh, we use this initial state
           const data = {
-            comingFrom: "GameOver",  
+            comingFrom: "Intro",  
             health: 500,
             inventory: [],
             sampleLocations: {
-              "Dungeon": [],
-              "Town": [],
-              "Forest": []
-            },
-            resetSamples: true
+              "Dungeon": null,
+              "Town": null,
+              "Forest": null
+            }
           }
           
           this.scene.start('Town', data);

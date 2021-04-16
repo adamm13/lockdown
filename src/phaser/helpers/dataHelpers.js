@@ -49,11 +49,10 @@ const gameOver = (player, thisScene) => {
     health: 500,
     inventory: [],
     sampleLocations: {
-      "Dungeon": [],
-      "Town": [],
-      "Forest": []
-    },
-    resetSamples: true
+      "Dungeon": null,
+      "Town": null,
+      "Forest": null
+    }
   };
   // cut to GameOver Scene here instead of startMenu?
   thisScene.scene.start("GameOver", data); 
@@ -102,8 +101,7 @@ const portalCallback = (player, tile, thisScene, data) => {
       comingFrom: comingFrom,  // string
       health: player.gameData.health, // number
       inventory: player.gameData.inventory, // []
-      sampleLocations: player.gameData.sampleLocations, // { [], [], [] }
-      resetSamples: data.resetSamples ? true : false
+      sampleLocations: player.gameData.sampleLocations // { [], [], [] }
       });
     thisScene.scene.stop(comingFrom);
   }

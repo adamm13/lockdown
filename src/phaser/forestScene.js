@@ -18,8 +18,9 @@ class Forest extends Phaser.Scene {
 
   init(data) {
     console.log(data);
-    if (data.resetSamples && data.sampleLocations["Forest"].length === 0) {
+    if (!data.sampleLocations["Forest"]) {
       this.samplesTouched = false;
+      data.sampleLocations["Forest"] = [];
     } else {
       this.samplesTouched = true;
     }
@@ -55,7 +56,7 @@ class Forest extends Phaser.Scene {
     if (this.samplesTouched) {
       this.sampleObjs = [...data.sampleLocations["Forest"]];
     } else {
-      this.sampleObjs = map.objects.find(layer => layer.name === 'samples').objects;
+      this.sampleObjs = map.objects.find(layer => layer.name === 'samples').objects; // returns an []
     }
 
     // Create player at start location
