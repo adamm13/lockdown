@@ -7,6 +7,7 @@ const zombieFactory = (scene, zombieArray, spritesheetKey, target, obstacles) =>
   zombieArray.forEach((zombie, i) => {
     scene.zombies[i] = new Zombie(scene, zombie.x, zombie.y, spritesheetKey, target, zombieSpeed);
     scene.physics.add.collider(scene.zombies[i], obstacles);
+    console.log(zombie);
   });
 };
 
