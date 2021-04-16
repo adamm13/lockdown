@@ -70,6 +70,7 @@ class Forest extends Phaser.Scene {
 
     //create shots
     this.shots = new Shots(this);
+
   
     //create layer above player
     const above_player = map.createLayer("above-player", tileset1, 0, 0);
@@ -107,15 +108,30 @@ class Forest extends Phaser.Scene {
 
       // Physics properties for shots
       this.physics.add.collider(this.shots, obstacles, () => {
-        this.shots.setVisible(false);
+        console.log(this.shots.children);
+        let shot = this.shots.getFirstAlive();
+        console.log(shot);
+        if(shot){
+          shot.setVisible(false);
+          shot.setActive(false);
+        }
       });
       this.physics.add.collider(this.shots, obstacles_2, () => {
-        this.shots.setVisible(false);
+        let shot = this.shots.getFirstAlive();
+        console.log(shot)
+        if(shot){
+          shot.setVisible(false);
+        }
       });
       // Physics for shots/zombies
       this.zombies.forEach(zombie => {
         this.physics.add.collider(this.shots, zombie, (shot, zombie) => {
-          zombieDamage(shot, zombie, this);
+          let individualShot = this.shots.getFirstAlive();
+          if (individualShot){
+            individualShot.setVisible(false);
+            individualShot.setActive(false);
+            zombieDamage(shot, zombie, this);
+          }
         });
       });
 

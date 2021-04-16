@@ -89,6 +89,24 @@ export default class Dungeon extends Phaser.Scene {
         zombieDamage(shot, zombie, this);
       });
     });
+    
+    this.physics.add.collider(this.shots, this.zombies['zombieGirl'], (shot, zombie) =>{
+      let individualShot = this.shots.getFirstAlive();
+          if (individualShot){
+            individualShot.setVisible(false);
+            individualShot.setActive(false);
+            zombieDamage(shot, zombie, this);
+          }
+    });
+    this.physics.add.collider(this.shots, this.zombies['zombieKing'], (shot, zombie) =>{
+      let individualShot = this.shots.getFirstAlive();
+          if (individualShot){
+            individualShot.setVisible(false);
+            individualShot.setActive(false);
+            zombieDamage(shot, zombie, this);
+          }
+    });
+
 
     /* ----- Exit Dungeon & Pass Data to Town ---- */
     this.physics.add.collider(this.player, upStairs, (player, tile) => { 

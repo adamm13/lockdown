@@ -2,8 +2,12 @@ import { Entity } from "./Entity";
 
 class Zombie extends Entity {
 
-  constructor(scene, x, y, textureKey, target, speed) {
+  constructor(scene, x, y, textureKey, target, speed, health) {
     super(scene, x, y, textureKey);
+
+    //zombie health
+    this.zombieData = {}
+    this.zombieData.health = health ? health: 2;
 
     // set target to player
     this.target = target;
@@ -73,7 +77,6 @@ class Zombie extends Entity {
   } //// end constructor
 
   update() {
-
     const walkingSpeed = this.speed; //  px / second
     const prevVelocity = this.body.velocity.clone();
     const spriteKey = this.textureKey; 

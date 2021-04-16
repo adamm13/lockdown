@@ -30,6 +30,7 @@ class startMenu extends Phaser.Scene {
         frames: [0,1,2]
       })
     })
+    
 
 
     // keeps sound playing even if not in the browser
