@@ -1,16 +1,15 @@
 const preloadAssets = (scene) => {
   
   // Town preload
-  scene.load.image('tiles', 'src/assets/town32-extruded.png');
-  scene.load.image('obj-tiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-objects.png");
-  scene.load.tilemapTiledJSON('map', 'src/assets/overworldv4.json');
-  scene.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: 32, frameHeight: 32 });
+  scene.load.image('tiles', 'src/assets/tilesets/town32-extruded.png');
+  scene.load.image('obj-tiles', "src/assets/tilesets/dungeon-objects.png");
+  scene.load.tilemapTiledJSON('map', 'src/assets/maps/overworldv4.json');
+  scene.load.spritesheet('player', 'src/assets/characters/players/player.png', { frameWidth: 32, frameHeight: 32 });
   // scene.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: 32, frameHeight: 32 });
-  scene.load.atlas('boy1', "src/assets/testnpc.png", "src/assets/testnpc.json")
+  scene.load.atlas('boy1', "src/assets/characters/players/testnpc.png", "src/assets/characters/players/testnpc.json")
   
   // image for shots
-  scene.load.image('shot', 'src/assets/images/smBlueBlast.png');
-  scene.load.image('knife', 'src/assets/images/blueBlast.png');
+  scene.load.image('shot', 'src/assets/weapons/smBlueBlast.png');
 
   // zombie spritesheet(s)
   scene.load.spritesheet('zombie7', "src/assets/characters/enemies/zombie7.png", { frameWidth: 32, frameHeight: 32 });
@@ -19,21 +18,21 @@ const preloadAssets = (scene) => {
   scene.load.spritesheet('zombieGhost', "src/assets/characters/enemies/zombieGhost.png", { frameWidth: 32, frameHeight: 32 });
 
   //image for hearts
-  scene.load.image('empty-heart', "src/assets/images/ui_heart_empty32.png");
-  scene.load.image('full-heart', "src/assets/images/ui_heart_full32.png");
-  scene.load.image('half-heart', "src/assets/images/ui_heart_half.png");
+  scene.load.image('empty-heart', "src/assets/symbols-and-items/ui_heart_empty32.png");
+  scene.load.image('full-heart', "src/assets/symbols-and-items/ui_heart_full32.png");
+  scene.load.image('half-heart', "src/assets/symbols-and-items/ui_heart_half.png");
   //image for samples
   scene.load.image('samples', "src/assets/symbols-and-items/sample2.png");
 
   // Forest preload
-  scene.load.image('forest', 'src/assets/images/forest-tileset-extruded.png');
-  scene.load.image('graveyard', 'src/assets/images/graveyard-tileset-extruded.png');
+  scene.load.image('forest', 'src/assets/tilesets/forest-tileset-extruded.png');
+  scene.load.image('graveyard', 'src/assets/tilesets/graveyard-tileset-extruded.png');
   scene.load.tilemapTiledJSON('forestMap', 'src/assets/maps/finalForest.json');
 
   // Dungeon preload
-  scene.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset-extruded.png");
+  scene.load.image('dungeonTiles', "src/assets/tilesets/dungeon-tileset-extruded.png");
   scene.load.image('samples', "src/assets/symbols-and-items/sample2.png");
-  scene.load.tilemapTiledJSON('dungMap', "src/assets/dungeonMaps/dungeon/dungeonMap.json");
+  scene.load.tilemapTiledJSON('dungMap', "src/assets/maps/dungeonMap.json");
 
 };
 

@@ -10,35 +10,35 @@ class loadingScene extends Phaser.Scene {
     preload()
     {
         //Loading the Assets for the GameOver
-        this.load.image("title_bg", "src/assets/title_bg.jpeg");
+        this.load.image("title_bg", "src/assets/menu-images/title_bg.jpeg");
 
-        this.load.image("game_over", "src/assets/gameover.png");
+        this.load.image("game_over", "src/assets/menu-images/gameover.png");
 
-        this.load.image("try_again", "src/assets/tryagain.png");
+        this.load.image("try_again", "src/assets/menu-images/tryagain.png");
 
-        this.load.image("yes", "src/assets/yes.png");
+        this.load.image("yes", "src/assets/menu-images/yes.png");
 
-        this.load.image("no", "src/assets/no.png");  
+        this.load.image("no", "src/assets/menu-images/no.png");  
 
-        this.load.image("skull", "src/assets/skull.png");
+        this.load.image("skull", "src/assets/menu-images/skull.png");
 
         //Loading the assets for the Main Menu
-        this.load.image("title_bg", "src/assets/title_bg.jpeg");
+        this.load.image("title_bg", "src/assets/menu-images/title_bg.jpeg");
 
-        this.load.image("options_button", "src/assets/menuoptions.png");
+        this.load.image("options_button", "src/assets/menu-images/menuoptions.png");
 
-        this.load.image("play_button", "src/assets/menuplay.png");
+        this.load.image("play_button", "src/assets/menu-images/menuplay.png");
 
-        this.load.image("logo", "src/assets/menuname.png");
+        this.load.image("logo", "src/assets/menu-images/menuname.png");
 
-        this.load.spritesheet("player", "src/assets/player.png", {
+        this.load.spritesheet("player", "src/assets/characters/players/player.png", {
             frameHeight: 32,
             frameWidth: 32
         });
 
-        this.load.audio("darkshadow", "/src/assets/darkshadows.mp3")
+        this.load.audio("darkshadow", "/src/assets/sounds/darkshadows.mp3")
 
-        this.load.audio("blood", "/src/assets/bloodshed.mp3")
+        this.load.audio("blood", "/src/assets/sounds/bloodshed.mp3")
 
         // create loading bar 
 
