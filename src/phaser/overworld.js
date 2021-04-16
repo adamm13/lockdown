@@ -58,9 +58,9 @@ class Town extends Phaser.Scene {
   
 
   create(data) {
-    
+
     //fade in scene
-    this.cameras.main.fadeIn(6000);
+    this.cameras.main.fadeIn(2000);
     // environment
 
     const map = this.make.tilemap({ key: 'map' });

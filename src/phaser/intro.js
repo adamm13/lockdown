@@ -49,9 +49,9 @@ const Intro = new Phaser.Class({
         //       this.cameras.main.once('camerafadeincomplete', function (camera) {
         //     camera.fadeOut(6000);
         // });
-        
+
       // camera transition effect
-      this.cameras.main.fadeIn(6000);
+      this.cameras.main.fadeIn(5000);
 
       this.add.image(0, 0, "title_bg").setOrigin(0, 0).setVisible(!debug);
 

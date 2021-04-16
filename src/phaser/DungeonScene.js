@@ -29,6 +29,8 @@ export default class Dungeon extends Phaser.Scene {
   }
   
   create(data) {
+    //transition into dungeon scene
+    this.cameras.main.fadeIn(2000);
     // Render environment
     const map = this.make.tilemap({key:'dungMap'});
     const tileset = map.addTilesetImage('dungeon-tileset-extruded', 'dungeonTiles', 32, 32, 1, 2);

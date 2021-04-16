@@ -11,7 +11,7 @@ class GameOver extends Phaser.Scene {
     {
     
     // camera transition effect
-      this.cameras.main.fadeIn(6000);
+      this.cameras.main.fadeIn(5000);
 
     this.add.image(this.game.renderer.width /2, this.game.renderer.height * 0.30, "game_over").setDepth(1)
 
