@@ -24,7 +24,7 @@ export default class testnpc extends Phaser.Physics.Arcade.Sprite
   {
     super(scene, x, y, textureKey, frame)
 
-    scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.private_handleTileCollision, this)
+    scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.private_handleTileCollision, this, this.player)
 
     this.private_moveEvent = scene.time.addEvent({
       delay: 2000,
@@ -36,7 +36,7 @@ export default class testnpc extends Phaser.Physics.Arcade.Sprite
     
   }
   private_handleTileCollision(go = Phaser.GameObjects.GameObject, tile = Phaser.Tile, player = this.player) {
-    if (go !== this) {
+    if (go !== this || this.player) {
       return
     }
 
