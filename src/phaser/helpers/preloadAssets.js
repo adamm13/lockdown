@@ -7,6 +7,7 @@ export default function preloadAssets(scene) {
   scene.load.spritesheet('player', 'src/assets/characters/player.png', { frameWidth: 32, frameHeight: 32 });
   // scene.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: 32, frameHeight: 32 });
   scene.load.atlas('boy1', "src/assets/testnpc.png", "src/assets/testnpc.json")
+  scene.load.atlas("girl1", "src/assets/npcgirl.png", "src/assets/npc_girl.json")
   
   // image for shots
   scene.load.image('shot', 'src/assets/images/smBlueBlast.png');

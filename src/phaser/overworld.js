@@ -194,7 +194,7 @@ class Town extends Phaser.Scene {
      npcs.get(1200, 300, 'boy1')
     //this.physics.world.collide(npcs, player)
     this.physics.add.collider(npcs, trees)
-    this.physics.add.collider(npcs, player)
+    //this.physics.add.collider(npcs, this.player)
 
     //animates the npc sprite
     // this.anims.create({
