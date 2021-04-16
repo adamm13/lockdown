@@ -4,6 +4,7 @@ import { Entity } from "./Entity";
   /* --------------------------------- Player Class ----------------------------------- */
   
 // let shootTime = 0;
+let playerHit = 0;
 
 class Player extends Entity {
   
@@ -78,8 +79,12 @@ class Player extends Entity {
     });
     
     
-    
   } //// end constructor
+  
+  bounceBack(direction){
+    this.body.setVelocity(direction.x, direction.y);
+    playerHit = 1;
+  }
 
   update() {
 
@@ -90,8 +95,15 @@ class Player extends Entity {
     const { keys } = this; 
     const walkingSpeed = 200; // velocity is in px / second
     const prevVelocity = this.body.velocity.clone();
-
-    this.body.setVelocity(0);
+    
+    if (playerHit > 0){
+      playerHit++;
+      if (playerHit > 15){
+        playerHit = 0;
+      }
+    } else {
+      this.body.setVelocity(0);
+    }
 
     ////// Set velocity // reset Y and X to zero for orthogonal movements to prevent diagonal movement
     if (keys.left.isDown || keys.a.isDown) {
@@ -113,13 +125,7 @@ class Player extends Entity {
     } else {
       this.anims.stop();
     }
-
-    //control for shooting
-    // if(keys.fireKey.isDown){
-    //   this.throwKnife();
-    // }
   
-
     // Normalize and scale the velocity so that player can't move faster along a diagonal
     this.body.velocity.normalize().scale(walkingSpeed);
 

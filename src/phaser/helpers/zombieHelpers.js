@@ -17,6 +17,12 @@ const zombieDamage = (zombie, shot, scene) => {
   } else {
     zombie.tint = Math.random() * 0xffffff;
     zombie.zombieData.health -= 1;
+
+    const directionX = zombie.x - shot.x;
+    const directionY = zombie.y - shot.y;
+    const direction = new Phaser.Math.Vector2(directionX, directionY).normalize().scale(200);
+    zombie.bounceBack(direction);
+
     console.log(zombie.zombieData.health);
   }
 };
@@ -26,6 +32,12 @@ const zombieHit = (player, zombie) => {
   // could refactor for more/less damage depening on zombie 
   player.gameData.health -= 0.5; 
   player.tint = Math.random() * 0xffffff;
+
+  //gets information to pass to the player bouncing back
+  const directionX = player.x - zombie.x;
+  const directionY = player.y - zombie.y;
+  const direction = new Phaser.Math.Vector2(directionX, directionY).normalize().scale(10000);
+  player.bounceBack(direction);
 
   console.log(player.gameData.health);
   sceneEvents.emit('zombieHit', player.gameData.health);

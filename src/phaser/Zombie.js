@@ -1,5 +1,7 @@
 import { Entity } from "./Entity";
 
+let zombieShot = 0;
+
 class Zombie extends Entity {
 
   constructor(scene, x, y, textureKey, target, speed, health) {
@@ -76,12 +78,26 @@ class Zombie extends Entity {
     
   } //// end constructor
 
+  bounceBack(direction){
+    this.body.setVelocity(direction.x, direction.y);
+    zombieShot = 1;
+  }
+
   update() {
     const walkingSpeed = this.speed; //  px / second
     const prevVelocity = this.body.velocity.clone();
     const spriteKey = this.textureKey; 
 
-    this.body.setVelocity(0);
+    //this.body.setVelocity(0);
+
+    if (zombieShot > 0){
+      zombieShot++;
+      if (zombieShot > 70){
+        zombieShot = 0;
+      }
+    } else {
+      this.body.setVelocity(0);
+    }
     
     // Zombie Path Finding for Player
     const targetX = this.target.x;
