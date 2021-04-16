@@ -36,7 +36,7 @@ const zombieHit = (player, zombie) => {
   //gets information to pass to the player bouncing back
   const directionX = player.x - zombie.x;
   const directionY = player.y - zombie.y;
-  const direction = new Phaser.Math.Vector2(directionX, directionY).normalize().scale(10000);
+  const direction = new Phaser.Math.Vector2(directionX, directionY).normalize().scale(300);
   player.bounceBack(direction);
 
   console.log(player.gameData.health);
