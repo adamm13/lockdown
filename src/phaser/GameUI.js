@@ -7,6 +7,8 @@ let hearts;
 
 export default class GameUI extends Phaser.Scene {
     
+    let hit = 0;
+
     constructor(){
         super({key: 'GameUI'})
     }
@@ -56,6 +58,17 @@ export default class GameUI extends Phaser.Scene {
         sceneEvents.on('zombieHit', (playerHealth) => {
             //console.log(playerHealth);
             //console.log('zombie attack!!');
+
+            console.log('player x: ' + player.x)
+            console.log('zombie x: ' + zombie.x)
+            const playerX = player.x - zombie.y;
+            const playerY = player.y - zombie.y;
+          
+            const recoil = new Phaser.Math.Vector2(playerX, playerY).normalize().scale(200);
+            player.body.setVelocity(recoil.x, recoil.y);
+          
+            hit = 1;
+
             this.updateHealth(playerHealth);
         })
     }
