@@ -29,6 +29,34 @@ const createNpcAnims = (anims = Phaser.Animations.AnimationManager) => {
           repeat: -1,
           frameRate: 10
       })
+
+    anims.create({
+        key: "walk2",
+        frames: anims.generateFrameNames("girl1", { start: 0, end: 2, prefix: "girl0", suffix: ".png" }),
+        repeat: -1,
+        frameRate: 10
+    }),
+
+        anims.create({
+            key: "left2",
+            frames: anims.generateFrameNames("girl1", { start: 3, end: 5, prefix: "girl0", suffix: ".png" }),
+            repeat: -1,
+            frameRate: 10
+        }),
+
+        anims.create({
+            key: "right2",
+            frames: anims.generateFrameNames("girl1", { start: 6, end: 8, prefix: "girl0", suffix: ".png" }),
+            repeat: -1,
+            frameRate: 10
+        }),
+
+        anims.create({
+            key: "back2",
+            frames: anims.generateFrameNames("girl1", { start: 9, end: 11, prefix: "girl0", suffix: ".png" }),
+            repeat: -1,
+            frameRate: 10
+        })
 }
 
 export { 

@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { Player } from "./Player";
 // import { NPC } from "./NPC1";
 import { testnpc } from './testnpc'
+import { girlnpc } from './girl_npc'
 import { createNpcAnims } from './testnpcanims';
 import { NPC } from "./NPC1";
 import { Shots, Shot } from './Shots';
@@ -181,7 +182,7 @@ class Town extends Phaser.Scene {
      createNpcAnims(this.anims)
 
     const npcs = this.physics.add.group({
-      classType: testnpc,
+      classType: testnpc, girlnpc,
       collider: this.player,
       createCallback: (go) => {
         const npcwalk = go 
@@ -191,7 +192,7 @@ class Town extends Phaser.Scene {
 
     // ADD a new NPC 
      npcs.get(180, 300, 'boy1')
-     npcs.get(1200, 300, 'boy1')
+     npcs.get(1200, 300, 'girl1')
     //this.physics.world.collide(npcs, player)
     this.physics.add.collider(npcs, trees)
     //this.physics.add.collider(npcs, this.player)
