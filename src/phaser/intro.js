@@ -3,7 +3,7 @@ import Phaser from 'phaser'
 
 const debug = false;
 
-const passage = `\n
+const game_intro = `\n
 \n
 The Year 2099,  \n
 Zombies have consumed most of humanity and few resources remain
@@ -48,9 +48,9 @@ const Intro = new Phaser.Class({
     create() {
       this.add.image(0, 0, "title_bg").setOrigin(0, 0).setVisible(!debug);
 
-      this.add.text(32, 32, passage, textStyle).setAlpha(0.25).setVisible(debug);
+      this.add.text(32, 32, game_intro, textStyle).setAlpha(0.25).setVisible(debug);
 
-      const text = this.add.text(32, 32, passage, textStyle);
+      const text = this.add.text(32, 32, game_intro, textStyle);
       const {
         lineHeight,
         lineSpacing,
@@ -58,7 +58,7 @@ const Intro = new Phaser.Class({
       } = Phaser.GameObjects.GetTextSize(
         text,
         text.getTextMetrics(),
-        passage.split("\n")
+        game_intro.split("\n")
       );
       const totalLineHeight = lineHeight + lineSpacing;
       this.add
@@ -103,7 +103,7 @@ const Intro = new Phaser.Class({
       this.tweens.addCounter({
         from: 0,
         to: 1,
-        duration: 40 * passage.length,
+        duration: 40 * game_intro.length,
         onUpdate: (counter) => {
           const { x, y } = path.getPoint(counter.getValue());
 
@@ -122,6 +122,7 @@ const Intro = new Phaser.Class({
 
           // Suppress WebGL warnings before changing scenes
           text.texture = this.renderer.blankTexture; // Should be wrapped in conditional when rendering direct to canvas?
+          
           const data = {
             comingFrom: "Intro",  
             health: 500,
