@@ -2,13 +2,13 @@ import Phaser from "phaser";
 import { Player } from "./Player";
 import { Zombie } from "./Zombie";
 import { Shots, Shot } from './Shots';
-import sceneEvents from "./SceneEvents";
 import zombieHit from './helpers/zombieHit';
 import portalCallback from './helpers/portalCallback';
 import zombieDamage from "./helpers/zombieDamage";
 import zombieFactory from "./helpers/zombieFactory";
 import gameOver from "./helpers/gameOver";
 import preloadAssets from "./helpers/preloadAssets";
+import { createSamples, sampleCollector } from './helpers/sampleHelpers';
 
 export default class Dungeon extends Phaser.Scene {
   constructor() {
@@ -29,12 +29,10 @@ export default class Dungeon extends Phaser.Scene {
   create(data) {
     // Render environment
     const map = this.make.tilemap({key:'dungMap'});
-    //const tileset = map.addTilesetImage('dungeon-tileset', 'dungeonTiles');
     const tileset = map.addTilesetImage('dungeon-tileset-extruded', 'dungeonTiles', 32, 32, 1, 2);
     const dungObjs = map.addTilesetImage('dungeon-objects', 'obj-tiles');
     const ground = map.createLayer("belowPlayer", tileset, 0, 0); // creates floor tiles
     const obstacles = map.createLayer("walls", tileset, 0, 0);
-    // const chest = map.createLayer('chest', dungObjs, 0, 0);
     const upStairs = map.createLayer('exitDungeon', dungObjs, 0, 0);
     
     //render hearts and inventory
@@ -59,26 +57,11 @@ export default class Dungeon extends Phaser.Scene {
     this.player.body.setCollideWorldBounds(true);
     this.cameras.main.startFollow(this.player); 
 
-    // Sample creation
-    this.numOfSamples = this.sampleObjs.length;
-    // Create samples
-    this.samples = this.physics.add.staticGroup({
-      key: 'samples',
-      frameQuantity: this.numOfSamples,
-      immovable: true
-    });
-    // Distribute samples over map
-    this.samples.getChildren().forEach((sample, i) => {
-      let x = this.sampleObjs[i].x;
-      let y = this.sampleObjs[i].y;
-      sample.setScale(0.8);
-      sample.setPosition(x, y);
-    });
-
+    // Create samples and set overlap with player
+    this.samples = createSamples(this.sampleObjs, this);
     this.samples.refresh();
-    
     this.physics.add.overlap(this.player, this.samples, (player, sample) => {
-      this.collectSample(player, sample, this); 
+      sampleCollector(player, sample, this); 
     });
 
     // Get zombie obj coords & Create zombies 
@@ -92,7 +75,6 @@ export default class Dungeon extends Phaser.Scene {
     obstacles.setCollisionBetween(0, 520);
     upStairs.setCollisionBetween(1, 400);
     this.physics.add.collider(this.player, obstacles);
-
 
     // Physics properties for shots and zombies
     this.physics.add.collider(this.shots, obstacles, () => {
@@ -109,14 +91,10 @@ export default class Dungeon extends Phaser.Scene {
       });
     });
 
-
     /* ----- Exit Dungeon & Pass Data to Town ---- */
     this.physics.add.collider(this.player, upStairs, (player, tile) => { 
       portalCallback(player, tile, this);
     });
-
-
-  
 
     // Adds controls for shooting
     this.input.keyboard.on('keydown-SPACE', () => {
@@ -142,27 +120,6 @@ export default class Dungeon extends Phaser.Scene {
       this.player.clearTint();
     }
   }
-
-  // Sample collecting 
-  collectSample(player, sample, scene) {
-    scene.samplesTouched = true
-    //  Hide the sample sprite
-    const sampleLocations = scene.sampleObjs; // aka this.sampleObjs
-    scene.samples.killAndHide(sample);
-    //  And disable the body
-    sample.body.enable = false;
-    // update sample count - to be put into React component!
-    const sampleIndex = scene.samples.getChildren().indexOf(sample); 
-    const newSampleForPlayer = scene.samples.getChildren().splice(sampleIndex, 1)[0]; // grab this object 
-    sampleLocations.splice(sampleIndex, 1);
-    // Add the collected item obj to the player inv
-    player.gameData.inventory.push(newSampleForPlayer);
-    console.log(player.gameData.inventory);
-
-    //emit event to update inventory icon
-    sceneEvents.emit('sample-collected', player.gameData.inventory);
-  }
-
 }
 
 module.exports = { Dungeon };

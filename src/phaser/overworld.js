@@ -11,6 +11,7 @@ import portalCallback from './helpers/portalCallback';
 import zombieDamage from './helpers/zombieDamage';
 import gameOver from './helpers/gameOver';
 import preloadAssets from './helpers/preloadAssets';
+import { createSamples, sampleCollector } from './helpers/sampleHelpers';
 
 const gameTileSize = 32;
 
@@ -36,6 +37,7 @@ class Town extends Phaser.Scene {
   startingY = 1000;
 
   zombies = [];
+  samplesTouched = false;
 
   init(data) {
     console.log(data);
@@ -72,11 +74,24 @@ class Town extends Phaser.Scene {
     // camera
     this.cameras.main.setZoom(2);
 
+    // Get sample object layer from Tiled data if the player doesn't already have sample data
+    if (this.samplesTouched) {
+      this.sampleObjs = [...data.sampleLocations["Town"]];
+    } else {
+      this.sampleObjs = map.objects.find(layer => layer.name === 'samples').objects;
+    }
     
     // Create player at start location and scale him
     this.player = new Player(this, this.startingX, this.startingY, 'player', data.inventory, data.health, data.sampleLocations);
     const player = this.player;
     player.body.setCollideWorldBounds(false);
+
+    // Create samples and set overlap with player
+    this.samples = createSamples(this.sampleObjs, this);
+    this.samples.refresh();
+    this.physics.add.overlap(this.player, this.samples, (player, sample) => {
+      sampleCollector(player, sample, this); 
+    });
     
     //creates shots
     this.shots = new Shots(this);

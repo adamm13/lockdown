@@ -7,6 +7,7 @@ import zombieFactory from './helpers/zombieFactory';
 import portalCallback from './helpers/portalCallback';
 import gameOver from "./helpers/gameOver";
 import preloadAssets from './helpers/preloadAssets';
+import { createSamples, sampleCollector } from './helpers/sampleHelpers';
 
 
 class Forest extends Phaser.Scene {
@@ -17,6 +18,7 @@ class Forest extends Phaser.Scene {
   }
 
   zombies = [];
+  samplesTouched = false; 
 
   init(data) {
     console.log(data);
@@ -47,10 +49,25 @@ class Forest extends Phaser.Scene {
     
     // camera
     this.cameras.main.setZoom(2);
+
+    // Get sample object layer from Tiled data if the player doesn't already have sample data
+    if (this.samplesTouched) {
+      this.sampleObjs = [...data.sampleLocations["Forest"]];
+    } else {
+      this.sampleObjs = map.objects.find(layer => layer.name === 'samples').objects;
+    }
+
     // Create player at start location
     this.player = new Player(this, 385, 580, 'player', data.inventory, data.health, data.sampleLocations);
     const player = this.player;
     player.body.setCollideWorldBounds(false);
+
+    // Create samples and set overlap with player
+    this.samples = createSamples(this.sampleObjs, this);
+    this.samples.refresh();
+    this.physics.add.overlap(this.player, this.samples, (player, sample) => {
+      sampleCollector(player, sample, this); 
+    });
 
     //create shots
     this.shots = new Shots(this);

@@ -27,7 +27,7 @@ export default function preloadAssets(scene) {
   // Forest preload
   scene.load.image('forest', 'src/assets/images/forest-tileset-extruded.png');
   scene.load.image('graveyard', 'src/assets/images/graveyard-tileset-extruded.png');
-  scene.load.tilemapTiledJSON('forestMap', 'src/assets/maps/finalForest2.json');
+  scene.load.tilemapTiledJSON('forestMap', 'src/assets/maps/finalForest.json');
 
   // Dungeon preload
   scene.load.image('dungeonTiles', "src/assets/dungeonMaps/dungeon/tilesets/dungeon-tileset-extruded.png");
