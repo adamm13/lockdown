@@ -25,7 +25,7 @@ const createNpcAnims = (anims = Phaser.Animations.AnimationManager) => {
 
       anims.create({
           key: "back1",
-          frames: anims.generateFrameNames("boy1", {start: 9, end: 11, prefix: "", suffix: ".png"}),
+          frames: anims.generateFrameNames("boy1", {start: 9, end: 11, prefix: "0", suffix: ".png"}),
           repeat: -1,
           frameRate: 10
       })

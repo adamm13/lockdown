@@ -20,11 +20,11 @@ export default class testnpc extends Phaser.Physics.Arcade.Sprite
   private_direction = DOWN
   private_moveEvent = Phaser.Time.TimerEvent
   
-  constructor(scene = Phaser.scene, x = number, y = number, texture = string, frame = string || number)
+  constructor(scene = Phaser.scene, x = number, y = number, textureKey = string, frame = string || number)
   {
-    super(scene, x, y, texture, frame)
+    super(scene, x, y, textureKey, frame)
 
-    scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.private_handleTileCollision, this)
+    scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.private_handleTileCollision, this, this.player)
 
     this.private_moveEvent = scene.time.addEvent({
       delay: 2000,
@@ -35,16 +35,14 @@ export default class testnpc extends Phaser.Physics.Arcade.Sprite
     })
     
   }
-
-  private_handleTileCollision(go = Phaser.GameObjects.GameObject, tile = Phaser.Tile)
-  {
-    if (go !== this)
-    {
+  private_handleTileCollision(go = Phaser.GameObjects.GameObject, tile = Phaser.Tile, player = this.player) {
+    if (go !== this || this.player) {
       return
     }
 
+
     this.private_direction = randomDirection(this.private_direction)
-    
+
   }
 
   preUpdate(t = number, dt = number)
@@ -53,27 +51,25 @@ export default class testnpc extends Phaser.Physics.Arcade.Sprite
     
     const speed = 50
 
-    switch (this.private_direction)
-    {
-			case UP:
-				this.setVelocity(0, -speed) && this.anims.play("back1", this)
-				break
+    switch (this.private_direction) {
+      case UP:
+        this.setVelocity(0, -speed) && this.anims.play("back1", this) 
+        break
 
-			case DOWN:
-				this.setVelocity(0, speed) && this.anims.play("walk1", this)
-				break
+      case DOWN:
+        this.setVelocity(0, speed) && this.anims.play("walk1", this)
+        break
 
-			case LEFT:
-				this.setVelocity(-speed, 0) && this.anims.play("left1", this)
-				break
+      case LEFT:
+        this.setVelocity(-speed, 0) && this.anims.play("left1", this)
+        break
 
-			case RIGHT:
-				this.setVelocity(speed, 0) && this.anims.play("right1", this)
-				break
+      case RIGHT:
+        this.setVelocity(speed, 0) && this.anims.play("right1", this)
+        break
     }
-
-
   }
+
 
 }
 
