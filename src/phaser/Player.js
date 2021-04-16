@@ -102,7 +102,6 @@ class Player extends Entity {
       this.body.setVelocityY(0);
       this.body.setVelocityX(-walkingSpeed);
       this.anims.play('left', true);
-      console.log(this.anims.currentAnim.key);
     } else if (keys.right.isDown || keys.d.isDown) {
       this.body.setVelocityY(0);
       this.body.setVelocityX(walkingSpeed);

@@ -10,9 +10,14 @@ const zombieFactory = (scene, zombieArray, spritesheetKey, target, obstacles) =>
 };
 
 const zombieDamage = (zombie, shot, scene) => {
-  shot.setVisible(false);
-  zombie.setVisible(false);
-  zombie.body.enable = false; 
+  if(zombie.zombieData.health === 0){
+    zombie.setVisible(false);
+    zombie.body.enable = false; 
+  } else {
+    zombie.tint = Math.random() * 0xffffff;
+    zombie.zombieData.health -= 1;
+    console.log(zombie.zombieData.health);
+  }
 };
 
 const zombieHit = (player, zombie) => {
