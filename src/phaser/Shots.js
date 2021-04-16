@@ -1,5 +1,3 @@
-import zombieDamage from "./helpers/zombieDamage"
-
 class Shot extends Phaser.Physics.Arcade.Sprite{
     constructor (scene, x, y)
     {

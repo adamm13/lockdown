@@ -5,12 +5,8 @@ import { testnpc } from './testnpc'
 import { createNpcAnims } from './testnpcanims';
 import { NPC } from "./NPC1";
 import { Shots, Shot } from './Shots';
-import zombieFactory from './helpers/zombieFactory';
-import zombieHit from "./helpers/zombieHit";
-import portalCallback from './helpers/portalCallback';
-import zombieDamage from './helpers/zombieDamage';
-import gameOver from './helpers/gameOver';
-import preloadAssets from './helpers/preloadAssets';
+import { preloadAssets, gameOver, portalCallback } from './helpers/dataHelpers';
+import { zombieFactory, zombieDamage, zombieHit } from './helpers/zombieHelpers';
 import { createSamples, sampleCollector } from './helpers/sampleHelpers';
 
 const gameTileSize = 32;

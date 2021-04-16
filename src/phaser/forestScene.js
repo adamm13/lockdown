@@ -1,13 +1,9 @@
 import Phaser from 'phaser';
 import { Player, Entity } from './Player';
 import { Shots, Shot } from './Shots';
-import zombieHit from './helpers/zombieHit';
-import zombieDamage from "./helpers/zombieDamage";
-import zombieFactory from './helpers/zombieFactory';
-import portalCallback from './helpers/portalCallback';
-import gameOver from "./helpers/gameOver";
-import preloadAssets from './helpers/preloadAssets';
+import { preloadAssets, gameOver, portalCallback } from './helpers/dataHelpers';
 import { createSamples, sampleCollector } from './helpers/sampleHelpers';
+import { zombieFactory, zombieDamage, zombieHit } from './helpers/zombieHelpers';
 
 
 class Forest extends Phaser.Scene {

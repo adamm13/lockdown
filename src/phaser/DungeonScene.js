@@ -2,13 +2,9 @@ import Phaser from "phaser";
 import { Player } from "./Player";
 import { Zombie } from "./Zombie";
 import { Shots, Shot } from './Shots';
-import zombieHit from './helpers/zombieHit';
-import portalCallback from './helpers/portalCallback';
-import zombieDamage from "./helpers/zombieDamage";
-import zombieFactory from "./helpers/zombieFactory";
-import gameOver from "./helpers/gameOver";
-import preloadAssets from "./helpers/preloadAssets";
+import { preloadAssets, gameOver, portalCallback } from './helpers/dataHelpers';
 import { createSamples, sampleCollector } from './helpers/sampleHelpers';
+import { zombieFactory, zombieDamage, zombieHit } from './helpers/zombieHelpers';
 
 export default class Dungeon extends Phaser.Scene {
   constructor() {
