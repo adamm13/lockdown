@@ -46,6 +46,13 @@ const Intro = new Phaser.Class({
 
 
     create() {
+        //       this.cameras.main.once('camerafadeincomplete', function (camera) {
+        //     camera.fadeOut(6000);
+        // });
+
+      // camera transition effect
+      this.cameras.main.fadeIn(5000);
+
       this.add.image(0, 0, "title_bg").setOrigin(0, 0).setVisible(!debug);
 
       this.add.text(32, 32, game_intro, textStyle).setAlpha(0.25).setVisible(debug);

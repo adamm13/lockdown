@@ -58,6 +58,9 @@ class Town extends Phaser.Scene {
   
 
   create(data) {
+
+    //fade in scene
+    this.cameras.main.fadeIn(2000);
     // environment
 
     const map = this.make.tilemap({ key: 'map' });
@@ -217,7 +220,7 @@ class Town extends Phaser.Scene {
      npcs.get(1200, 1000, 'boy1')
     //this.physics.world.collide(npcs, player)
     this.physics.add.collider(npcs, trees)
-    //this.physics.add.collider(npcs, this.player)
+    this.physics.add.collider(npcs, this.player)
 
     //animates the npc sprite
     // this.anims.create({
