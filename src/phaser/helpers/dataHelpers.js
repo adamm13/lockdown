@@ -55,7 +55,7 @@ const gameOver = (player, thisScene) => {
     }
   };
   // cut to GameOver Scene here instead of startMenu?
-  thisScene.scene.start("startMenu", data); 
+  thisScene.scene.start("GameOver", data); 
   thisScene.scene.stop(thisScene);
   thisScene.scene.stop("GameUI");
   //player.explode();
