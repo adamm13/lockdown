@@ -44,11 +44,6 @@ class Forest extends Phaser.Scene {
     //render hearts
     this.scene.run('GameUI', data);
     console.log(data.inventory);
-
-    //knives
-    // const knives = this.add.group({
-    //   quantity: 5
-    // })
     
     // camera
     this.cameras.main.setZoom(2);
@@ -56,10 +51,6 @@ class Forest extends Phaser.Scene {
     this.player = new Player(this, 385, 580, 'player', data.inventory, data.health, data.sampleLocations);
     const player = this.player;
     player.body.setCollideWorldBounds(false);
-
-    //gives player knives
-
-   // this.player.setKnives(knives);
 
     //create shots
     this.shots = new Shots(this);
@@ -85,13 +76,6 @@ class Forest extends Phaser.Scene {
         console.log("Y: ", player.y);
       });
 
-      //knives collisions
-      // this.physics.add.collider(knives, obstacles);
-      // this.physics.add.collider(knives, obstacles_2);
-      // //add event listener after collisions are figured out
-      // this.physics.add.collider(knives, zombieObjs);
-
-
       // Get zombie obj array from map
       const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
       // Create zombies // Right now the zombieGhost sprite can pass through obstacles_2 just b/c thats the way the Factory is set up lol
@@ -113,8 +97,8 @@ class Forest extends Phaser.Scene {
         console.log(shot);
         if(shot){
           shot.setVisible(false);
+          shot.setActive(false);
         }
-        //this.shots.setVisible(false);
       });
       this.physics.add.collider(this.shots, obstacles_2, () => {
         let shot = this.shots.getFirstAlive();
@@ -122,7 +106,6 @@ class Forest extends Phaser.Scene {
         if(shot){
           shot.setVisible(false);
         }
-       // this.shots.setVisible(false);
       });
       // Physics for shots/zombies
       this.zombies.forEach(zombie => {
