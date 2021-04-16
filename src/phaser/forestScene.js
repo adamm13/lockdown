@@ -18,6 +18,9 @@ class Forest extends Phaser.Scene {
 
   init(data) {
     console.log(data);
+    if (data.sampleLocations["Forest"].length === 0) {
+      this.samplesTouched = false;
+    } 
   }
 
   preload() {
@@ -99,7 +102,7 @@ class Forest extends Phaser.Scene {
 
       // Exit scene & pass data through player object (player.gameData property)
       this.physics.add.collider(player, exitShrubs, (player, tile) => { 
-        portalCallback(player, tile, this);
+        portalCallback(player, tile, this, data);
       });
 
       // Physics properties for shots

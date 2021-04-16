@@ -44,6 +44,9 @@ class Town extends Phaser.Scene {
       this.startingX = 397; 
       this.startingY = 1003;
     }
+    if (data.sampleLocations["Town"].length === 0) {
+      this.samplesTouched = false;
+    } 
   }
 
   preload() {
@@ -172,10 +175,10 @@ class Town extends Phaser.Scene {
     
     /* ----------- Exit Scene Colliders & pass data within player object ---------- */
     this.physics.add.collider(player, intoForest, (player, tile) => { 
-      portalCallback(player, tile, this);
+      portalCallback(player, tile, this, data);
     });
     this.physics.add.collider(player, downStairs, (player, tile) => { 
-      portalCallback(player, tile, this);
+      portalCallback(player, tile, this, data);
     });
 
     this.physics.add.collider(player, trees);
@@ -245,10 +248,6 @@ class Town extends Phaser.Scene {
       this.player.clearTint();
     }
   }
-
-  zombies = [];
-
-
 }
 
 module.exports = { Town };

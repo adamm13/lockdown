@@ -16,6 +16,9 @@ export default class Dungeon extends Phaser.Scene {
 
   init(data) {
     console.log(data);
+    if (data.sampleLocations["Dungeon"].length === 0) {
+      this.samplesTouched = false;
+    } 
   }
   
   preload() { 
@@ -89,7 +92,7 @@ export default class Dungeon extends Phaser.Scene {
 
     /* ----- Exit Dungeon & Pass Data to Town ---- */
     this.physics.add.collider(this.player, upStairs, (player, tile) => { 
-      portalCallback(player, tile, this);
+      portalCallback(player, tile, this, data);
     });
 
     // Adds controls for shooting
@@ -121,6 +124,8 @@ export default class Dungeon extends Phaser.Scene {
 module.exports = { Dungeon };
 
 
+
+// Use this code for boss room ?
 
 //Create zombies (always give a unique zombie key name e.g. zombie1, zombie2. (It's not Phaser's spritesheet key, but it can be the same if there is only 1)
     //Args: startX, startY, spritesheetKey, target, zombieKeyName, obstacles

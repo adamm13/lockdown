@@ -37,9 +37,13 @@ const preloadAssets = (scene) => {
 };
 
 const gameOver = (player, thisScene) => {
+  
   thisScene.game.sound.stopAll();
-  // cut to GameOver Scene here instead of startMenu?
-  thisScene.scene.start("startMenu", {
+
+  // Reset sample locations in all scenes
+  
+  // Change this to actual game data for highscores!?
+  const data = {
     comingFrom: "GameOver",  
     health: 500,
     inventory: [],
@@ -48,7 +52,9 @@ const gameOver = (player, thisScene) => {
       "Town": [],
       "Forest": []
     }
-  }); 
+  };
+  // cut to GameOver Scene here instead of startMenu?
+  thisScene.scene.start("startMenu", data); 
   thisScene.scene.stop(thisScene);
   thisScene.scene.stop("GameUI");
   //player.explode();
@@ -56,7 +62,7 @@ const gameOver = (player, thisScene) => {
 
 /* ---- player portal & data transfer between game scenes ---*/
 
-const portalCallback = (player, tile, thisScene) => {
+const portalCallback = (player, tile, thisScene, data) => {
   const layer = tile.layer.name; 
   let destination;
   let comingFrom; 
@@ -94,7 +100,8 @@ const portalCallback = (player, tile, thisScene) => {
       comingFrom: comingFrom,  // string
       health: player.gameData.health, // number
       inventory: player.gameData.inventory, // []
-      sampleLocations: player.gameData.sampleLocations // { [], [], [] }
+      sampleLocations: player.gameData.sampleLocations, // { [], [], [] }
+      resetSamples: data.resetSamples ? true : false
       });
     thisScene.scene.stop(comingFrom);
   }
