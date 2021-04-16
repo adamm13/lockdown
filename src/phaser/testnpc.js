@@ -53,7 +53,7 @@ export default class testnpc extends Phaser.Physics.Arcade.Sprite
 
     switch (this.private_direction) {
       case UP:
-        this.setVelocity(0, -speed) && this.anims.play("back1", this)
+        this.setVelocity(0, -speed) && this.anims.play("back1", this) 
         break
 
       case DOWN:

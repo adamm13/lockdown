@@ -192,9 +192,9 @@ class Town extends Phaser.Scene {
     // ADD a new NPC 
      npcs.get(180, 300, 'boy1')
      npcs.get(1200, 300, 'boy1')
-
+    //this.physics.world.collide(npcs, player)
     this.physics.add.collider(npcs, trees)
-    this.physics.add.collider(npcs, this.player)
+    //this.physics.add.collider(npcs, player)
 
     //animates the npc sprite
     // this.anims.create({
@@ -221,6 +221,7 @@ class Town extends Phaser.Scene {
   }
 
   update() {
+    
     //  Input Events
     if (this.player.isDead) {
       gameOver(this.player, this);
