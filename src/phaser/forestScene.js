@@ -18,7 +18,7 @@ class Forest extends Phaser.Scene {
 
   init(data) {
     console.log(data);
-    if (data.sampleLocations["Forest"].length === 0) {
+    if (data.resetSamples && data.sampleLocations["Forest"].length === 0) {
       this.samplesTouched = false;
     } 
   }

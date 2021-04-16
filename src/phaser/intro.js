@@ -45,7 +45,7 @@ const Intro = new Phaser.Class({
     // },
 
 
-    create() {
+    create(data) {
       this.add.image(0, 0, "title_bg").setOrigin(0, 0).setVisible(!debug);
 
       this.add.text(32, 32, game_intro, textStyle).setAlpha(0.25).setVisible(debug);
@@ -123,16 +123,7 @@ const Intro = new Phaser.Class({
           // Suppress WebGL warnings before changing scenes
           text.texture = this.renderer.blankTexture; // Should be wrapped in conditional when rendering direct to canvas?
           
-          const data = {
-            comingFrom: "Intro",  
-            health: 500,
-            inventory: [],
-            sampleLocations: {
-              "Dungeon": [],
-              "Town": [],
-              "Forest": []
-            }
-          };
+          
           this.scene.start('Town', data);
           this.scene.stop('Intro');
       }, this);

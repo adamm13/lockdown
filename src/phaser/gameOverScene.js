@@ -7,7 +7,7 @@ class GameOver extends Phaser.Scene {
     super("GameOver");
   }
 
-    create()
+    create(data)
     {
 
     this.add.image(this.game.renderer.width /2, this.game.renderer.height * 0.30, "game_over").setDepth(1)
@@ -37,7 +37,7 @@ class GameOver extends Phaser.Scene {
       console.log("no more hover")
     })
     yesButton.on("pointerup", () => {
-      this.scene.start("Intro")
+      this.scene.start("Intro", data)
       console.log("restart game")
     })
 
@@ -54,7 +54,7 @@ class GameOver extends Phaser.Scene {
       console.log("no more hover")
     })
       noButton.on("pointerup", () => {
-      this.scene.start("startMenu")
+      this.scene.start("startMenu", data)
       console.log("back to menu")
     })
 

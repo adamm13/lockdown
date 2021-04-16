@@ -52,7 +52,8 @@ const gameOver = (player, thisScene) => {
       "Dungeon": [],
       "Town": [],
       "Forest": []
-    }
+    },
+    resetSamples: true
   };
   // cut to GameOver Scene here instead of startMenu?
   thisScene.scene.start("GameOver", data); 
