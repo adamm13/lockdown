@@ -130,8 +130,7 @@ const Winning = new Phaser.Class({
             }
           }
           
-          this.scene.start('Town', data);
-          this.scene.stop('Intro');
+
       }, this);
 }
 
