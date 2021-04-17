@@ -19,8 +19,6 @@ class Act1 extends Phaser.Scene {
 
     this.add.image(this.game.renderer.width /2, this.game.renderer.height / 1.75, "complete").setDepth(1)
 
-    //this.add.image(this.game.renderer.width /2, this.game.renderer.height / 1.5 + 30, "yes").setDepth(1)
-
     this.add.image(this.game.renderer.width /2, this.game.renderer.height / 1.5 + 100, "spacebar").setDepth(1)
 
     this.input.keyboard.once('keyup-SPACE', function () {      

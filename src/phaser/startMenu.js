@@ -62,7 +62,7 @@ class startMenu extends Phaser.Scene {
     playButton.on("pointerup", () => {
       this.sound.play("blood")
       console.log(data);
-      this.scene.start("Act1", data);
+      this.scene.start("Intro", data);
       console.log("time to meet zombies")
     })
 
