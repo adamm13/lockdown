@@ -9,6 +9,7 @@ class startMenu extends Phaser.Scene {
 
     create(data)
     {
+    this.cameras.main.fadeIn(5000);
 
     this.add.image(this.game.renderer.width /2, this.game.renderer.height * 0.20, "logo").setDepth(1)
 
