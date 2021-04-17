@@ -3,7 +3,7 @@ import { Player } from "./Player";
 // import { NPC } from "./NPC1";
 import { testnpc } from './testnpc'
 import { createNpcAnims } from './testnpcanims';
-import { NPC } from "./NPC1";
+// import { NPC } from "./NPC1";
 import { Shots, Shot } from './Shots';
 import { preloadAssets, gameOver, portalCallback } from './helpers/dataHelpers';
 import { zombieFactory, zombieDamage, zombieHit } from './helpers/zombieHelpers';
