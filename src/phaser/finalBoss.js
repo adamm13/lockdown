@@ -41,7 +41,7 @@ class FinalBoss extends Phaser.Scene {
     // Create player at start location
     this.player = new Player(this, 385, 580, 'player', data.inventory, data.health);
     const player = this.player;
-    player.body.setCollideWorldBounds(false);
+    player.body.setCollideWorldBounds(true);
 
     // Make camera stop at edge of map
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
@@ -58,9 +58,6 @@ class FinalBoss extends Phaser.Scene {
     const zombieObjs = map.objects.find(layer => layer.name === 'Zombies').objects;
     // Create zombies 
     zombieFactory(this, zombieObjs, 'zombieGhost', this.player, walls);
-
-    const zombieObjs2 = map.objects.find(layer => layer.name === 'ZombieBoss').objects;
-    zombieFactory(this, zombieObjs2, 'zombieKing', this.player, walls);
 
     this.zombies.forEach(zombie => {
         this.physics.add.overlap(player, zombie, zombieHit);

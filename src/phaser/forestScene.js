@@ -94,16 +94,12 @@ class Forest extends Phaser.Scene {
       enterBoss.setCollisionBetween(0, 1200);
       exitShrubs.setCollisionBetween(1, 400);
       this.physics.add.collider(player, obstacles);
-      this.physics.add.collider(player, obstacles_2, (player, tile) => {
-        console.log("OUCH!");
-        console.log("X: ", player.x);
-        console.log("Y: ", player.y);
-      });
+      this.physics.add.collider(player, obstacles_2);
 
       // Get zombie obj array from map
       const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
       // Create zombies // Right now the zombieGhost sprite can pass through obstacles_2 just b/c thats the way the Factory is set up lol
-      zombieFactory(this, zombieObjs, 'zombieGhost', this.player, obstacles);
+      // zombieFactory(this, zombieObjs, 'zombieGhost', this.player, obstacles);
 
       this.zombies.forEach(zombie => {
         this.physics.add.overlap(player, zombie, zombieHit);

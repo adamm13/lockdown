@@ -101,7 +101,19 @@
                  "width":0,
                  "x":369.379014989293,
                  "y":399.357601713062
-                }],
+                },
+                {
+              "height":0,
+              "id":9,
+              "name":"ZombieBoss",
+              "point":true,
+              "rotation":0,
+              "type":"ZombieBoss",
+              "visible":true,
+              "width":0,
+              "x":338.505012913221,
+              "y":142.541243934419
+              }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,

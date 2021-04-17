@@ -4,10 +4,14 @@ import { Zombie } from "../Zombie";
 
 const zombieFactory = (scene, zombieArray, spritesheetKey, target, obstacles) => {
   const zombieSpeed = 120;
+  let sprite = spritesheetKey;
+
   zombieArray.forEach((zombie, i) => {
-    scene.zombies[i] = new Zombie(scene, zombie.x, zombie.y, spritesheetKey, target, zombieSpeed);
+    if (zombie.name === "ZombieBoss") {
+      sprite = "zombieKing"
+    }
+    scene.zombies[i] = new Zombie(scene, zombie.x, zombie.y, sprite, target, zombieSpeed);
     scene.physics.add.collider(scene.zombies[i], obstacles);
-    console.log(zombie);
   });
 };
 
@@ -23,8 +27,6 @@ const zombieDamage = (zombie, shot, scene) => {
     const directionY = zombie.y - shot.y;
     const direction = new Phaser.Math.Vector2(directionX, directionY).normalize().scale(200);
     zombie.bounceBack(direction);
-
-    console.log(zombie.zombieData.health);
   }
 };
 
@@ -40,7 +42,6 @@ const zombieHit = (player, zombie) => {
   const direction = new Phaser.Math.Vector2(directionX, directionY).normalize().scale(300);
   player.bounceBack(direction);
 
-  console.log(player.gameData.health);
   sceneEvents.emit('zombieHit', player.gameData.health);
   //this.sound.play("blood") // throttle this sound to play once/second
 };

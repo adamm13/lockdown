@@ -99,7 +99,7 @@ class loadingScene extends Phaser.Scene {
         });
         
         this.load.on('complete', function () {
-            console.log('complete');
+            //console.log('complete');
             progressBar.destroy();
             progressBox.destroy();
             loadingText.destroy();
