@@ -21,6 +21,10 @@ class loadingScene extends Phaser.Scene {
         this.load.image("no", "src/assets/menu-images/no.png");  
 
         this.load.image("skull", "src/assets/menu-images/skull.png");
+        //Fake Loading Screen assets
+            for (let i = 0; i < 2000; i++) {
+        this.load.image('skull'+ ' ' + i, 'src/assets/menu-images/skull.png');
+        }
 
         //Loading the assets for the Main Menu
         this.load.image("title_bg", "src/assets/menu-images/title_bg.jpeg");
@@ -40,36 +44,15 @@ class loadingScene extends Phaser.Scene {
 
         this.load.audio("blood", "/src/assets/sounds/bloodshed.mp3")
 
-        // create loading bar 
 
-        // let loadingBar = this.add.graphics({
-        //     fillStyle: {
-        //         color: 0xffffff
-        //     }
-        // })
-    
-
-
-        //Loader events:
-            //complete - when done loading
-            //progress - loader number progress in decimals
-
-        //fake loading bar 
-        for (let i = 0; i < 1000; i++){
-        this.load.spritesheet("player" + i, "src/assets/characters/players/player.png", {
-            frameHeight: 32,
-            frameWidth: 32
-        });
-        }
-
-        var progressBar = this.add.graphics();
-        var progressBox = this.add.graphics();
+        let progressBar = this.add.graphics();
+        let progressBox = this.add.graphics();
         progressBox.fillStyle(0x222222, 0.8);
         progressBox.fillRect(240, 270, 320, 50);
 
-        var width = this.cameras.main.width;
-        var height = this.cameras.main.height;
-        var loadingText = this.make.text({
+        let width = this.cameras.main.width;
+        let height = this.cameras.main.height;
+        let loadingText = this.make.text({
             x: width / 2,
             y: height / 2 - 50,
             text: 'Loading...',
@@ -80,7 +63,7 @@ class loadingScene extends Phaser.Scene {
         });
         loadingText.setOrigin(0.5, 0.5);
 
-        var percentText = this.make.text({
+        let percentText = this.make.text({
             x: width / 2,
             y: height / 2 - 5,
             text: '0%',
@@ -91,7 +74,7 @@ class loadingScene extends Phaser.Scene {
         });
         percentText.setOrigin(0.5, 0.5);
 
-        var assetText = this.make.text({
+        let assetText = this.make.text({
             x: width / 2,
             y: height / 2 + 50,
             text: '',
