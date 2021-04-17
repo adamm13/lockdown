@@ -34,6 +34,11 @@ const preloadAssets = (scene) => {
   scene.load.image('samples', "src/assets/symbols-and-items/sample2.png");
   scene.load.tilemapTiledJSON('dungMap', "src/assets/maps/dungeonMap.json");
 
+  //final boss preload
+  //scene.load.image('dungeonTiles', 'src/assets/tilesets/dungeon-tileset-extruded.png')
+  scene.load.image('chest', 'src/assets/symbols-and-items/chest.png');
+  scene.load.tilemapTiledJSON('finalBoss', 'src/assets/maps/finalBoss.json');
+
 };
 
 const gameOver = (player, thisScene) => {

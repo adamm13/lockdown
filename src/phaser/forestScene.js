@@ -31,12 +31,10 @@ class Forest extends Phaser.Scene {
   }
   create(data) {
 
-  //transition into dungeon scene
+    //transition into dungeon scene
     this.cameras.main.fadeIn(2000);
     // environment
     const map = this.make.tilemap({ key: 'forestMap' });
-    // const tileset1 = map.addTilesetImage('Forest', 'forest');
-    // const tileset2 = map.addTilesetImage('Graveyard', 'graveyard');
     const tileset1 = map.addTilesetImage('Forest-extruded', 'forest', 32, 32, 1, 2);
     const tileset2 = map.addTilesetImage('Graveyard-extruded', 'graveyard', 32, 32, 1, 2);
     

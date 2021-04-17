@@ -5,6 +5,7 @@ import App from "./components/App.jsx";
 import { Forest } from "./phaser/forestScene";
 import { Town } from "./phaser/overworld";
 import { Dungeon } from "./phaser/DungeonScene";
+import { FinalBoss } from "./phaser/FinalBoss";
 import { loadingScene } from "./phaser/loadingScene";
 import { startMenu } from "./phaser/startMenu";
 import { Intro } from "./phaser/intro";
@@ -26,7 +27,7 @@ const config = {
         }
       },
 
-    scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon, GameUI, GameOver ],
+    scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon, GameUI, GameOver, FinalBoss ],
     render: {
       pixelArt: true
     }
