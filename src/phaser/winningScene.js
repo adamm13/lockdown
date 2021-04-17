@@ -25,7 +25,7 @@ const textStyle = {
   fontSize: 20,
   lineSpacing:0,
   fontFamily: "verdana",
-  color: "WHITE",
+  color: "RED",
 };
 
 const Winning = new Phaser.Class({

@@ -55,21 +55,43 @@ class loadingScene extends Phaser.Scene {
             //progress - loader number progress in decimals
 
         //fake loading bar 
-        for (let i = 0; i < 10; i++){
+        for (let i = 0; i < 10000; i++){
         this.load.spritesheet("player" + i, "src/assets/characters/players/player.png", {
             frameHeight: 32,
             frameWidth: 32
         });
         }
 
-        this.load.on("progress", (percent) => {
-            loadingBar.fillRect(0, this.game.renderer.height /2, this.game.renderer.width * percent, 50);
-            //console.log(percent)
-        })
+        // this.load.on("progress", (percent) => {
+            
+        //     loadingBar.fillRect(0, this.game.renderer.height /2, this.game.renderer.width * percent, 50);
+        //     //console.log(percent)
+        // })
 
-        this.load.on("complete", () => {
-            //this.scene.start()
-        })
+        // this.load.on("complete", () => {
+        //     //this.scene.start()
+        // })
+
+
+var progressBar = this.add.graphics();
+var progressBox = this.add.graphics();
+progressBox.fillStyle(0x222222, 0.8);
+progressBox.fillRect(240, 270, 320, 50);
+
+        this.load.on('progress', function (value) {
+            console.log(value);
+                progressBar.clear();
+    progressBar.fillStyle(0xffffff, 1);
+    progressBar.fillRect(250, 280, 300 * value, 30);
+        });
+                    
+        this.load.on('fileprogress', function (file) {
+            console.log(file.src);
+        });
+        
+        this.load.on('complete', function () {
+            console.log('complete');
+        });
     }
 
     create()
