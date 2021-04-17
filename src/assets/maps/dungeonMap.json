@@ -276,7 +276,31 @@
                  "width":0,
                  "x":228,
                  "y":565.333333333333
-                }],
+                },
+                {
+              "height":0,
+              "id":35,
+              "name":"zombie",
+              "point":true,
+              "rotation":0,
+              "type":"zombie",
+              "visible":true,
+              "width":0,
+              "x":528,
+              "y":400.333333333333
+              },
+              {
+              "height":0,
+              "id":36,
+              "name":"zombie",
+              "point":true,
+              "rotation":0,
+              "type":"zombie",
+              "visible":true,
+              "width":0,
+              "x":495,
+              "y":563.333333333333
+              }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,

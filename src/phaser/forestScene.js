@@ -105,6 +105,9 @@ class Forest extends Phaser.Scene {
         this.physics.add.overlap(player, zombie, zombieHit);
       });
 
+      // Zombie-Zombie collisions
+      this.physics.add.collider(this.zombies, this.zombies);
+
       // Exit scene & pass data through player object (player.gameData property)
       this.physics.add.collider(player, exitShrubs, (player, tile) => { 
         portalCallback(player, tile, this, data);
