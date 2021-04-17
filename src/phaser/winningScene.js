@@ -3,7 +3,7 @@ import Phaser from 'phaser'
 
 const debug = false;
 
-const game_intro = `\n
+const win_game = `\n
 \n
 The Year 2099,  \n
 YOU WON THE GAME ACT ONE IS COMPLETE
@@ -47,9 +47,9 @@ const Winning = new Phaser.Class({
 
       this.add.image(0, 0, "title_bg").setOrigin(0, 0).setVisible(!debug);
 
-      this.add.text(32, 32, game_intro, textStyle).setAlpha(0.25).setVisible(debug);
+      this.add.text(32, 32, win_game, textStyle).setAlpha(0.25).setVisible(debug);
 
-      const text = this.add.text(32, 32, game_intro, textStyle);
+      const text = this.add.text(32, 32, win_game, textStyle);
       const {
         lineHeight,
         lineSpacing,
@@ -57,7 +57,7 @@ const Winning = new Phaser.Class({
       } = Phaser.GameObjects.GetTextSize(
         text,
         text.getTextMetrics(),
-        game_intro.split("\n")
+        win_game.split("\n")
       );
       const totalLineHeight = lineHeight + lineSpacing;
       this.add
@@ -102,7 +102,7 @@ const Winning = new Phaser.Class({
       this.tweens.addCounter({
         from: 0,
         to: 1,
-        duration: 40 * game_intro.length,
+        duration: 40 * win_game.length,
         onUpdate: (counter) => {
           const { x, y } = path.getPoint(counter.getValue());
 
