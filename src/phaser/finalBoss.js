@@ -31,10 +31,9 @@ class FinalBoss extends Phaser.Scene {
   const dungObjs = map.addTilesetImage('dungeon-objects', 'obj-tiles');
   const ground = map.createLayer("Ground", tileset, 0, 0);
   const walls = map.createLayer("Walls", tileset, 0, 0);
-  //const chest = map.createLayer("Chest", dungObjs, 0, 0);
-
+  
+  console.log(data);
   this.scene.run('GameUI', data);
-  console.log(data.inventory);
   
   // camera
   this.cameras.main.setZoom(1.7);
@@ -75,6 +74,14 @@ class FinalBoss extends Phaser.Scene {
       }
     });
 
+    this.bossRoom = {
+      key: "FinalBoss",
+      scene: this, 
+      map: map, 
+      tileset: dungObjs, 
+      player: player
+    };
+
     // Physics for shots/zombies
     this.zombies.forEach(zombie => {
       this.physics.add.collider(this.shots, zombie, (shot, zombie) => {
@@ -82,7 +89,7 @@ class FinalBoss extends Phaser.Scene {
         if (individualShot){
           individualShot.setVisible(false);
           individualShot.setActive(false);
-          zombieDamage(shot, zombie, this, map, dungObjs, player);
+          zombieDamage(shot, zombie, this, this.bossRoom);
         }
       });
     });
@@ -92,28 +99,21 @@ class FinalBoss extends Phaser.Scene {
       this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
     });
 
-  }
+  } // end create()
 
   update() {
-      if (this.player.isDead) {
-        gameOver(this.player, this);
-      } else {
-        this.player.update();
-      }
-      this.zombies.forEach(z => z.update());
-      if (this.player.body.embedded) {
-        this.player.body.touching.none = false;
-      }
-      if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
-        this.player.clearTint();
-      }
+    if (this.player.isDead) {
+      gameOver(this.player, this);
+    } else {
+      this.player.update();
     }
-
-  renderChest(map, tileset, player) {
-    console.log(this);
-    console.log(map);
-    console.log(tileset);
-    console.log(player);
+    this.zombies.forEach(z => z.update());
+    if (this.player.body.embedded) {
+      this.player.body.touching.none = false;
+    }
+    if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
+      this.player.clearTint();
+    }
   }
 
 }

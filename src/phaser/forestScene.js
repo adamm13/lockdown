@@ -45,10 +45,6 @@ class Forest extends Phaser.Scene {
     const below_player = map.createLayer("below-player", tileset1);
     const exitShrubs = map.createLayer("exitForest", tileset1);
 
-    //if (data.inventory.length === 36) {
-    const enterBoss = map.createLayer("enterBoss", tileset3);
-    //}
-
     //render hearts
     this.scene.run('GameUI', data);
     console.log(data.inventory);
@@ -91,15 +87,14 @@ class Forest extends Phaser.Scene {
       //  Player physics properties.
       obstacles.setCollisionBetween(0, 300);
       obstacles_2.setCollisionBetween(1, 400);
-      enterBoss.setCollisionBetween(0, 1200);
       exitShrubs.setCollisionBetween(1, 400);
       this.physics.add.collider(player, obstacles);
       this.physics.add.collider(player, obstacles_2);
 
       // Get zombie obj array from map
       const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
-      // Create zombies // Right now the zombieGhost sprite can pass through obstacles_2 just b/c thats the way the Factory is set up lol
-      // zombieFactory(this, zombieObjs, 'zombieGhost', this.player, obstacles);
+      // Create zombies // the zombieGhost sprite can pass through obstacles_2
+      zombieFactory(this, zombieObjs, 'zombieGhost', this.player, obstacles);
 
       this.zombies.forEach(zombie => {
         this.physics.add.overlap(player, zombie, zombieHit);
@@ -112,10 +107,15 @@ class Forest extends Phaser.Scene {
       this.physics.add.collider(player, exitShrubs, (player, tile) => { 
         portalCallback(player, tile, this, data);
       });
-      // Enter boss room 
-      this.physics.add.collider(player, enterBoss, (player, tile) => { 
-        portalCallback(player, tile, this, data);
-      });
+
+      // Conditional staircase to boss room if 36 samples
+      if (data.inventory.length === 36) {
+        const enterBoss = map.createLayer("enterBoss", tileset3);
+        enterBoss.setCollisionBetween(0, 1200);
+        this.physics.add.collider(player, enterBoss, (player, tile) => { 
+          portalCallback(player, tile, this, data);
+        });
+      }
 
       // Physics properties for shots
       this.physics.add.collider(this.shots, obstacles, () => {
@@ -129,7 +129,7 @@ class Forest extends Phaser.Scene {
       });
       this.physics.add.collider(this.shots, obstacles_2, () => {
         let shot = this.shots.getFirstAlive();
-        console.log(shot)
+        //console.log(shot)
         if(shot){
           shot.setVisible(false);
         }
@@ -141,7 +141,7 @@ class Forest extends Phaser.Scene {
           if (individualShot){
             individualShot.setVisible(false);
             individualShot.setActive(false);
-            zombieDamage(shot, zombie, this, player);
+            zombieDamage(shot, zombie, this);
           }
         });
       });
