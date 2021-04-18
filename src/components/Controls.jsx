@@ -4,7 +4,7 @@ export default function Controls(props) {
 	
 
   return (
-    <ul>
+    <ul className="controls">
       <li>W or ⬆ to move up</li>
       <li>A or ⬅ to move left</li>
       <li>S or ⬇ to move down</li>
