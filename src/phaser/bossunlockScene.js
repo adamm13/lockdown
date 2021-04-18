@@ -7,10 +7,6 @@ class BossUnlock extends Phaser.Scene {
     super("BossUnlock");
   }
 
-  init(data) {
-    console.log(data);
-  }
-
   create(data) {
     
     // camera transition effect
