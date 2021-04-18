@@ -13,18 +13,18 @@ most of the human population. Unfortunately, time is running out.
 Zombies have begun to devour your colony and you’ll need to produce 
 more of the antidote quickly.
 
-Collect enough samples of the virus to produce enough of your  
+Collect 36 samples of the virus to produce enough of your  
 antidote to save the survivors.
 
 Beware of the zombies who have infiltrated your colony... 
 
-Press Spacebar to start your Journey....`
+Press SPACEBAR to begin your nightmare......`
 
 
 const textStyle = {
   fontSize: 20,
   lineSpacing:0,
-  fontFamily: "verdana",
+  fontFamily: 'verdana',
   color: "WHITE",
 };
 

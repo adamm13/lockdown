@@ -44,6 +44,15 @@ class loadingScene extends Phaser.Scene {
 
         this.load.audio("blood", "/src/assets/sounds/bloodshed.mp3")
 
+        //Loading assets for the winning scene
+        this.load.image("act_1", "src/assets/menu-images/act1.png");
+
+        this.load.image("complete", "src/assets/menu-images/complete.png");
+
+        this.load.image("spacebar", "src/assets/menu-images/spacebar.png");
+
+        //load asses for forest portal
+        this.load.image("forestportal", "src/assets/menu-images/forestportal.png")
 
         let progressBar = this.add.graphics();
         let progressBox = this.add.graphics();
