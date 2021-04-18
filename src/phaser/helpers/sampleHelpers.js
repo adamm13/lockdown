@@ -19,17 +19,17 @@ const createSamples = (sampleObjs, scene) => {
     return samples;
 };
 
-const sampleCollector = (player, sample, scene) => {
-    scene.samplesTouched = true
-    const sampleLocations = scene.sampleObjs; // aka this.sampleObjs
+const sampleCollector = (player, sample, thisScene) => {
+    thisScene.samplesTouched = true
+    const sampleLocations = thisScene.sampleObjs; // aka this.sampleObjs
 
     // hide sprite, disable body
-    scene.samples.killAndHide(sample);
+    thisScene.samples.killAndHide(sample);
     sample.body.enable = false;
 
     // update sample locations - to be put into React component!?
-    const sampleIndex = scene.samples.getChildren().indexOf(sample); 
-    const newSampleForPlayer = scene.samples.getChildren().splice(sampleIndex, 1)[0]; // grab this object 
+    const sampleIndex = thisScene.samples.getChildren().indexOf(sample); 
+    const newSampleForPlayer = thisScene.samples.getChildren().splice(sampleIndex, 1)[0]; // grab this object 
     sampleLocations.splice(sampleIndex, 1);
 
     // Add the collected item obj to the player inv
@@ -38,6 +38,11 @@ const sampleCollector = (player, sample, scene) => {
 
     //emit event to update inventory icon
     sceneEvents.emit('sample-collected', player.gameData.inventory);
+
+    if (player.gameData.inventory.length === 36) {
+      thisScene.scene.start("BossUnlock", player.gameData);
+      thisScene.scene.stop(thisScene.scene.key);
+    }
 };
 
 module.exports = { createSamples, sampleCollector };
