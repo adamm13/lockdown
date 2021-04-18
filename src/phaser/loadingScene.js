@@ -51,6 +51,8 @@ class loadingScene extends Phaser.Scene {
 
         this.load.image("spacebar", "src/assets/menu-images/spacebar.png");
 
+        //load asses for forest portal
+        this.load.image("forestportal", "src/assets/menu-images/forestportal.png")
 
         let progressBar = this.add.graphics();
         let progressBox = this.add.graphics();
