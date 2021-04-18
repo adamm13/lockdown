@@ -29,7 +29,7 @@ const config = {
             debug: false
         }
       },
-    scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon, GameUI, GameOver, FinalBoss, BossUnlock ],
+    scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon, FinalBoss, GameUI, GameOver, BossUnlock ],
 
     render: {
       pixelArt: true

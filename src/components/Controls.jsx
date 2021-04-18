@@ -2,7 +2,7 @@ import React from "react";
 import './controls.css';
 
 export default function Controls(props) {
-	
+  console.log(props);
 
   return (
     <ul className="controls">

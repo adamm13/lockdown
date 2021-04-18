@@ -3,7 +3,7 @@ import Controls from './Controls.jsx';
 import GameStats from "./GameStats.jsx";
 
 export default function App(props) {
-	
+	console.log(props);
 	
 	const titleStyle = {
 		color: "red",
