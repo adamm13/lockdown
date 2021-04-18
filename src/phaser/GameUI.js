@@ -58,7 +58,7 @@ export default class GameUI extends Phaser.Scene {
     }
 
     updateInventory(playerInventory){
-        inventoryDisplay.setText(': ' + playerInventory);
+        inventoryDisplay.setText(': ' + playerInventory + ' /36');
     }
 
     updateHealth(playerHealth) {

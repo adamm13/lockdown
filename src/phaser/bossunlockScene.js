@@ -15,11 +15,6 @@ class BossUnlock extends Phaser.Scene {
 
     this.add.image(0,0, "forestportal").setOrigin(0)
 
-    this.input.keyboard.on('keydown-SPACE', () => {
-        this.scene.resume("Forest")
-      });
-
-
     // this.input.keyboard.once('keyup-SPACE', function () {      
     //       this.scene.start('startMenu', data);
     //   }, this);
