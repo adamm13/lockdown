@@ -109,7 +109,7 @@ class Forest extends Phaser.Scene {
       });
 
       // Conditional staircase to boss room if 36 samples
-      if (data.inventory.length === 36) {
+      if (data.inventory.length === 2) {
         const enterBoss = map.createLayer("enterBoss", tileset3);
         enterBoss.setCollisionBetween(0, 1200);
         this.physics.add.collider(player, enterBoss, (player, tile) => { 

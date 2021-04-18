@@ -12,6 +12,7 @@ import { Intro } from "./phaser/intro";
 import { GameOver } from "./phaser/gameOverScene";
 import { BossUnlock } from "./phaser/bossunlockScene";
 import { Winning } from "./phaser/winningScene";
+import { Act1 }  from "./phaser/act1Scene";
 
 import GameUI from './phaser/GameUI';
 
@@ -39,7 +40,8 @@ const config = {
       FinalBoss, 
       BossUnlock, 
       Winning,
-      GameUI
+      GameUI,
+      Act1
     ],
     render: {
       pixelArt: true

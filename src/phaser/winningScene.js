@@ -129,7 +129,7 @@ const Winning = new Phaser.Class({
               "Forest": null
             }
           }
-          
+           this.scene.start('Act1', data);
 
       }, this);
 }
