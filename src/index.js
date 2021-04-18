@@ -16,7 +16,7 @@ import GameUI from './phaser/GameUI';
 
 
 const config = {
-  type: Phaser.AUTO,
+  type: Phaser.WEBGL,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     parent: 'phaser-example',
     width: 800,

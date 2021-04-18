@@ -1,4 +1,5 @@
 import React from "react";
+import Controls from './Controls.jsx';
 
 export default class App extends React.Component {
 	render() 
@@ -11,9 +12,9 @@ export default class App extends React.Component {
 			textAlign: "center"
     };
 		return (
-			<div>
-				{/* <h1 style={titleStyle}>LockDown</h1> */}
-			</div>
+			<>
+				<Controls />
+			</>
 		);
 	}
 }
