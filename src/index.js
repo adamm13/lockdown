@@ -11,7 +11,6 @@ import { startMenu } from "./phaser/startMenu";
 import { Intro } from "./phaser/intro";
 import { GameOver } from "./phaser/gameOverScene";
 import { BossUnlock } from "./phaser/bossunlockScene";
-//import { Winning } from "./phaser/winningScene";
 import { Winning } from "./phaser/winningScene";
 
 import GameUI from './phaser/GameUI';
@@ -29,8 +28,19 @@ const config = {
             debug: false
         }
       },
-    scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon, GameUI, GameOver, FinalBoss, BossUnlock ],
-
+    scene: [ 
+      loadingScene, 
+      startMenu, 
+      Intro, 
+      Town, 
+      Forest, 
+      Dungeon, 
+      GameUI, 
+      GameOver, 
+      FinalBoss, 
+      BossUnlock, 
+      Winning 
+    ],
     render: {
       pixelArt: true
     }
