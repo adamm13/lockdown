@@ -6,110 +6,115 @@ import { zombieFactory, zombieDamage, zombieHit } from './helpers/zombieHelpers'
 import GameUI from './GameUI';
 
 class FinalBoss extends Phaser.Scene {
-    constructor() {
-        super({ key: "FinalBoss" });
+  constructor() {
+      super({ key: "FinalBoss" });
+    }
+
+    zombies = [];
+    zombieBoss = [];
+
+  init(data){
+      console.log(data);
+  }
+
+  preload() {
+      preloadAssets(this);
+  }
+
+  create(data) {
+  
+  //transition into dungeon scene
+  this.cameras.main.fadeIn(2000);
+  // environment
+  const map = this.make.tilemap({ key: 'finalBoss' });
+  const tileset = map.addTilesetImage('dungeon-tileset', 'dungeonTiles', 32, 32, 1, 2);
+  const dungObjs = map.addTilesetImage('dungeon-objects', 'obj-tiles');
+  const ground = map.createLayer("Ground", tileset, 0, 0);
+  const walls = map.createLayer("Walls", tileset, 0, 0);
+  //const chest = map.createLayer("Chest", dungObjs, 0, 0);
+
+  this.scene.run('GameUI', data);
+  console.log(data.inventory);
+  
+  // camera
+  this.cameras.main.setZoom(1.7);
+
+  // Create player at start location
+  this.player = new Player(this, 385, 580, 'player', data.inventory, data.health);
+  const player = this.player;
+  player.body.setCollideWorldBounds(true);
+
+  // Make camera stop at edge of map
+  this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+  // make camera follow player
+  this.cameras.main.startFollow(this.player);
+
+  //create shots
+  this.shots = new Shots(this);
+
+  walls.setCollisionBetween(0, 300);
+  this.physics.add.collider(player, walls);
+
+  // Get zombie obj array from map
+  const zombieObjs = map.objects.find(layer => layer.name === 'Zombies').objects;
+  // Create zombies 
+  zombieFactory(this, zombieObjs, 'zombieGhost', this.player, walls);
+
+  this.zombies.forEach(zombie => {
+      this.physics.add.overlap(player, zombie, zombieHit);
+  });
+
+  // Physics properties for shots
+  this.physics.add.collider(this.shots, walls, () => {
+      //console.log(this.shots.children);
+      let shot = this.shots.getFirstAlive();
+      //console.log(shot);
+      if(shot){
+        shot.setVisible(false);
+        shot.setActive(false);
       }
-
-      zombies = [];
-      zombieBoss = [];
-
-    init(data){
-        console.log(data);
-    }
-
-    preload() {
-        preloadAssets(this);
-    }
-
-    create(data) {
-    
-         //transition into dungeon scene
-    this.cameras.main.fadeIn(2000);
-    // environment
-    const map = this.make.tilemap({ key: 'finalBoss' });
-    const tileset = map.addTilesetImage('dungeon-tileset', 'dungeonTiles', 32, 32, 1, 2);
-
-    const ground = map.createLayer("Ground", tileset, 0, 0);
-    const walls = map.createLayer("Walls", tileset, 0, 0);
-
-    this.scene.run('GameUI', data);
-    console.log(data.inventory);
-    
-    // camera
-    this.cameras.main.setZoom(1.7);
-
-    // Create player at start location
-    this.player = new Player(this, 385, 580, 'player', data.inventory, data.health);
-    const player = this.player;
-    player.body.setCollideWorldBounds(false);
-
-    // Make camera stop at edge of map
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-    // make camera follow player
-    this.cameras.main.startFollow(this.player);
-
-    //create shots
-    this.shots = new Shots(this);
-
-    walls.setCollisionBetween(0, 300);
-    this.physics.add.collider(player, walls);
-
-    // Get zombie obj array from map
-    const zombieObjs = map.objects.find(layer => layer.name === 'Zombies').objects;
-    // Create zombies 
-    zombieFactory(this, zombieObjs, 'zombieGhost', this.player, walls);
-
-    const zombieObjs2 = map.objects.find(layer => layer.name === 'ZombieBoss').objects;
-    zombieFactory(this, zombieObjs2, 'zombieKing', this.player, walls);
-
-    this.zombies.forEach(zombie => {
-        this.physics.add.overlap(player, zombie, zombieHit);
     });
 
-    // Physics properties for shots
-    this.physics.add.collider(this.shots, walls, () => {
-        console.log(this.shots.children);
-        let shot = this.shots.getFirstAlive();
-        console.log(shot);
-        if(shot){
-          shot.setVisible(false);
-          shot.setActive(false);
+    // Physics for shots/zombies
+    this.zombies.forEach(zombie => {
+      this.physics.add.collider(this.shots, zombie, (shot, zombie) => {
+        let individualShot = this.shots.getFirstAlive();
+        if (individualShot){
+          individualShot.setVisible(false);
+          individualShot.setActive(false);
+          zombieDamage(shot, zombie, this, map, dungObjs, player);
         }
       });
+    });
 
-      // Physics for shots/zombies
-      this.zombies.forEach(zombie => {
-        this.physics.add.collider(this.shots, zombie, (shot, zombie) => {
-          let individualShot = this.shots.getFirstAlive();
-          if (individualShot){
-            individualShot.setVisible(false);
-            individualShot.setActive(false);
-            zombieDamage(shot, zombie, this, player);
-          }
-        });
-      });
+    // Adds controls for firing
+    this.input.keyboard.on('keydown-SPACE', () => {
+      this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
+    });
 
-      // Adds controls for firing
-      this.input.keyboard.on('keydown-SPACE', () => {
-        this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
-      });
+  }
 
+  update() {
+      if (this.player.isDead) {
+        gameOver(this.player, this);
+      } else {
+        this.player.update();
+      }
+      this.zombies.forEach(z => z.update());
+      if (this.player.body.embedded) {
+        this.player.body.touching.none = false;
+      }
+      if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
+        this.player.clearTint();
+      }
     }
 
-    update() {
-        if (this.player.isDead) {
-          gameOver(this.player, this);
-        } else {
-          this.player.update();
-        }
-        this.zombies.forEach(z => z.update());
-        if (this.player.body.embedded) {
-          this.player.body.touching.none = false;
-        }
-        if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
-          this.player.clearTint();
-        }
-      }
+  renderChest(map, tileset, player) {
+    console.log(this);
+    console.log(map);
+    console.log(tileset);
+    console.log(player);
+  }
 
 }
 

@@ -22,7 +22,7 @@ class loadingScene extends Phaser.Scene {
 
         this.load.image("skull", "src/assets/menu-images/skull.png");
         //Fake Loading Screen assets
-            for (let i = 0; i < 2000; i++) {
+            for (let i = 0; i < 200; i++) {
         this.load.image('Zombie'+ ' ' + i, 'src/assets/menu-images/skull.png');
         }
 
@@ -93,7 +93,7 @@ class loadingScene extends Phaser.Scene {
         assetText.setOrigin(0.5, 0.5);
 
         this.load.on('progress', function (value) {
-            console.log(value);
+            // console.log(value);
             progressBar.clear();
             progressBar.fillStyle(0xff0000, 1);
             progressBar.fillRect(250, 280, 300 * value, 30);     	
@@ -101,12 +101,12 @@ class loadingScene extends Phaser.Scene {
         });
                     
         this.load.on('fileprogress', function (file) {
-            console.log(file.src);
+            // console.log(file.src);
             assetText.setText('Loading asset: ' + file.key);
         });
         
         this.load.on('complete', function () {
-            console.log('complete');
+            //console.log('complete');
             progressBar.destroy();
             progressBox.destroy();
             loadingText.destroy();

@@ -37,14 +37,17 @@ class Forest extends Phaser.Scene {
     const map = this.make.tilemap({ key: 'forestMap' });
     const tileset1 = map.addTilesetImage('Forest-extruded', 'forest', 32, 32, 1, 2);
     const tileset2 = map.addTilesetImage('Graveyard-extruded', 'graveyard', 32, 32, 1, 2);
-    
+    const tileset3 = map.addTilesetImage('dungeon-objects', 'obj-tiles');
     const ground = map.createLayer("ground", tileset1);
     const below_player_2 = map.createLayer("below-player-2", tileset2);
     const obstacles = map.createLayer("obstacles", tileset1);
     const obstacles_2 = map.createLayer("obstacles-2", tileset2);
     const below_player = map.createLayer("below-player", tileset1);
     const exitShrubs = map.createLayer("exitForest", tileset1);
-    
+
+    //if (data.inventory.length === 36) {
+    const enterBoss = map.createLayer("enterBoss", tileset3);
+    //}
 
     //render hearts
     this.scene.run('GameUI', data);
@@ -88,18 +91,15 @@ class Forest extends Phaser.Scene {
       //  Player physics properties.
       obstacles.setCollisionBetween(0, 300);
       obstacles_2.setCollisionBetween(1, 400);
+      enterBoss.setCollisionBetween(0, 1200);
       exitShrubs.setCollisionBetween(1, 400);
       this.physics.add.collider(player, obstacles);
-      this.physics.add.collider(player, obstacles_2, (player, tile) => {
-        console.log("OUCH!");
-        console.log("X: ", player.x);
-        console.log("Y: ", player.y);
-      });
+      this.physics.add.collider(player, obstacles_2);
 
       // Get zombie obj array from map
       const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
       // Create zombies // Right now the zombieGhost sprite can pass through obstacles_2 just b/c thats the way the Factory is set up lol
-      zombieFactory(this, zombieObjs, 'zombieGhost', this.player, obstacles);
+      // zombieFactory(this, zombieObjs, 'zombieGhost', this.player, obstacles);
 
       this.zombies.forEach(zombie => {
         this.physics.add.overlap(player, zombie, zombieHit);
@@ -110,6 +110,10 @@ class Forest extends Phaser.Scene {
 
       // Exit scene & pass data through player object (player.gameData property)
       this.physics.add.collider(player, exitShrubs, (player, tile) => { 
+        portalCallback(player, tile, this, data);
+      });
+      // Enter boss room 
+      this.physics.add.collider(player, enterBoss, (player, tile) => { 
         portalCallback(player, tile, this, data);
       });
 
