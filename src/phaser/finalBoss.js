@@ -61,7 +61,7 @@ class FinalBoss extends Phaser.Scene {
 
     const zombieObjs2 = map.objects.find(layer => layer.name === 'ZombieBoss').objects;
     zombieFactory(this, zombieObjs2, 'zombieKing', this.player, walls);
-
+    
     this.zombies.forEach(zombie => {
         this.physics.add.overlap(player, zombie, zombieHit);
     });
