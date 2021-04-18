@@ -7,8 +7,7 @@ class GameOver extends Phaser.Scene {
     super("GameOver");
   }
 
-    create(data)
-    {
+    create(data) {
     
     // camera transition effect
       this.cameras.main.fadeIn(5000);

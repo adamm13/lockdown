@@ -15,13 +15,16 @@ const zombieFactory = (scene, zombieArray, spritesheetKey, target, obstacles) =>
   });
 };
 
-const zombieDamage = (zombie, shot, scene, map, tileset, player) => {
-  console.log("Map: ", map);
-  if(zombie.zombieData.health === 0){
+const zombieDamage = (zombie, shot, scene, bossRoom) => {
+  if (zombie.zombieData.health === 0) {
     zombie.setVisible(false);
     zombie.body.enable = false;
     // increment player kill count?
-    killZombie(zombie, scene, map, tileset, player);
+    if (bossRoom) {
+      const { map, tileset, player } = bossRoom;
+      const finalScene = scene.scene.get('FinalBoss');
+      killZombie(zombie, finalScene, map, tileset, player);
+    }
   } else {
     zombie.tint = Math.random() * 0xffffff;
     zombie.zombieData.health -= 1;
@@ -33,30 +36,34 @@ const zombieDamage = (zombie, shot, scene, map, tileset, player) => {
 };
 
 const zombieHit = (player, zombie) => {
-
-  // could refactor for more/less damage depening on zombie 
-  player.gameData.health -= 0.5; 
-  player.tint = Math.random() * 0xffffff;
-
   //gets information to pass to the player bouncing back
   const directionX = player.x - zombie.x;
   const directionY = player.y - zombie.y;
   const direction = new Phaser.Math.Vector2(directionX, directionY).normalize().scale(300);
-  player.bounceBack(direction);
+  
+  // mess up the player more if boss
+  if (zombie.textureKey === "zombieKing") {
+    player.gameData.health -= 1; 
+    player.bounceBack(direction);
+  } else {
+    player.gameData.health -= 0.5; 
+  }
+  
+  player.tint = Math.random() * 0xffffff;
 
   sceneEvents.emit('zombieHit', player.gameData.health);
-  //this.sound.play("blood") // throttle this sound to play once/second
+  //scene.sound.play("blood") // throttle this sound to play once/second
 };
 
 const killZombie = (zombie, scene, map, tileset, player) => {
   // Remove zombie from scene zombies array
   const zombieIndex = scene.zombies.indexOf(zombie); 
   scene.zombies.splice(zombieIndex, 1); 
-  console.log(scene.zombies);
+
   const finalScene = scene.scene.get('FinalBoss');
   if (finalScene.zombies.length === 0) {
     console.log("YOU WIN!");
-    renderChest(scene, map, tileset, player);
+    renderChest(finalScene, map, tileset, player);
   }
 }
 
@@ -71,5 +78,7 @@ const renderChest = (scene, map, tileset, player) => {
 const getAntidote = () => {
   console.log("YOU GOT THE ANTIDOTE");
 };
+
+
 
 module.exports = { zombieFactory, zombieDamage, zombieHit };
