@@ -10,15 +10,18 @@ import { loadingScene } from "./phaser/loadingScene";
 import { startMenu } from "./phaser/startMenu";
 import { Intro } from "./phaser/intro";
 import { GameOver } from "./phaser/gameOverScene";
+<<<<<<< HEAD
 import { BossUnlock } from "./phaser/bossunlockScene";
 //import { Winning } from "./phaser/winningScene";
+=======
+import { Winning } from "./phaser/winningScene";
+>>>>>>> 999549b024c6c797f25a8bd59f61df03d441fea5
 import GameUI from './phaser/GameUI';
 
 
 
 const config = {
   type: Phaser.AUTO,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -28,8 +31,23 @@ const config = {
             debug: false
         }
       },
+<<<<<<< HEAD
 
     scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon, GameUI, GameOver, FinalBoss, BossUnlock ],
+=======
+    scene: [ 
+      loadingScene, 
+      startMenu, 
+      Intro, 
+      Town, 
+      Forest, 
+      Dungeon, 
+      GameUI, 
+      GameOver, 
+      FinalBoss, 
+      Winning 
+    ],
+>>>>>>> 999549b024c6c797f25a8bd59f61df03d441fea5
     render: {
       pixelArt: true
     }

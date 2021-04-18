@@ -83,5 +83,4 @@ const getAntidote = (scene) => {
 };
 
 
-
 module.exports = { zombieFactory, zombieDamage, zombieHit };
