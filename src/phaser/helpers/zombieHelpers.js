@@ -23,7 +23,7 @@ const zombieDamage = (zombie, shot, scene, bossRoom) => {
     if (bossRoom) {
       const { map, tileset, player } = bossRoom;
       const finalScene = scene.scene.get('FinalBoss');
-      killZombie(zombie, finalScene, map, tileset, player);
+      killZombie(zombie.setScale(2), finalScene, map, tileset, player);
     }
   } else {
     zombie.tint = Math.random() * 0xffffff;
