@@ -4,7 +4,7 @@ import GameStats from "./GameStats.jsx";
 import Background from "./Background.jsx";
 
 export default function App(props) {
-	
+	console.log(props);
 	
 	const titleStyle = {
 		color: "red",

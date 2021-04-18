@@ -6,7 +6,6 @@ class Zombie extends Entity {
 
   constructor(scene, x, y, textureKey, target, speed, health) {
     super(scene, x, y, textureKey);
-
     this.scene = scene;
     //zombie health
     this.zombieData = {}

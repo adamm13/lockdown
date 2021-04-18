@@ -35,11 +35,11 @@ const config = {
       Town, 
       Forest, 
       Dungeon, 
-      GameUI, 
       GameOver, 
       FinalBoss, 
       BossUnlock, 
-      Winning 
+      Winning,
+      GameUI
     ],
     render: {
       pixelArt: true
