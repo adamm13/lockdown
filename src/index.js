@@ -40,8 +40,8 @@ const config = {
       FinalBoss, 
       BossUnlock, 
       Winning,
-      GameUI,
-      Act1
+      Act1,
+      GameUI
     ],
     render: {
       pixelArt: true
