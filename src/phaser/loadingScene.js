@@ -21,6 +21,10 @@ class loadingScene extends Phaser.Scene {
         this.load.image("no", "src/assets/menu-images/no.png");  
 
         this.load.image("skull", "src/assets/menu-images/skull.png");
+        //Fake Loading Screen assets
+            for (let i = 0; i < 200; i++) {
+        this.load.image('Zombie'+ ' ' + i, 'src/assets/menu-images/skull.png');
+        }
 
         //Loading the assets for the Main Menu
         this.load.image("title_bg", "src/assets/menu-images/title_bg.jpeg");
@@ -40,36 +44,68 @@ class loadingScene extends Phaser.Scene {
 
         this.load.audio("blood", "/src/assets/sounds/bloodshed.mp3")
 
-        // create loading bar 
 
-        let loadingBar = this.add.graphics({
-            fillStyle: {
-                color: 0xffffff
+        let progressBar = this.add.graphics();
+        let progressBox = this.add.graphics();
+        progressBox.fillStyle(0x222222, 0.8);
+        progressBox.fillRect(240, 270, 320, 50);
+
+        let width = this.cameras.main.width;
+        let height = this.cameras.main.height;
+        let loadingText = this.make.text({
+            x: width / 2,
+            y: height / 2 - 50,
+            text: 'Loading...',
+            style: {
+                font: '24px monospace',
+                fill: '#ffffff'
             }
-        })
-    
-
-
-        //Loader events:
-            //complete - when done loading
-            //progress - loader number progress in decimals
-
-        //fake loading bar 
-        for (let i = 0; i < 10; i++){
-        this.load.spritesheet("player" + i, "src/assets/player.png", {
-            frameHeight: 32,
-            frameWidth: 32
         });
-        }
+        loadingText.setOrigin(0.5, 0.5);
 
-        this.load.on("progress", (percent) => {
-            loadingBar.fillRect(0, this.game.renderer.height /2, this.game.renderer.width * percent, 50);
-            //console.log(percent)
-        })
+        let percentText = this.make.text({
+            x: width / 2,
+            y: height / 2 - 5,
+            text: '0%',
+            style: {
+                font: '20px monospace',
+                fill: '#ffffff'
+            }
+        });
+        percentText.setOrigin(0.5, 0.5);
 
-        this.load.on("complete", () => {
-            //this.scene.start()
-        })
+        let assetText = this.make.text({
+            x: width / 2,
+            y: height / 2 + 50,
+            text: '',
+            style: {
+                font: '22px monospace',
+                fill: '#ffffff'
+            }
+        });
+        assetText.setOrigin(0.5, 0.5);
+
+        this.load.on('progress', function (value) {
+            // console.log(value);
+            progressBar.clear();
+            progressBar.fillStyle(0xff0000, 1);
+            progressBar.fillRect(250, 280, 300 * value, 30);     	
+            percentText.setText(parseInt(value * 100) + '%');
+        });
+                    
+        this.load.on('fileprogress', function (file) {
+            // console.log(file.src);
+            assetText.setText('Loading asset: ' + file.key);
+        });
+        
+        this.load.on('complete', function () {
+            //console.log('complete');
+            progressBar.destroy();
+            progressBox.destroy();
+            loadingText.destroy();
+            percentText.destroy();
+            assetText.destroy();
+        });
     }
 
     create()

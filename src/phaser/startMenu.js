@@ -9,6 +9,7 @@ class startMenu extends Phaser.Scene {
 
     create(data)
     {
+    this.cameras.main.fadeIn(5000);
 
     this.add.image(this.game.renderer.width /2, this.game.renderer.height * 0.20, "logo").setDepth(1)
 
@@ -50,19 +51,15 @@ class startMenu extends Phaser.Scene {
       hoverSprite.play("walk")
       hoverSprite.x = playButton.x - playButton.width / 1.5;
       hoverSprite.y = playButton.y;
-      console.log("hovering")
     })
 
     playButton.on("pointerout", () => {
       hoverSprite.setVisible(false)
-      console.log("no more hover")
     })
 
     playButton.on("pointerup", () => {
       this.sound.play("blood")
-      console.log(data);
       this.scene.start("Intro", data);
-      console.log("time to meet zombies")
     })
 
     }

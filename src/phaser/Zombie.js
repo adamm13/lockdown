@@ -9,7 +9,12 @@ class Zombie extends Entity {
     this.scene = scene;
     //zombie health
     this.zombieData = {}
-    this.zombieData.health = health ? health: 2;
+
+    if (textureKey === "zombieKing") {
+      this.zombieData.health = health ? health: 20;
+    } else {
+      this.zombieData.health = health ? health: 2;
+    }
 
     // set target to player
     this.target = target;

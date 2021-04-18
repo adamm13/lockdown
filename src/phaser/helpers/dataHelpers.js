@@ -89,6 +89,10 @@ const portalCallback = (player, tile, thisScene, data) => {
       destination = "Town";
       comingFrom = "Forest";
     break
+    case "enterBoss":
+      destination = "FinalBoss";
+      comingFrom = "Forest";
+    break
     default: 
       console.log("Unrecognized portal tile layer, sending you to Town");
       destination = "Town";

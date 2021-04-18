@@ -12,16 +12,12 @@ class Shot extends Phaser.Physics.Arcade.Sprite{
         this.setVisible(true);
         if (playerDirection > 0 && playerDirection <= 3){
             this.setVelocityY(300);
-            console.log("shot down")
         } else if (playerDirection > 3 && playerDirection <= 5){
             this.setVelocityX(-300);
-            console.log("shot left")
         } else if (playerDirection > 5 && playerDirection <= 8){
             this.setVelocityX(300);
-            console.log("shot right")
         } else if (playerDirection > 8 && playerDirection <= 11){
             this.setVelocityY(-300);
-            console.log("shot up")
         }
     }
 
