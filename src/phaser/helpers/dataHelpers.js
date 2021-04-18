@@ -88,6 +88,7 @@ const portalCallback = (player, tile, thisScene, data) => {
     case "exitForest":
       destination = "Town";
       comingFrom = "Forest";
+    break
     case "enterBoss":
       destination = "FinalBoss";
       comingFrom = "Forest";
