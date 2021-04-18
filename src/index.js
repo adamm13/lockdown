@@ -10,14 +10,13 @@ import { loadingScene } from "./phaser/loadingScene";
 import { startMenu } from "./phaser/startMenu";
 import { Intro } from "./phaser/intro";
 import { GameOver } from "./phaser/gameOverScene";
-//import { Winning } from "./phaser/winningScene";
+import { Winning } from "./phaser/winningScene";
 import GameUI from './phaser/GameUI';
 
 
 
 const config = {
-  type: Phaser.WEBGL,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
+  type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
     height: 600,
@@ -27,8 +26,18 @@ const config = {
             debug: false
         }
       },
-
-    scene: [ loadingScene, startMenu, Intro, Town, Forest, Dungeon, GameUI, GameOver, FinalBoss ],
+    scene: [ 
+      loadingScene, 
+      startMenu, 
+      Intro, 
+      Town, 
+      Forest, 
+      Dungeon, 
+      GameUI, 
+      GameOver, 
+      FinalBoss, 
+      Winning 
+    ],
     render: {
       pixelArt: true
     }
