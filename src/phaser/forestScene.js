@@ -129,7 +129,7 @@ class Forest extends Phaser.Scene {
       });
       this.physics.add.collider(this.shots, obstacles_2, () => {
         let shot = this.shots.getFirstAlive();
-        console.log(shot)
+        //console.log(shot)
         if(shot){
           shot.setVisible(false);
         }

@@ -71,12 +71,15 @@ const renderChest = (scene, map, tileset, player) => {
   const chest = map.createLayer("Chest", tileset, 0, 0);
   chest.setCollisionBetween(0, 500);
   scene.physics.add.collider(chest, player, (player, tile) => { 
-    getAntidote();
+    getAntidote(scene);
   });
 }
 
-const getAntidote = () => {
+const getAntidote = (scene) => {
   console.log("YOU GOT THE ANTIDOTE");
+  // Transition to Game Over "You Won" Scene
+  scene.scene.start("Winning");
+  scene.scene.stop("FinalBoss");
 };
 
 
