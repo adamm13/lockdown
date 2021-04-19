@@ -125,7 +125,7 @@ const Intro = new Phaser.Class({
             tweens.addCounter({
               from: 0,
               to: 1,
-              duration: 40 * game_intro.length,
+              duration: 20 * game_intro.length,
               onUpdate: (counter) => {
                 const { x, y } = path.getPoint(counter.getValue());
       
