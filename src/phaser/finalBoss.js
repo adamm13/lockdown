@@ -39,7 +39,7 @@ class FinalBoss extends Phaser.Scene {
   this.cameras.main.setZoom(1.7);
 
   // Create player at start location
-  this.player = new Player(this, 385, 580, 'player', data.inventory, data.health);
+  this.player = new Player(this, 385, 580, 'player', data.inventory, data.health, data.sampleLocations, data.kills);
   const player = this.player;
   player.body.setCollideWorldBounds(true);
 
@@ -89,7 +89,7 @@ class FinalBoss extends Phaser.Scene {
         if (individualShot){
           individualShot.setVisible(false);
           individualShot.setActive(false);
-          zombieDamage(shot, zombie, this, this.bossRoom);
+          zombieDamage(shot, zombie, this, player, this.bossRoom);
         }
       });
     });

@@ -34,10 +34,10 @@ const sampleCollector = (player, sample, thisScene) => {
 
     // Add the collected item obj to the player inv
     player.gameData.inventory.push(newSampleForPlayer);
-    console.log(player.gameData.inventory);
 
     //emit event to update inventory icon
     sceneEvents.emit('sample-collected', player.gameData.inventory);
+    //sampleEvent.emit('increment-sample', player.gameData.inventory);
 
     // cut to BossUnlock Scene when all samples are gathered
     if (player.gameData.inventory.length === 2) {

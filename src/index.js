@@ -16,8 +16,6 @@ import { Act1 }  from "./phaser/act1Scene";
 
 import GameUI from './phaser/GameUI';
 
-
-
 const config = {
   type: Phaser.AUTO,
     parent: 'phaser-example',
@@ -47,8 +45,8 @@ const config = {
       pixelArt: true
     }
   };
-const game = new Phaser.Game(config);
 
+const game = new Phaser.Game(config);
 
 
 ReactDOM.render(

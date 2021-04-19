@@ -15,11 +15,14 @@ const zombieFactory = (scene, zombieArray, spritesheetKey, target, obstacles) =>
   });
 };
 
-const zombieDamage = (zombie, shot, scene, bossRoom) => {
+const zombieDamage = (zombie, shot, scene, player, bossRoom) => {
   if (zombie.zombieData.health === 0) {
     zombie.setVisible(false);
-    zombie.body.enable = false;
-    // increment player kill count?
+    zombie.body.enable = false; 
+    // Increment kill count and emit event
+    player.gameData.kills += 1;
+    sceneEvents.emit('zombie-killed', player.gameData.kills);
+    // Keep track of kills in bossRoom for conditional chest render
     if (bossRoom) {
       const { map, tileset, player } = bossRoom;
       const finalScene = scene.scene.get('FinalBoss');

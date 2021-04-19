@@ -85,7 +85,7 @@ class Town extends Phaser.Scene {
     }
     
     // Create player at start location and scale him
-    this.player = new Player(this, this.startingX, this.startingY, 'player', data.inventory, data.health, data.sampleLocations);
+    this.player = new Player(this, this.startingX, this.startingY, 'player', data.inventory, data.health, data.sampleLocations, data.kills);
     const player = this.player;
     player.body.setCollideWorldBounds(false);
 
@@ -132,7 +132,7 @@ class Town extends Phaser.Scene {
           if (individualShot){
             individualShot.setVisible(false);
             individualShot.setActive(false);
-            zombieDamage(shot, zombie, this);
+            zombieDamage(shot, zombie, this, player);
           }
       });
     });
