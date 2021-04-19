@@ -25,7 +25,7 @@ Press ENTER to begin your nightmare......`
 const textStyle = {
   fontSize: 20,
   lineSpacing:0,
-  fontFamily: 'Press Start 2P',
+  fontFamily: 'Special Elite',
   color: "WHITE",
 };
 
@@ -53,8 +53,8 @@ const Intro = new Phaser.Class({
       //load fonts
       WebFont.load({
         google: {
-            families: [ 'Press Start 2P', 'Zapfino' ]
-        },
+            families: [ 'Press Start 2P', 'Special Elite' ]
+        }
       });  
 
       // camera transition effect
