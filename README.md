@@ -1,6 +1,6 @@
 !["Title"](https://github.com/adamm13/lockdown/blob/master/src/assets/menu-images/menuname.png)
 
-Lockdown is a 2D topdown game where zombies have taken over. You must collect enough samples to eradicate the virus to save the world.
+- A 2D topdown game where zombies have taken over. You must collect enough samples to eradicate the virus to save the world.
 
 ## Motivation
 
@@ -8,11 +8,11 @@ We were motivated to develop a game as we were all passionate about video games.
 
 ## Controls
 
-W or ⬆  - to move up
-A or ⬅  - to move left
-S or ⬇  - to move down
-D or ➡   - to move right
-Spacebar  - to shoot
+W or ⬆  to move up <br />
+A or ⬅  to move left <br />
+S or ⬇  to move down <br />
+D or ➡  to move right <br />
+Spacebar  to shoot <br />
 
 ## Credits
 
