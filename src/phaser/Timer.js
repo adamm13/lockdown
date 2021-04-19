@@ -9,7 +9,7 @@ export default class Timer {
         this.scene = scene
         this.timeDisplay = timeDisplay
     }
-    totalTime = 20000
+    totalTime = 600000
     timerDuration(totalTime){
         this.timerEvent = this.scene.time.addEvent({delay: totalTime})
     }
