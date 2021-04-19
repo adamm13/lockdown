@@ -54,7 +54,10 @@ const Intro = new Phaser.Class({
       WebFont.load({
         google: {
             families: [ 'Press Start 2P', 'Special Elite' ]
-        }
+        },
+        active: function() {
+          game.time.events.add(Phaser.Timer.SECOND, createText, this);
+           },
       });  
 
       // camera transition effect
