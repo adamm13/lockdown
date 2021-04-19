@@ -23,7 +23,7 @@ Press ENTER to begin your nightmare......`
 
 
 const textStyle = {
-  fontSize: 20,
+  fontSize: 25,
   lineSpacing:0,
   fontFamily: 'VT323',
   color: "WHITE",
