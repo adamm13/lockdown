@@ -130,7 +130,8 @@ const Winning = new Phaser.Class({
               "Dungeon": null,
               "Town": null,
               "Forest": null
-            }
+            },
+            kills: 0
           }
            this.scene.start('Act1', data);
 

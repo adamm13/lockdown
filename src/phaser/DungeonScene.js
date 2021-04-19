@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import { Player } from "./Player";
-import { Zombie } from "./Zombie";
 import { Shots, Shot } from './Shots';
 import { preloadAssets, gameOver, portalCallback } from './helpers/dataHelpers';
 import { createSamples, sampleCollector } from './helpers/sampleHelpers';
@@ -136,20 +135,3 @@ export default class Dungeon extends Phaser.Scene {
 }
 
 module.exports = { Dungeon };
-
-
-
-// Use this code for boss room ?
-
-//Create zombies (always give a unique zombie key name e.g. zombie1, zombie2. (It's not Phaser's spritesheet key, but it can be the same if there is only 1)
-    //Args: startX, startY, spritesheetKey, target, zombieKeyName, obstacles
-    // Need to create an array of zombie objs, maybe edit the tiled map to put them on one layer
-    // this.createZombie(spawnZombie1Pos.x, spawnZombie1Pos.y, 'zombie', this.player, 'zombieGirl', obstacles);
-    // this.createZombie(spawnZombie2Pos.x, spawnZombie2Pos.y, 'zombieKing', this.player, 'zombieKing', obstacles);
-
-  // zombies = {}
-  // createZombie(startX, startY, spritesheetKey, target, zombieKeyName, obstacles) {
-  //   this.zombies[zombieKeyName] = new Zombie(this, startX, startY, spritesheetKey, target, 120);
-  //   this.zombies[zombieKeyName].body.setCollideWorldBounds(true);
-  //   this.physics.add.collider(this.zombies[zombieKeyName], obstacles);
-  // }
