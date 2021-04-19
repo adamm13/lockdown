@@ -48,10 +48,6 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-window.onkeydown = function(event) { 
-  return !(event.keyCode === 32 && event.target === document.body);
-};
-
 
 ReactDOM.render(
   <App />,

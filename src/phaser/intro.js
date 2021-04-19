@@ -18,7 +18,7 @@ antidote to save the survivors.
 
 Beware of the zombies who have infiltrated your colony... 
 
-Press SPACEBAR to begin your nightmare......`
+Press ENTER to begin your nightmare......`
 
 
 const textStyle = {
@@ -125,7 +125,7 @@ const Intro = new Phaser.Class({
 
     
   });
-        this.input.keyboard.once('keyup-SPACE', function () {
+        this.input.keyboard.once('keyup-ENTER', function () {
 
           // Suppress WebGL warnings before changing scenes
           text.texture = this.renderer.blankTexture; // Should be wrapped in conditional when rendering direct to canvas?

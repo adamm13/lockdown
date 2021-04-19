@@ -17,10 +17,33 @@ export default class GameUI extends Phaser.Scene {
 
     create(data){
         //load the google font
-        WebFontConfig: {
-            google: 
-              families: ['Press Start 2P']
-          }
+        // WebFont.load({
+        //     google: {
+        //         families: ['Press Start 2P']
+        //     }
+        //     //   active: function(){
+        //     //       console.log(data.inventory)
+        //     //     if (data.inventory){
+        //     //         inventoryDisplay = this.add.text(35, 50, ': ' + data.inventory.length + '/36', {fontFamily: 'Press Start 2P', fontSize: 100})
+        //     //     } 
+        //     //     else {
+        //     //         inventoryDisplay = this.add.text(35, 50, ': ' + 0, {fontFamily: 'Press Start 2P', fontSize: 100});
+        //     //     }
+        //     //   },
+        //   })
+
+        WebFont.load({
+            google: {
+                families: [ 'Press Start 2P' ]
+            }
+            // active: function ()
+            // {
+            //     this.add.text(16, 0, 'The face of the\nmoon was in\nshadow.', { fontFamily: 'Freckle Face', fontSize: 80, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
+            //     this.add.text(250, 450, 'Waves flung themselves\nat the blue evening.', { fontFamily: 'Finger Paint', fontSize: 40, color: '#5656ee' });
+
+            // }
+        });
+    
 
         this.hearts = this.add.group()
 
@@ -49,9 +72,9 @@ export default class GameUI extends Phaser.Scene {
 
         //ui for inventory
         if (data.inventory){
-            inventoryDisplay = this.add.text(35, 50, ': ' + data.inventory.length + '/36', {fontFamily: 'Press Start 2P', fontSize: 50})
+            inventoryDisplay = this.add.text(35, 50, ': ' + data.inventory.length + '/36', {fontSize: 30, fontFamily: 'Press Start 2P'})
         } else {
-            inventoryDisplay = this.add.text(35, 50, ': ' + 0, {fontFamily: 'Press Start 2P', fontSize: 50});
+            inventoryDisplay = this.add.text(35, 50, ': ' + 0, {fontSize: 30, fontFamily: 'Press Start 2P'});
         }
         //event listener for when sample is collected
         sceneEvents.on('sample-collected', (playerInventory) => {

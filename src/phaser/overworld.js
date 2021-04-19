@@ -59,6 +59,18 @@ class Town extends Phaser.Scene {
 
   create(data) {
 
+    WebFont.load({
+      google: {
+          families: [ 'Freckle Face', 'Finger Paint', 'Nosifer' ]
+      },
+      // active: function ()
+    });
+    
+        this.add.text(45, 100, 'The face of the\nmoon was in\nshadow.', { fontFamily: 'Freckle Face', fontSize: 80, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
+        this.add.text(70, 100, 'Waves flung themselves\nat the blue evening.', { fontFamily: 'Finger Paint', fontSize: 40, color: '#5656ee' });
+
+    
+
     //fade in scene
     this.cameras.main.fadeIn(2000);
     
@@ -151,7 +163,7 @@ class Town extends Phaser.Scene {
     this.physics.add.collider(player, trees);
 
     // Adds controls for firing
-    this.input.keyboard.on('keydown-F', () => {
+    this.input.keyboard.on('keydown-SPACE', () => {
       this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
     });
 

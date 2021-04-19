@@ -146,7 +146,7 @@ class Forest extends Phaser.Scene {
       });
 
       // Adds controls for firing
-      this.input.keyboard.on('keydown-F', () => {
+      this.input.keyboard.on('keydown-SPACE', () => {
         this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
       });
 
