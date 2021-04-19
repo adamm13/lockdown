@@ -87,7 +87,7 @@ class Town extends Phaser.Scene {
     this.scene.run('GameUI', data);
 
     // camera
-    this.cameras.main.setZoom(0.5);
+    this.cameras.main.setZoom(2);
 
     // Get sample object layer from Tiled data if the player doesn't already have sample data
     if (this.samplesTouched) {
