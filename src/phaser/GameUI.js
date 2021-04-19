@@ -29,18 +29,7 @@ export default class GameUI extends Phaser.Scene {
         });
 
         //create game timer
-        let timer = this;
-
-        timer.startTime = new Date();
-        timer.totalTime = 300;
-        timer.timePassed = 0;
-
-        timer.createTimer();
-
-        // timer.gameTimer = this.time.events.loop(100, function(){
-        //     timer.updateTimer();
-        // })
-        timer.updateTimer();
+        
 
         this.hearts = this.add.group()
 
@@ -83,38 +72,6 @@ export default class GameUI extends Phaser.Scene {
         sceneEvents.on('sample-collected', (playerInventory) => {
             this.updateInventory(playerInventory.length);
         })
-    }
-
-    createTimer(){
-        let timer = this;
-        timer.timeLabel = timer.add.text(20, 75, "00:00", {fontSize: 25, fontFamily: 'VT323'});
-    }
-
-    updateTimer(){
-        let timer = this;
-        let currentTime = new Date();
-        let difference = timer.startTime.getTime() - currentTime.getTime();
-
-        timer.timePassed = Math.abs(difference / 1000);
-        let remainingTime = timer.totalTime - timer.timePassed;
-
-        let minutes = Math.floor(remainingTime / 60);
-        let seconds = Math.floor (remainingTime) - (60 * minutes);
-
-        let results;
-        if (minutes < 10){
-            results = '0' + minutes;
-        } else {
-            results = minutes;
-        }
-
-        if (seconds < 10){
-            results += '0' + seconds;
-        } else {
-            results += seconds;
-        }
-
-        timer.timeLabel.setText(results);
     }
 
     updateInventory(playerInventory){
