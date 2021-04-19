@@ -1,13 +1,14 @@
 import Phaser from 'phaser';
 
+let timerEvent;
+let totalTime;
 
 export default class Timer {
-    let timerEvent;
     constructor(scene, timeDisplay){
         this.scene = scene
         this.timeDisplay = timeDisplay
     }
-    const totalTime = 600000
+    totalTime = 600000
     timerDuration(totalTime){
         this.timerEvent = this.scene.time.addEvent({delay: totalTime})
     }

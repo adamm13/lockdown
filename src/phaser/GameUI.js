@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import sceneEvents from "./SceneEvents";
+import Timer from './Timer';
 
 let count = 0;
 let hearts;
@@ -30,6 +31,9 @@ export default class GameUI extends Phaser.Scene {
 
         //create game timer
         
+        const timeDisplay = this.add.text(20, 75, 600, {fontSize: 25, fontFamily: 'VT323'});
+        this.timer = new Timer(this, timeDisplay);
+        this.timer.timerDuration(600000);
 
         this.hearts = this.add.group()
 
@@ -74,6 +78,13 @@ export default class GameUI extends Phaser.Scene {
         })
     }
 
+    // createTimer(){
+    //     let timer = this;
+    //     timer.timeLabel = timer.add.text(20, 75, "00:00", {fontSize: 25, fontFamily: 'VT323'});
+    // }
+
+
+
     updateInventory(playerInventory){
         inventoryDisplay.setText(': ' + playerInventory + '/36');
     }
@@ -94,5 +105,9 @@ export default class GameUI extends Phaser.Scene {
             }   
         })
     
+    }
+
+    update(){
+        this.timer.update();
     }
 }
