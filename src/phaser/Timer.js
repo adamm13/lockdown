@@ -15,8 +15,21 @@ export default class Timer {
 
     update(){
         const playTime = this.timerEvent.getElapsed();
-        const remainingTime = (this.totalTime - playTime) / 1000;
+        const remainingTime = Math.floor((this.totalTime - playTime) / 1000);
+        let minutes;
+        let seconds;
+        if (remainingTime / 60 < 10){
+            minutes = '0' + Math.floor(remainingTime/60);
+        } else {
+            minutes = Math.floor(remainingTime/60);
+        }
 
-        this.timeDisplay.text = remainingTime;
+        if(remainingTime % 60 < 10){
+            seconds = '0' + (remainingTime % 60);
+        } else {
+            seconds = remainingTime % 60;
+        }
+
+        this.timeDisplay.text = minutes + ':' + seconds;
     }
 }
