@@ -56,7 +56,8 @@ const gameOver = (player, thisScene) => {
       "Dungeon": null,
       "Town": null,
       "Forest": null
-    }
+    },
+    kills: 0
   };
 
   // cut to GameOver Scene here instead of startMenu?
@@ -109,7 +110,8 @@ const portalCallback = (player, tile, thisScene, data) => {
       comingFrom: comingFrom,  // string
       health: player.gameData.health, // number
       inventory: player.gameData.inventory, // []
-      sampleLocations: player.gameData.sampleLocations // { [], [], [] }
+      sampleLocations: player.gameData.sampleLocations, // { [], [], [] }
+      kills: player.gameData.kills // number
     };
     
     // We pass in the 'data' object to the next scene
