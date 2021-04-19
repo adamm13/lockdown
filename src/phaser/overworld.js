@@ -181,6 +181,7 @@ class Town extends Phaser.Scene {
     npcs.get(180, 300, 'boy1')
     npcs.get(1200, 300, 'boy1')
     npcs.get(1200, 1000, 'boy1')
+    npcs.get(200, 1000, 'boy1')
     this.physics.add.collider(npcs, trees)
     this.physics.add.collider(npcs, this.player)
 
