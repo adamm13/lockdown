@@ -35,6 +35,10 @@ const Winning = new Phaser.Class({
         Phaser.Scene.call(this, 'Winning');
     },
 
+    preload() 
+    {
+      this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+    },
 
     create() {
 

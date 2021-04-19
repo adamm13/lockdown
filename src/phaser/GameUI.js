@@ -41,8 +41,10 @@ export default class GameUI extends Phaser.Scene {
             active: function (){
                 if (data.inventory){
                     let inventoryDisplay = add.text(35, 50, ': ' + data.inventory.length + '/36', {fontSize: 25, fontFamily: 'VT323'})
+                    return inventoryDisplay
                 } else {
                     let inventoryDisplay = add.text(35, 50, ': ' + 0, {fontSize: 25, fontFamily: 'VT323'});
+                    return inventoryDisplay
                 }
             }
         });
