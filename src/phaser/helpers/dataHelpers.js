@@ -1,3 +1,13 @@
+const gameState = {
+  health: 500,
+  inventory: [],
+  sampleLocations: {
+    "Dungeon": null,
+    "Town": null,
+    "Forest": null
+  }
+}; 
+
 const preloadAssets = (scene) => {
   
   // Town preload
@@ -58,6 +68,7 @@ const gameOver = (player, thisScene) => {
       "Forest": null
     }
   };
+
   // cut to GameOver Scene here instead of startMenu?
   thisScene.scene.start("GameOver", data); 
   thisScene.scene.stop(thisScene);
@@ -103,18 +114,32 @@ const portalCallback = (player, tile, thisScene, data) => {
     
     const sceneSamples = thisScene.sampleObjs; // []
     player.gameData.sampleLocations[comingFrom] = sceneSamples;
-    
-    // We pass in the 'data' object to the next scene
-    thisScene.scene.start(destination, { 
+
+    const data = {
       comingFrom: comingFrom,  // string
       health: player.gameData.health, // number
       inventory: player.gameData.inventory, // []
       sampleLocations: player.gameData.sampleLocations // { [], [], [] }
-      });
+    };
+    
+    transferState(data);
+    // We pass in the 'data' object to the next scene
+    thisScene.scene.start(destination, data);
     thisScene.scene.stop(comingFrom);
   }
 
 };
 
-module.exports = { preloadAssets, gameOver, portalCallback };
+const transferState = (data) => {
+  
+  // const newState = {
+  //   health: data.health,
+  //   inventory: data.inventory, 
+  //   sampleLocations: data.sampleLocations,
+  // }
+
+  return gameState; 
+};
+
+module.exports = { preloadAssets, gameOver, portalCallback, transferState };
 
