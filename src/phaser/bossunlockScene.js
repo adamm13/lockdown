@@ -8,7 +8,7 @@ class BossUnlock extends Phaser.Scene {
   }
 
   create(data) {
-    
+    console.log(data);
     // camera transition effect
     this.cameras.main.fadeIn(5000);
 

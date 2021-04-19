@@ -117,9 +117,6 @@ class Town extends Phaser.Scene {
     // Create zombies
     zombieFactory(this, zombieObjs, 'zombie7', this.player, trees);
 
-    // Create layer above player and zombies
-    const above_player = map.createLayer("roofTops", tileset, 0, 0);
-
     // camera to follow the player 
     this.cameras.main.startFollow(this.player);
 
@@ -192,7 +189,13 @@ class Town extends Phaser.Scene {
     this.zombies.forEach(zombie => {
       this.physics.add.overlap(player, zombie, zombieHit);
     });
+
+    // Create layer above player, zombies, npcs
+    const above_player = map.createLayer("roofTops", tileset, 0, 0);
+
   }
+
+  
 
   update() {
     
