@@ -1,16 +1,17 @@
+<br />
 <p align="center">
 <img src="https://github.com/adamm13/lockdown/blob/master/src/assets/menu-images/menuname.png"/>
 </p>
 
 ---
 
-- LOCKDOWN is a 2D topdown game where zombies have taken over. Players must collect enough samples to eradicate the virus to save the world.
+- LOCKDOWN is a 2D topdown shooter where zombies have taken over. Players must collect enough samples to eradicate the virus to save the world.
 
 ---
 
 ## Motivation
 
-We were motivated to develop a game as we were all passionate about video games. The childhood nostalgia that came along with playing with your friends or completing that final boss level inpspired us. We wanted to showcase our skills developed at [Lighthouse Labs](https://www.lighthouselabs.ca/) of learning a new framework and apply our existing JS skills to develop LOCKDOWN. 
+We were motivated to develop a game as we were all passionate about video games. The childhood nostalgia that came along with playing with your friends or finally completing that final boss level inspired us. We wanted to showcase our skills developed at [Lighthouse Labs](https://www.lighthouselabs.ca/) of learning a new framework ([Phaser](https://phaser.io/)) and apply our existing JS skills to develop LOCKDOWN. 
 
 ---
 
@@ -20,7 +21,7 @@ W or ⬆  &nbsp;  to move up <br />
 A or ⬅  &nbsp;  to move left <br />
 S or ⬇  &nbsp;  to move down <br />
 D or ➡  &nbsp;  to move right <br />
-Spacebar  &nbsp;  to shoot <br />
+Spacebar to shoot <br />
 
 ---
 
@@ -35,18 +36,13 @@ This project was created by [Adam Marsala](https://github.com/MagicMark5), [Cait
 
 ## Features
 
-### Feature 1
-
 - 
 
-### Feature 2
+- **Dynamic Game State** - The games state is shared between scenes and portal tiles. Zombies and samples also have their data shared between the game and the UI.
 
-- 
+- **NPC Artificial Intelligence** - NPC have the ability to move on their own and also have collision avoidance. If they collide with an object in the environment they then choose another direction to go.
 
-### Feature 3
-
-- NPC Artificial Intelligence - NPC have the ability to move on their own and also have collision avoidance. If the collide with a n object in the environment they then choose another direction to go.
-
+---
 
 ## Tech/framework used
 
