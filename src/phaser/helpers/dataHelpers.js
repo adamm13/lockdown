@@ -1,13 +1,3 @@
-const gameState = {
-  health: 500,
-  inventory: [],
-  sampleLocations: {
-    "Dungeon": null,
-    "Town": null,
-    "Forest": null
-  }
-}; 
-
 const preloadAssets = (scene) => {
   
   // Town preload
@@ -122,7 +112,6 @@ const portalCallback = (player, tile, thisScene, data) => {
       sampleLocations: player.gameData.sampleLocations // { [], [], [] }
     };
     
-    transferState(data);
     // We pass in the 'data' object to the next scene
     thisScene.scene.start(destination, data);
     thisScene.scene.stop(comingFrom);
@@ -130,16 +119,5 @@ const portalCallback = (player, tile, thisScene, data) => {
 
 };
 
-const transferState = (data) => {
-  
-  // const newState = {
-  //   health: data.health,
-  //   inventory: data.inventory, 
-  //   sampleLocations: data.sampleLocations,
-  // }
-
-  return gameState; 
-};
-
-module.exports = { preloadAssets, gameOver, portalCallback, transferState };
+module.exports = { preloadAssets, gameOver, portalCallback };
 

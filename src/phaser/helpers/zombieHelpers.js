@@ -19,7 +19,7 @@ const zombieDamage = (zombie, shot, scene, bossRoom) => {
   if (zombie.zombieData.health === 0) {
     zombie.setVisible(false);
     zombie.body.enable = false;
-    // increment player kill count?
+    //sceneEvents.emit('zombie-killed', player.gameData.kills);
     if (bossRoom) {
       const { map, tileset, player } = bossRoom;
       const finalScene = scene.scene.get('FinalBoss');
