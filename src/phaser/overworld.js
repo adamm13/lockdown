@@ -70,9 +70,6 @@ class Town extends Phaser.Scene {
     const downStairs = map.createLayer("downstairs", dungObjs, 0, 0);
     const intoForest = map.createLayer("intoTrees", dungObjs, 0, 0);
 
-    //render hearts
-    this.scene.run('GameUI', data);
-
     // camera
     this.cameras.main.setZoom(2);
 
@@ -87,6 +84,9 @@ class Town extends Phaser.Scene {
     this.player = new Player(this, this.startingX, this.startingY, 'player', data.inventory, data.health, data.sampleLocations, data.kills);
     const player = this.player;
     player.body.setCollideWorldBounds(false);
+    console.log(player);
+    //render hearts
+    this.scene.run('GameUI', {data, player});
 
     // Create samples and set overlap with player
     this.samples = createSamples(this.sampleObjs, this);

@@ -21,19 +21,20 @@ export default class GameUI extends Phaser.Scene {
       this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
     }
     
-    create(data){
+    create({data, player}){
         //load the google font
         WebFont.load({
             google: {
                 families: [ 'VT323' ]
             }
         });
-
+        this.player = player;
+        console.log(player);
         //create game timer
         
         const timeDisplay = this.add.text(20, 75, 600, {fontSize: 25, fontFamily: 'VT323'});
         this.timer = new Timer(this, timeDisplay);
-        this.timer.timerDuration(600000);
+        this.timer.timerDuration(20000);
 
         this.hearts = this.add.group()
 
@@ -100,7 +101,6 @@ export default class GameUI extends Phaser.Scene {
     }
 
     update(){
-        this.timer.update();
-        this.timer.update.remainingTime;
+        this.timer.update(this, this.player);
     }
 }
