@@ -178,7 +178,7 @@ class Town extends Phaser.Scene {
       this.physics.add.overlap(player, zombie, zombieHit);
     });
 
-    // Create layer above player and zombies
+    // Create layer above player, zombies, npcs
     const above_player = map.createLayer("roofTops", tileset, 0, 0);
 
   }
