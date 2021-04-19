@@ -17,7 +17,7 @@ const randomDirection = (exclude = this.private_direction) => {
 
 class Zombie extends Entity {
 
-  private_direction = DOWN
+  direction = DOWN
 
   constructor(scene, x, y, textureKey, target, speed, health) {
     super(scene, x, y, textureKey);
@@ -41,7 +41,7 @@ class Zombie extends Entity {
     const spriteKey = this.textureKey; 
 
     // handle tile collision
-    //this.scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.handleTileCollision, this, this.player)
+    this.scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.handleTileCollision, this, this.player)
 
     anims.create({
       key: spriteKey + '-left',
@@ -91,36 +91,36 @@ class Zombie extends Entity {
     zombieShot = 1;
   }
 
-  // preUpdate(t, dt) {
-  //   super.preUpdate(t,dt)
+  preUpdate(t, dt) {
+    super.preUpdate(t,dt)
     
-  //   const speed = 120
+    const speed = 120
 
-  //   switch (this.private_direction) {
-  //     case UP:
-  //       this.setVelocity(0, -speed) && this.anims.play(this.textureKey + '-up', this) 
-  //       break
+    switch (this.private_direction) {
+      case UP:
+        this.setVelocity(0, -speed) && this.anims.play(this.textureKey + '-up', this) 
+        break
 
-  //     case DOWN:
-  //       this.setVelocity(0, speed) && this.anims.play(this.textureKey + '-down', this)
-  //       break
+      case DOWN:
+        this.setVelocity(0, speed) && this.anims.play(this.textureKey + '-down', this)
+        break
 
-  //     case LEFT:
-  //       this.setVelocity(-speed, 0) && this.anims.play(this.textureKey + '-left', this)
-  //       break
+      case LEFT:
+        this.setVelocity(-speed, 0) && this.anims.play(this.textureKey + '-left', this)
+        break
 
-  //     case RIGHT:
-  //       this.setVelocity(speed, 0) && this.anims.play(this.textureKey + '-right', this)
-  //       break
-  //   }
-  // }
+      case RIGHT:
+        this.setVelocity(speed, 0) && this.anims.play(this.textureKey + '-right', this)
+        break
+    }
+  }
 
-  // handleTileCollision(go = Phaser.GameObjects.GameObject, tile = Phaser.Tile, player = this.player) {
-  //   if (go !== this || this.player) {
-  //     return
-  //   }
-  //   this.private_direction = randomDirection(this.private_direction)
-  // }
+  handleTileCollision(go = Phaser.GameObjects.GameObject, tile = Phaser.Tile, player = this.player) {
+    if (go !== this || this.player) {
+      return
+    }
+    this.private_direction = randomDirection(this.private_direction)
+  }
 
   update() {
     const walkingSpeed = this.speed; //  px / second
