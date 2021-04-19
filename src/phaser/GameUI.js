@@ -66,7 +66,6 @@ export default class GameUI extends Phaser.Scene {
             }
         })
 
-
         if (data.inventory){
             inventoryDisplay = this.add.text(35, 40, ': ' + data.inventory.length + '/36', {fontSize: 25, fontFamily: 'VT323'});
         } else {
@@ -77,13 +76,6 @@ export default class GameUI extends Phaser.Scene {
             this.updateInventory(playerInventory.length);
         })
     }
-
-    // createTimer(){
-    //     let timer = this;
-    //     timer.timeLabel = timer.add.text(20, 75, "00:00", {fontSize: 25, fontFamily: 'VT323'});
-    // }
-
-
 
     updateInventory(playerInventory){
         inventoryDisplay.setText(': ' + playerInventory + '/36');
@@ -109,5 +101,6 @@ export default class GameUI extends Phaser.Scene {
 
     update(){
         this.timer.update();
+        this.timer.update.remainingTime;
     }
 }
