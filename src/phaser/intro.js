@@ -58,10 +58,14 @@ const Intro = new Phaser.Class({
       //load fonts
       let add = this.add;
       let tweens = this.tweens;
+      let input = this.input;
+      let renderer = this.renderer;
+      let scene = this.scene;
+      
   
       WebFont.load({
           google: {
-              families: [ 'Special Elite', 'VT323', 'Nosifer' ]
+              families: [ 'VT323' ]
           },
           active: function ()
           {
@@ -136,29 +140,31 @@ const Intro = new Phaser.Class({
       
           
         });
+
+        input.keyboard.once('keyup-ENTER', function () {
+
+          // Suppress WebGL warnings before changing scenes
+          text.texture = renderer.blankTexture; // Should be wrapped in conditional when rendering direct to canvas?
+            
+          // When starting the game fresh, we use this initial state
+          const data = {
+            comingFrom: "Intro",  
+            health: 500,
+            inventory: [],
+            sampleLocations: {
+                "Dungeon": null,
+                "Town": null,
+                "Forest": null
+              }
+          }
+            
+          scene.start('Town', data);
+          scene.stop('Intro');
+        }, this);
+
           }
       }); 
       
-      this.input.keyboard.once('keyup-ENTER', function () {
-
-        // Suppress WebGL warnings before changing scenes
-        text.texture = this.renderer.blankTexture; // Should be wrapped in conditional when rendering direct to canvas?
-          
-        // When starting the game fresh, we use this initial state
-        const data = {
-          comingFrom: "Intro",  
-          health: 500,
-          inventory: [],
-          sampleLocations: {
-              "Dungeon": null,
-              "Town": null,
-              "Forest": null
-            }
-        }
-          
-        this.scene.start('Town', data);
-        this.scene.stop('Intro');
-      }, this);
     }
 });
 
