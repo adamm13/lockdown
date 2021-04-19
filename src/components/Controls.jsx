@@ -1,8 +1,7 @@
 import React from "react";
-import './controls.css';
+import '../../stylesheets/controls.css';
 
 export default function Controls(props) {
-  console.log(props);
 
   return (
     <ul className="controls">
