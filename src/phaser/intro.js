@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import { preloadAssets } from './helpers/dataHelpers';
 
 
 const debug = false;
@@ -24,7 +25,7 @@ Press ENTER to begin your nightmare......`
 const textStyle = {
   fontSize: 20,
   lineSpacing:0,
-  fontFamily: 'verdana',
+  fontFamily: 'Press Start 2P',
   color: "WHITE",
 };
 
@@ -39,16 +40,22 @@ const Intro = new Phaser.Class({
         Phaser.Scene.call(this, 'Intro');
     },
 
-    // preload() 
-    // {
-    //   this.load.image("background", "src/assets/title_bg.jpeg");
-    // },
+    preload() 
+    {
+      this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+    },
 
 
     create() {
         //       this.cameras.main.once('camerafadeincomplete', function (camera) {
         //     camera.fadeOut(6000);
         // });
+      //load fonts
+      WebFont.load({
+        google: {
+            families: [ 'Press Start 2P', 'Zapfino' ]
+        },
+      });  
 
       // camera transition effect
       this.cameras.main.fadeIn(5000);

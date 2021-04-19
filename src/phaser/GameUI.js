@@ -36,12 +36,6 @@ export default class GameUI extends Phaser.Scene {
             google: {
                 families: [ 'Press Start 2P' ]
             }
-            // active: function ()
-            // {
-            //     this.add.text(16, 0, 'The face of the\nmoon was in\nshadow.', { fontFamily: 'Freckle Face', fontSize: 80, color: '#ffffff' }).setShadow(2, 2, "#333333", 2, false, true);
-            //     this.add.text(250, 450, 'Waves flung themselves\nat the blue evening.', { fontFamily: 'Finger Paint', fontSize: 40, color: '#5656ee' });
-
-            // }
         });
     
 
