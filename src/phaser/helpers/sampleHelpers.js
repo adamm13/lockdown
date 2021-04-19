@@ -40,7 +40,7 @@ const sampleCollector = (player, sample, thisScene) => {
     //sampleEvent.emit('increment-sample', player.gameData.inventory);
 
     // cut to BossUnlock Scene when all samples are gathered
-    if (player.gameData.inventory.length === 2) {
+    if (player.gameData.inventory.length === 36) {
       thisScene.scene.start("BossUnlock", player.gameData);
       thisScene.scene.stop(thisScene.scene.key);
     }

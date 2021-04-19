@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 body {
   background-color: black;
   color: white;
@@ -20,21 +22,20 @@ ul {
   margin: 20px;
   border: 2px solid white;
   border-radius: 20px;
-  padding-right: 30px;
-   box-shadow: 3px 2px;
+  padding: 10px;
+  box-shadow: 3px 2px;
 }
   
 
 .gameStats {
-  font-family: 'Shadows Into Light', cursive;
-  font-size: 34px;
-  padding-right: 80px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
 }
 
 .bg {
   position: absolute;
   width: 100vw;
-  height: 100vw%;
+  height: 100vw;
   opacity: 1;
   z-index: -1;
   filter:brightness(70%);

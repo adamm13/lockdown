@@ -1,3 +1,5 @@
+import sceneEvents from "../SceneEvents";
+
 const preloadAssets = (scene) => {
   
   // Town preload
@@ -59,6 +61,8 @@ const gameOver = (player, thisScene) => {
     },
     kills: 0
   };
+
+  sceneEvents.emit("player-death", data);
 
   // cut to GameOver Scene here instead of startMenu?
   thisScene.scene.start("GameOver", data); 

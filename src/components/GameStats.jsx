@@ -15,6 +15,11 @@ export default function GameStats(props) {
 			setKillCount(playerKills);
 		});
 
+		sceneEvents.on('player-death', (data) => {
+			setInventory(data.inventory.length);
+			setKillCount(data.kills);
+		});
+
 	}, []);
 
 	return (
