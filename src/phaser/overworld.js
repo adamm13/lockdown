@@ -87,7 +87,7 @@ class Town extends Phaser.Scene {
     this.scene.run('GameUI', data);
 
     // camera
-    this.cameras.main.setZoom(2);
+    this.cameras.main.setZoom(0.5);
 
     // Get sample object layer from Tiled data if the player doesn't already have sample data
     if (this.samplesTouched) {
@@ -180,8 +180,8 @@ class Town extends Phaser.Scene {
     // ADD a new NPC 
     npcs.get(180, 300, 'boy1')
     npcs.get(1200, 300, 'boy1')
-    npcs.get(1200, 1000, 'boy1')
-    npcs.get(200, 1000, 'boy1')
+    npcs.get(1000, 1000, 'boy1')
+    npcs.get(400, 1000, 'boy1')
     this.physics.add.collider(npcs, trees)
     this.physics.add.collider(npcs, this.player)
 
