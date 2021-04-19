@@ -151,7 +151,7 @@ class Town extends Phaser.Scene {
     this.physics.add.collider(player, trees);
 
     // Adds controls for firing
-    this.input.keyboard.on('keydown-SPACE', () => {
+    this.input.keyboard.on('keydown-F', () => {
       this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
     });
 

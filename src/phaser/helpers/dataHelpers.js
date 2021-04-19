@@ -1,7 +1,10 @@
 import sceneEvents from "../SceneEvents";
 
 const preloadAssets = (scene) => {
-  
+
+  //font loader
+  scene.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+
   // Town preload
   scene.load.image('tiles', 'src/assets/tilesets/town32-extruded.png');
   scene.load.image('obj-tiles', "src/assets/tilesets/dungeon-objects.png");

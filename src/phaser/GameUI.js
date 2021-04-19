@@ -16,6 +16,12 @@ export default class GameUI extends Phaser.Scene {
     }
 
     create(data){
+        //load the google font
+        WebFontConfig: {
+            google: 
+              families: ['Press Start 2P']
+          }
+
         this.hearts = this.add.group()
 
         this.hearts.createMultiple({
@@ -43,9 +49,9 @@ export default class GameUI extends Phaser.Scene {
 
         //ui for inventory
         if (data.inventory){
-            inventoryDisplay = this.add.text(35, 50, ': ' + data.inventory.length + '/36')
+            inventoryDisplay = this.add.text(35, 50, ': ' + data.inventory.length + '/36', {fontFamily: 'Press Start 2P', fontSize: 50})
         } else {
-            inventoryDisplay = this.add.text(35, 50, ': ' + 0);
+            inventoryDisplay = this.add.text(35, 50, ': ' + 0, {fontFamily: 'Press Start 2P', fontSize: 50});
         }
         //event listener for when sample is collected
         sceneEvents.on('sample-collected', (playerInventory) => {

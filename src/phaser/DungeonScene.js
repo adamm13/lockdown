@@ -109,7 +109,7 @@ export default class Dungeon extends Phaser.Scene {
     });
 
     // Adds controls for shooting
-    this.input.keyboard.on('keydown-SPACE', () => {
+    this.input.keyboard.on('keydown-F', () => {
       this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
     });
 
