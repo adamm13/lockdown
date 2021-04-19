@@ -58,9 +58,6 @@ class Town extends Phaser.Scene {
   
 
   create(data) {
-    console.log(this.time);
-    let timer = this.time.addEvent();
-    console.log(timer.getProgress());
     //fade in scene
     this.cameras.main.fadeIn(2000);
     
