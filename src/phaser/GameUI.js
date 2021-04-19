@@ -32,9 +32,18 @@ export default class GameUI extends Phaser.Scene {
         //     //   },
         //   })
 
+        let add = this.add;
+
         WebFont.load({
             google: {
-                families: [ 'Press Start 2P' ]
+                families: [ 'VT323' ]
+            },
+            active: function (){
+                if (data.inventory){
+                    let inventoryDisplay = add.text(35, 50, ': ' + data.inventory.length + '/36', {fontSize: 25, fontFamily: 'VT323'})
+                } else {
+                    let inventoryDisplay = add.text(35, 50, ': ' + 0, {fontSize: 25, fontFamily: 'VT323'});
+                }
             }
         });
     
@@ -50,10 +59,8 @@ export default class GameUI extends Phaser.Scene {
                 stepX: 30
             }
         })
-
-        this.updateHealth(data.health ? data.health : 500);
-
-        const inventory = this.add.group()
+        // inventory sample display
+        const inventory = add.group()
 
         inventory.createMultiple({
             key: 'samples',
@@ -64,16 +71,13 @@ export default class GameUI extends Phaser.Scene {
             }
         })
 
-        //ui for inventory
-        if (data.inventory){
-            inventoryDisplay = this.add.text(35, 50, ': ' + data.inventory.length + '/36', {fontSize: 30, fontFamily: 'Press Start 2P'})
-        } else {
-            inventoryDisplay = this.add.text(35, 50, ': ' + 0, {fontSize: 30, fontFamily: 'Press Start 2P'});
-        }
         //event listener for when sample is collected
         sceneEvents.on('sample-collected', (playerInventory) => {
             this.updateInventory(playerInventory.length);
         })
+
+        this.updateHealth(data.health ? data.health : 500);
+
         //event listener for zombie attack
         sceneEvents.on('zombieHit', (playerHealth) => {
             this.updateHealth(playerHealth);
