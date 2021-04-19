@@ -15,6 +15,11 @@ export default class GameUI extends Phaser.Scene {
         //console.log(data);
     }
 
+    preload() 
+    {
+      this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+    }
+    
     create(data){
         //load the google font
         // WebFont.load({
@@ -40,11 +45,9 @@ export default class GameUI extends Phaser.Scene {
             },
             active: function (){
                 if (data.inventory){
-                    let inventoryDisplay = add.text(35, 50, ': ' + data.inventory.length + '/36', {fontSize: 25, fontFamily: 'VT323'})
-                    return inventoryDisplay
+                    add.text(35, 40, ': ' + data.inventory.length + '/36', {fontSize: 25, fontFamily: 'VT323'})
                 } else {
-                    let inventoryDisplay = add.text(35, 50, ': ' + 0, {fontSize: 25, fontFamily: 'VT323'});
-                    return inventoryDisplay
+                    add.text(35, 40, ': ' + 0, {fontSize: 25, fontFamily: 'VT323'});
                 }
             }
         });
