@@ -5,14 +5,14 @@ const debug = false;
 
 const win_game = `\n
 \n
-  The undead body of your foe falls to the dusty floor with a thump, 
+The undead body of your foe falls to the dusty floor with a thump, 
 never to rise again. At that exact moment, an ancient wooden 
 chest appears in the centre of the room. You make your way toward it, 
 rotting entrails sticking to the soles of your shoes as you walk. 
 With no key in sight, you pry open the mouldy lid with your trusty knife, 
 the hinges creaking shrilly in protest. A faint green light spills out 
 of the chest, illuminating a single shining vial of viscous liquid. 
-You grab the antidote, the feeling of the cool glass resting againt 
+You grab the antidote, the feeling of the cool glass resting against 
 your palm flooding you with a sense of immense relief. \n
 You did it! Humanity is saved!`
 
