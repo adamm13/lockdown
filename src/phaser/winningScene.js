@@ -113,6 +113,9 @@ const Winning = new Phaser.Class({
           maskImage.fillRect(text.x, y, x - text.x, totalLineHeight);
     }
   });
+
+        this.scene.stop("GameUI")
+        
         this.input.keyboard.once('keyup-SPACE', function () {
 
           // Suppress WebGL warnings before changing scenes
