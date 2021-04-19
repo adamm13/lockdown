@@ -5,7 +5,7 @@ const debug = false;
 
 const win_game = `\n
 \n
-  The undead body of your foe falls to the dusty floor with a thump, 
+The undead body of your foe falls to the dusty floor with a thump, 
 never to rise again. At that exact moment, an ancient wooden 
 chest appears in the centre of the room. You make your way toward it, 
 rotting entrails sticking to the soles of your shoes as you walk. 
