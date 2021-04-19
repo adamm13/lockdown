@@ -4,15 +4,15 @@ Lockdown is a 2D topdown game where zombies have taken over. You must collect en
 
 ## Motivation
 
-We were motivated to develop a game as we were all passionate about video games. The childhood nostalgia that came along with playing with your friends or completing that final boss level inpspired us. We wanted to showcase our skills of learning a new framework and apply our existing JS skills to develop LOCKDOWN. 
+We were motivated to develop a game as we were all passionate about video games. The childhood nostalgia that came along with playing with your friends or completing that final boss level inpspired us. We wanted to showcase our skills developed at [Lighthouse Labs](https://www.lighthouselabs.ca/) of learning a new framework and apply our existing JS skills to develop LOCKDOWN. 
 
 ## Controls
 
-W or ⬆ to move up
-A or ⬅ to move left
-S or ⬇ to move down
-D or ➡  to move right
-Spacebar to shoot
+W or ⬆  - to move up
+A or ⬅  - to move left
+S or ⬇  - to move down
+D or ➡   - to move right
+Spacebar  - to shoot
 
 ## Credits
 
