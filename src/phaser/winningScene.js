@@ -5,27 +5,23 @@ const debug = false;
 
 const win_game = `\n
 \n
-The Year 2099,  \n
-YOU WON THE GAME ACT ONE IS COMPLETE
-as humankind struggles to survive. After many attempts, you have
-finally found the antidote to the virus that has eliminated
-most of the human population. Unfortunately, time is running out.
-Zombies have begun to devour your colony and you’ll need to produce 
-more of the antidote quickly.
-
-Collect enough samples of the virus to produce enough of your  
-antidote to save the survivors.
-
-Beware of the zombies who have infiltrated your colony... 
-
-Press Spacebar to start your Journey....`
+  The undead body of your foe falls to the dusty floor with a thump, 
+never to rise again. At that exact moment, an ancient wooden 
+chest appears in the centre of the room. You make your way toward it, 
+rotting entrails sticking to the soles of your shoes as you walk. 
+With no key in sight, you pry open the mouldy lid with your trusty knife, 
+the hinges creaking shrilly in protest. A faint green light spills out 
+of the chest, illuminating a single shining vial of viscous liquid. 
+You grab the antidote, the feeling of the cool glass resting againt 
+your palm flooding you with a sense of immense relief. \n
+You did it! Humanity is saved!`
 
 
 const textStyle = {
   fontSize: 20,
   lineSpacing:0,
   fontFamily: "verdana",
-  color: "RED",
+  color: "WHITE",
 };
 
 const Winning = new Phaser.Class({

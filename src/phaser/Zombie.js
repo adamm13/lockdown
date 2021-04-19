@@ -119,27 +119,9 @@ class Zombie extends Entity {
         this.anims.play(spriteKey + '-down', true);
       } 
     }
-    
-    // if (targetX === this.x && targetY === this.y) {
-    //   this.anims.stop();
-    // }
 
     // Normalize and scale the velocity so that zombie can't move faster along a diagonal
     this.body.velocity.normalize().scale(walkingSpeed);
-
-    // //// Set Idle animation frame
-    // if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
-    //   // show idle animation frame
-    //   if (prevVelocity.x < 0) {
-    //     this.setFrame(this.idleFrame.left);
-    //   } else if (prevVelocity.x > 0) {
-    //     this.setFrame(this.idleFrame.right);
-    //   } else if (prevVelocity.y < 0) {
-    //     this.setFrame(this.idleFrame.up);
-    //   } else if (prevVelocity.y > 0) {
-    //     this.setFrame(this.idleFrame.down)
-    //   }
-    // }
 
   }
 
