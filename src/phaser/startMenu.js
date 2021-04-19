@@ -1,4 +1,5 @@
 import Phaser from "phaser"
+import sceneEvents from "./SceneEvents";
 
 /* ------------------------------------ Start Menu Scene  ------------------------ */
  
@@ -29,7 +30,8 @@ class startMenu extends Phaser.Scene {
       repeat: -1,
       frames: this.anims.generateFrameNumbers("player", {
         frames: [0,1,2]
-      })
+      }), 
+      yoyo: true
     })
     
 
@@ -60,6 +62,7 @@ class startMenu extends Phaser.Scene {
     playButton.on("pointerup", () => {
       this.sound.play("blood")
       this.scene.start("Intro", data);
+      sceneEvents.emit('reset-score', data);
     })
 
     }
