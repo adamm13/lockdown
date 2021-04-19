@@ -1,7 +1,7 @@
 {
-  "name": "phaser3-project-template",
+  "name": "lockdown",
   "version": "1.1.0",
-  "description": "A Phaser 3 Project Template",
+  "description": "A Phaser 3 and Tiled zombie apocalypse top-down game",
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --config webpack/prod.js ",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/photonstorm/phaser3-project-template.git"
+    "url": "git+https://github.com/adamm13/lockdown"
   },
-  "author": "Taylor Nodell and Richard Davey <rdavey@gmail.com> (http://www.photonstorm.com)",
+  "author": "Adam Marsala, Caitlin Garrood, Adam Mohammed",
   "license": "MIT",
   "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
   "bugs": {
-    "url": "https://github.com/photonstorm/phaser3-project-template/issues"
+    "url": "https://github.com/adamm13/lockdown#lockdown"
   },
-  "homepage": "https://github.com/photonstorm/phaser3-project-template#readme",
+  "homepage": "https://github.com/adamm13/lockdown#lockdown",
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
