@@ -47,7 +47,6 @@ class Forest extends Phaser.Scene {
 
     //render hearts
     this.scene.run('GameUI', data);
-    console.log(data.inventory);
     
     // camera
     this.cameras.main.setZoom(2);
@@ -119,7 +118,7 @@ class Forest extends Phaser.Scene {
 
       // Physics properties for shots
       this.physics.add.collider(this.shots, obstacles, () => {
-        console.log(this.shots.children);
+        //console.log(this.shots.children);
         let shot = this.shots.getFirstAlive();
       
         if(shot){

@@ -21,12 +21,12 @@ class Town extends Phaser.Scene {
   // Set these to where you want the game to drop the player on start
   
   // close to forest
-  startingX = 1320; 
-  startingY = 237;
+  // startingX = 1320; 
+  // startingY = 237;
 
   // NW corner
-  // startingX = 250; 
-  // startingY = 300;
+  startingX = 250; 
+  startingY = 300;
 
   // close to dungeon
   // startingX = 450; 
@@ -41,8 +41,8 @@ class Town extends Phaser.Scene {
       this.startingX = 1276;
       this.startingY = 57;
     } else if (data.comingFrom === "Dungeon") {
-      this.startingX = 397; 
-      this.startingY = 1003;
+      this.startingX = 270; 
+      this.startingY = 1196;
     }
     if (!data.sampleLocations["Town"]) {
       this.samplesTouched = false;

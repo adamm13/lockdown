@@ -109,8 +109,20 @@
                  "visible":true,
                  "width":0,
                  "x":238.666666666667,
-                 "y":365.333333333333
-                }],
+                 "y":532.333333333333
+                },
+                {
+              "height":0,
+              "id":53,
+              "name":"zombie",
+              "point":true,
+              "rotation":0,
+              "type":"zombie",
+              "visible":true,
+              "width":0,
+              "x":1555.666666666667,
+              "y":1100.333333333333
+                    }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
