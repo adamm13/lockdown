@@ -16,7 +16,6 @@ const zombieFactory = (scene, zombieArray, spritesheetKey, target, obstacles) =>
 };
 
 const zombieDamage = (zombie, shot, scene, player, bossRoom) => {
-  console.log(player.gameData);
   if (zombie.zombieData.health === 0) {
     zombie.setVisible(false);
     zombie.body.enable = false; 

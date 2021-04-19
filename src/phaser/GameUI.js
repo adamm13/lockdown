@@ -43,7 +43,7 @@ export default class GameUI extends Phaser.Scene {
 
         //ui for inventory
         if (data.inventory){
-            inventoryDisplay = this.add.text(35, 50, ': ' + data.inventory.length)
+            inventoryDisplay = this.add.text(35, 50, ': ' + data.inventory.length + '/36')
         } else {
             inventoryDisplay = this.add.text(35, 50, ': ' + 0);
         }
