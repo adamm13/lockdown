@@ -25,8 +25,8 @@ class Town extends Phaser.Scene {
   // startingY = 237;
 
   // NW corner
-  startingX = 250; 
-  startingY = 300;
+  startingX = 240; 
+  startingY = 240;
 
   // close to dungeon
   // startingX = 450; 
@@ -42,7 +42,7 @@ class Town extends Phaser.Scene {
       this.startingY = 57;
     } else if (data.comingFrom === "Dungeon") {
       this.startingX = 270; 
-      this.startingY = 1196;
+      this.startingY = 1164;
     }
     if (!data.sampleLocations["Town"]) {
       this.samplesTouched = false;
