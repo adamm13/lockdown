@@ -9,27 +9,28 @@ body {
   align-items: center;
 }
 
+canvas {
+  border: inset;
+  border: 3px inset white;
+  border-radius: 20px;
+
+}
+
 .gameConsole {
   display: flex; 
   justify-content: space-between;
+  width: 808px;
 }
 
 ul {
   font-size: 20px;
-  font-family: 'Verdana', cursive;
+  font-family: 'Press Start 2P', Verdana, Geneva, Tahoma, sans-serif;
   line-height: 1.5em;
   list-style-type: none;
-  margin: 20px;
-  border: 2px solid white;
+  border: 3px solid white;
   border-radius: 20px;
   padding: 10px;
   box-shadow: 3px 2px;
-}
-  
-
-.gameStats {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 20px;
 }
 
 .bg {
