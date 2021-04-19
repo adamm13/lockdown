@@ -105,6 +105,9 @@ class Town extends Phaser.Scene {
     // Create zombies
     zombieFactory(this, zombieObjs, 'zombie7', this.player, trees);
 
+    // Create layer above player and zombies
+    const above_player = map.createLayer("roofTops", tileset, 0, 0);
+
     // camera to follow the player 
     this.cameras.main.startFollow(this.player);
 
