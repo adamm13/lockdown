@@ -61,9 +61,9 @@ export default class GameUI extends Phaser.Scene {
 
 
         if (data.inventory){
-            inventoryDisplay = this.add.text(35, 40, ': ' + data.inventory.length + '/36', {fontSize: 25, fontFamily: 'VT323'})
+            inventoryDisplay = this.add.text(35, 40, ': ' + data.inventory.length + '/36', {fontSize: 25, fontFamily: 'VT323'}).setShadow(5, 5, "#333333", 5, true, true);
         } else {
-            inventoryDisplay = this.add.text(35, 40, ': ' + 0, {fontSize: 25, fontFamily: 'VT323'});
+            inventoryDisplay = this.add.text(35, 40, ': ' + 0, {fontSize: 25, fontFamily: 'VT323'}).setShadow(5, 5, "#333333", 5, true, true);
         }
         //event listener for when sample is collected
         sceneEvents.on('sample-collected', (playerInventory) => {
