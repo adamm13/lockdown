@@ -132,7 +132,7 @@ class Town extends Phaser.Scene {
           if (individualShot){
             individualShot.setVisible(false);
             individualShot.setActive(false);
-            zombieDamage(shot, zombie, this);
+            zombieDamage(shot, zombie, this, player);
           }
       });
     });

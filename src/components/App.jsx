@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Phaser from 'phaser';
 import { transferState } from "../phaser/helpers/dataHelpers"
 import sceneEvents from "../phaser/SceneEvents";
@@ -8,15 +8,18 @@ import Background from "./Background.jsx";
 
 
 export default function App(props) {
-	// const gameState = transferState(); 
 	const [inventory, setInventory] = useState(0);
-	
-	// console.log("game data from React! ", inventory);
+	const [killCount, setKillCount] = useState(0);
 
 	sceneEvents.on('sample-collected', (playerInventory) => {
 		console.log("FROM REACT APP:", playerInventory);
 		setInventory(playerInventory.length);
-	})
+	});
+
+	sceneEvents.on('zombie-killed', (playerKills) => {
+		console.log("FROM REACT APP:", playerKills);
+		setKillCount(playerKills);
+	});
 
 	const titleStyle = {
 		color: "red",
@@ -30,7 +33,7 @@ export default function App(props) {
 		
 		<div className="gameConsole">
 			<Controls />
-			<GameStats samples={inventory} />
+			<GameStats samples={inventory} kills={killCount} />
 			<Background />
 		</div>
 	);

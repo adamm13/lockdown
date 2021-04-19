@@ -99,7 +99,7 @@ export default class Dungeon extends Phaser.Scene {
         if (individualShot){
           individualShot.setVisible(false);
           individualShot.setActive(false);
-          zombieDamage(shot, zombie, this);
+          zombieDamage(shot, zombie, this, this.player);
         }
       });
     });

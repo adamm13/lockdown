@@ -5,7 +5,7 @@ export default function GameStats(props) {
 	return (
 		<ul className="gameStats">
 			<li>Samples: {props.samples}</li>
-			<li>Zombie Kills:</li>
+			<li>Zombie Kills: {props.kills}</li>
 			<li>Score:</li>
 		</ul>
 	);

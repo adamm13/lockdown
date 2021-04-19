@@ -15,8 +15,6 @@ import { Winning } from "./phaser/winningScene";
 
 import GameUI from './phaser/GameUI';
 
-
-
 const config = {
   type: Phaser.AUTO,
     parent: 'phaser-example',
