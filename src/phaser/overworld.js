@@ -44,6 +44,9 @@ class Town extends Phaser.Scene {
     } else if (data.comingFrom === "Dungeon") {
       this.startingX = 270; 
       this.startingY = 1164;
+    } else if (data.comingFrom === "Intro") {
+      this.startingX = 240; 
+      this.startingY = 240;
     }
     if (!data.sampleLocations["Town"]) {
       this.samplesTouched = false;
