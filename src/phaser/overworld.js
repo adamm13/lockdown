@@ -87,6 +87,7 @@ class Town extends Phaser.Scene {
     console.log(player);
     //render hearts
     this.scene.run('GameUI', {data, player});
+    this.scene.run('Timer', {data, player});
 
     // Create samples and set overlap with player
     this.samples = createSamples(this.sampleObjs, this);

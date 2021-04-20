@@ -39,7 +39,7 @@ export default class Dungeon extends Phaser.Scene {
     const upStairs = map.createLayer('exitDungeon', dungObjs, 0, 0);
     
     //render hearts and inventory
-    this.scene.run('GameUI', data);
+    this.scene.run('GameUI', {data, player});
 
     // camera setup
     this.cameras.main.setZoom(2);
@@ -59,6 +59,7 @@ export default class Dungeon extends Phaser.Scene {
     this.player = new Player(this, spawnPlayerPos.x, spawnPlayerPos.y, 'player', data.inventory, data.health, data.sampleLocations, data.kills);
     this.player.body.setCollideWorldBounds(true);
     this.cameras.main.startFollow(this.player); 
+    const player = this.player;
 
     // Create samples and set overlap with player
     this.samples = createSamples(this.sampleObjs, this);
