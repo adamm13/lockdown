@@ -13,7 +13,6 @@ export default class GameUI extends Phaser.Scene {
     }
 
     init(data) {
-        //console.log(data);
     }
 
     preload() 
@@ -73,11 +72,7 @@ export default class GameUI extends Phaser.Scene {
     }
 
     updateInventory(playerInventory){
-        // if (playerInventory === 36){
-        //     inventoryDisplay.setText(': ' + playerInventory + '/36');
-        // } else {
             inventoryDisplay.setText(': ' + playerInventory + '/36');
-        //}
     }
 
     updateHealth(playerHealth) {

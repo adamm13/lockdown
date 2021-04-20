@@ -52,8 +52,6 @@ class Shots extends Phaser.Physics.Arcade.Group
     {
         super(scene.physics.world, scene);
 
-       // this.shots = this.add.group();
-
         this.createMultiple({
             frameQuantity: 5,
             key: 'shot',

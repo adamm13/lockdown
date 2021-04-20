@@ -22,7 +22,7 @@ class loadingScene extends Phaser.Scene {
 
         this.load.image("skull", "src/assets/menu-images/skull.png");
         //Fake Loading Screen assets
-            for (let i = 0; i < 1000; i++) {
+            for (let i = 0; i < 2000; i++) {
         this.load.image('Zombie'+ ' ' + i, 'src/assets/menu-images/skull.png');
         }
 
@@ -95,7 +95,6 @@ class loadingScene extends Phaser.Scene {
         assetText.setOrigin(0.5, 0.5);
 
         this.load.on('progress', function (value) {
-            // console.log(value);
             progressBar.clear();
             progressBar.fillStyle(0xff0000, 1);
             progressBar.fillRect(250, 280, 300 * value, 30);     	
@@ -103,12 +102,10 @@ class loadingScene extends Phaser.Scene {
         });
                     
         this.load.on('fileprogress', function (file) {
-            // console.log(file.src);
             assetText.setText('Loading asset: ' + file.key);
         });
         
         this.load.on('complete', function () {
-            //console.log('complete');
             progressBar.destroy();
             progressBox.destroy();
             loadingText.destroy();
@@ -121,9 +118,6 @@ class loadingScene extends Phaser.Scene {
     {
 
         this.scene.start('startMenu')
-
-        // let text = this.add.text(10, 10, 'LOCKDOWN PT 1 - Press 1 to Start the Game', { font: '24px Courier', fill: '#DC143C' });
-        // this.input.keyboard.once('keyup-ONE', function () {
             
         // // Suppress WebGL warnings before changing scenes
         // text.texture = this.renderer.blankTexture; // Should be wrapped in conditional when rendering direct to canvas?

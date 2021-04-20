@@ -37,7 +37,6 @@ class Town extends Phaser.Scene {
   samplesTouched = false;
 
   init(data) {
-    console.log(data);
     // adjust start location
     if (data.comingFrom === "Forest") {
       this.startingX = 1276;
@@ -118,7 +117,6 @@ class Town extends Phaser.Scene {
     
     //  Player physics properties.
 
-    //house.setCollisionBetween(1, 2000);
     trees.setCollisionBetween(1, 2000);
     downStairs.setCollisionBetween(1, 2000);
     intoForest.setCollisionBetween(1, 2000);

@@ -63,7 +63,6 @@ class Player extends Entity {
     this.setFrame(this.idleFrame.down);
 
     /////////// Keyboard Inputs 
-    //keys = this.input.keyboard.createCursorKeys();
     const {LEFT, RIGHT, UP, DOWN, W, A, S, D, SPACE} = Phaser.Input.Keyboard.KeyCodes;
 
     this.keys = scene.input.keyboard.addKeys({

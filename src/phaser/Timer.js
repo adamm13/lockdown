@@ -9,7 +9,6 @@ export default class Timer extends Phaser.Scene{
         super({key: 'Timer'})
     }
     init(data) {
-        //console.log(data);
     }
 
     create(){
