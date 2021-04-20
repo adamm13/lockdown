@@ -1,4 +1,5 @@
 import Phaser from "phaser"
+import sceneEvents from './SceneEvents';
 
 /* ------------------------------------ GameOver Scene  ------------------------ */
  
@@ -7,11 +8,10 @@ class Act1 extends Phaser.Scene {
     super("Act1");
   }
 
-    create(data)
-    {
+    create(data) {
     
     // camera transition effect
-      this.cameras.main.fadeIn(5000);
+    this.cameras.main.fadeIn(5000);
 
     this.add.image(this.game.renderer.width /2, this.game.renderer.height * 0.40, "act_1").setDepth(1)
 
@@ -21,7 +21,8 @@ class Act1 extends Phaser.Scene {
 
     this.add.image(this.game.renderer.width /2, this.game.renderer.height / 1.5 + 100, "spacebar").setDepth(1)
 
-    this.input.keyboard.once('keyup-SPACE', function () {      
+    this.input.keyboard.once('keyup-SPACE', function () {    
+          sceneEvents.emit('reset-score');  
           this.scene.start('startMenu', data);
       }, this);
   

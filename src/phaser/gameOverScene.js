@@ -1,4 +1,5 @@
 import Phaser from "phaser"
+import sceneEvents from "./SceneEvents";
 
 /* ------------------------------------ GameOver Scene  ------------------------ */
  
@@ -37,13 +38,12 @@ class GameOver extends Phaser.Scene {
       hoverSprite2.setVisible(true)
       hoverSprite2.x = yesButton.x - yesButton.width * 1.5;
       hoverSprite2.y = yesButton.y;
-      console.log("hovering")
     })
     yesButton.on("pointerout", () => {
       hoverSprite2.setVisible(false)
-      console.log("no more hover")
     })
     yesButton.on("pointerup", () => {
+      sceneEvents.emit("player-death", data);
       this.sound.play("blood")
       this.scene.start("Town", data)
       this.scene.run("Timer")
@@ -63,6 +63,7 @@ class GameOver extends Phaser.Scene {
       console.log("no more hover")
     })
       noButton.on("pointerup", () => {
+      sceneEvents.emit("player-death", data);
       this.scene.start("startMenu", data)
       console.log("back to menu")
     })
