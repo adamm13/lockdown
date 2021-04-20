@@ -28,6 +28,7 @@ class GameOver extends Phaser.Scene {
     hoverSprite2.setVisible(false)
 
     //start music again
+    this.game.sound.stopAll();
     this.sound.play("darkshadow", {
       loop: true
     })

@@ -176,7 +176,7 @@ class Town extends Phaser.Scene {
     npcs.get(1000, 1000, 'boy1')
     npcs.get(400, 1000, 'boy1')
     this.physics.add.collider(npcs, trees)
-    this.physics.add.collider(npcs, this.player)
+    //this.physics.add.collider(npcs, this.player)
 
     // Make zombies do damage
     this.zombies.forEach(zombie => {
