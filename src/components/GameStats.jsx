@@ -24,6 +24,7 @@ export default function GameStats(props) {
 		sceneEvents.on('reset-score', (data) => {
 			setInventory(0);
 			setKillCount(0);
+			setTimer(0);
 		});
 
 		sceneEvents.on('timer', (timer) => {

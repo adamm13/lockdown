@@ -81,8 +81,6 @@ const renderChest = (scene, map, tileset, player) => {
 const getAntidote = (scene) => {
   console.log("YOU GOT THE ANTIDOTE");
   // Transition to Game Over "You Won" Scene
-  // scene.scene.stop("Timer");
-  // scene.scene.stop("GameUI");
   scene.scene.start("Winning");
   scene.scene.stop("FinalBoss");
 };

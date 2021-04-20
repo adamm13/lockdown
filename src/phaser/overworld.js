@@ -85,10 +85,9 @@ class Town extends Phaser.Scene {
     this.player = new Player(this, this.startingX, this.startingY, 'player', data.inventory, data.health, data.sampleLocations, data.kills);
     const player = this.player;
     player.body.setCollideWorldBounds(false);
-    console.log(player);
+    
     //render hearts
     this.scene.run('GameUI', {data, player});
-    //this.scene.run('Timer', {data, player});
 
     // Create samples and set overlap with player
     this.samples = createSamples(this.sampleObjs, this);
@@ -182,7 +181,12 @@ class Town extends Phaser.Scene {
     // Create layer above player, zombies, npcs
     const above_player = map.createLayer("roofTops", tileset, 0, 0);
 
-  }
+
+    sceneEvents.once('timerOver', ()=>{
+      this.player.isDead = true;
+    });
+
+  } // end create 
 
   
 
@@ -202,9 +206,6 @@ class Town extends Phaser.Scene {
     if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
       this.player.clearTint();
     }
-    sceneEvents.on('timerOver', ()=>{
-      gameOver(this.player, this);
-    });
   }
 }
 
