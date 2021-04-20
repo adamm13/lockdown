@@ -31,7 +31,6 @@ canvas {
   border: 3px solid white;
   border-radius: 20px;
   padding: 10px;
-  /* box-shadow: 3px 2px; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -45,7 +44,6 @@ canvas {
   border: 3px solid white;
   border-radius: 20px;
   padding: 10px;
-  /*box-shadow: 3px 2px;*/
 }
 
 .bg {
