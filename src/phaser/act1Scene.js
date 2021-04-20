@@ -1,4 +1,5 @@
 import Phaser from "phaser"
+import sceneEvents from './SceneEvents';
 
 /* ------------------------------------ GameOver Scene  ------------------------ */
  
@@ -7,8 +8,7 @@ class Act1 extends Phaser.Scene {
     super("Act1");
   }
 
-    create(data)
-    {
+    create(data) {
     
     // camera transition effect
     this.cameras.main.fadeIn(5000);
