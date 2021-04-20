@@ -8,6 +8,7 @@ import { Shots, Shot } from './Shots';
 import { preloadAssets, gameOver, portalCallback } from './helpers/dataHelpers';
 import { zombieFactory, zombieDamage, zombieHit } from './helpers/zombieHelpers';
 import { createSamples, sampleCollector } from './helpers/sampleHelpers';
+import sceneEvents from './SceneEvents';
 
 const gameTileSize = 32;
 
@@ -201,6 +202,9 @@ class Town extends Phaser.Scene {
     if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
       this.player.clearTint();
     }
+    sceneEvents.on('timerOver', ()=>{
+      gameOver(this.player, this);
+    });
   }
 }
 

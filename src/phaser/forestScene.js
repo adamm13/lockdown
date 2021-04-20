@@ -4,6 +4,7 @@ import { Shots, Shot } from './Shots';
 import { preloadAssets, gameOver, portalCallback } from './helpers/dataHelpers';
 import { createSamples, sampleCollector } from './helpers/sampleHelpers';
 import { zombieFactory, zombieDamage, zombieHit } from './helpers/zombieHelpers';
+import sceneEvents from './SceneEvents';
 
 
 class Forest extends Phaser.Scene {
@@ -164,6 +165,9 @@ class Forest extends Phaser.Scene {
       if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
         this.player.clearTint();
       }
+      sceneEvents.on('timerOver', ()=>{
+        gameOver(this.player, this);
+      });
     } 
 
 }

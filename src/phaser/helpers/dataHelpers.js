@@ -47,7 +47,7 @@ const preloadAssets = (scene) => {
 };
 
 const gameOver = (player, thisScene) => {
-  
+  console.log(thisScene);
   thisScene.game.sound.stopAll();
 
   // Reset sample locations in all scenes
