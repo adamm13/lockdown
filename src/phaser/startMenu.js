@@ -40,9 +40,9 @@ class startMenu extends Phaser.Scene {
     //this.sound.pauseOnBlur = false
 
     //plays the sound
-    // this.sound.play("darkshadow", {
-    //   loop: true
-    // })
+    this.sound.play("darkshadow", {
+      loop: true
+    })
 
 
     playButton.setInteractive();
