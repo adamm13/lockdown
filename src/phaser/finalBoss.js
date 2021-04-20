@@ -33,8 +33,6 @@ class FinalBoss extends Phaser.Scene {
   const walls = map.createLayer("Walls", tileset, 0, 0);
   
   
-  // this.scene.run('GameUI', {data, player});
-  
   // camera
   this.cameras.main.setZoom(1.7);
 

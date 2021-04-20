@@ -117,7 +117,6 @@ class Town extends Phaser.Scene {
     
     //  Player physics properties.
 
-    //house.setCollisionBetween(1, 2000);
     trees.setCollisionBetween(1, 2000);
     downStairs.setCollisionBetween(1, 2000);
     intoForest.setCollisionBetween(1, 2000);
