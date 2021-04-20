@@ -45,8 +45,7 @@ class GameOver extends Phaser.Scene {
     yesButton.on("pointerup", () => {
       sceneEvents.emit("player-death", data);
       this.sound.play("blood")
-      this.scene.start("Town", data)
-      this.scene.run("Timer")
+      this.scene.start("Intro", data)
       console.log("restart game")
     })
 

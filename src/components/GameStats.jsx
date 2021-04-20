@@ -20,7 +20,7 @@ export default function GameStats(props) {
 		sceneEvents.on('player-death', (data) => {
 			setInventory(data.inventory.length);
 			setKillCount(data.kills);
-			setTimer(0);
+			setTimer('00:00');
 		});
 
 		sceneEvents.on('reset-score', (data) => {
