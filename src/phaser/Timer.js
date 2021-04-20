@@ -1,20 +1,23 @@
 import Phaser from 'phaser';
-import { gameOver } from './helpers/dataHelpers.js';
+import sceneEvents from './SceneEvents';
 
 let timerEvent;
 let totalTime;
 
-export default class Timer {
-    constructor(scene, timeDisplay){
-        this.scene = scene
-        this.timeDisplay = timeDisplay
+export default class Timer extends Phaser.Scene{
+    constructor(){
+        super({key: 'Timer'})
     }
-    totalTime = 600000
-    timerDuration(totalTime){
-        this.timerEvent = this.scene.time.addEvent({delay: totalTime})
+    init(data) {
+        //console.log(data);
     }
 
-    update(scene, player){
+    create(){
+        this.totalTime = 600000;
+        this.timerEvent = this.time.addEvent({delay: this.totalTime});
+    }
+
+    update(){
         const playTime = this.timerEvent.getElapsed();
         const remainingTime = Math.floor((this.totalTime - playTime) / 1000);
         let minutes;
@@ -31,8 +34,9 @@ export default class Timer {
             seconds = remainingTime % 60;
         }
         if (remainingTime === 0){
-            gameOver(player, scene);
+            sceneEvents.emit('timerOver');
         }
-        this.timeDisplay.text = minutes + ':' + seconds;
+        const time = minutes + ':' + seconds;
+        sceneEvents.emit('timer', time);
     }
 }

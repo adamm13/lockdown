@@ -30,12 +30,9 @@ export default class GameUI extends Phaser.Scene {
         });
         this.player = player;
         console.log(player);
-        //create game timer
-        
-        const timeDisplay = this.add.text(20, 75, 600, {fontSize: 25, fontFamily: 'VT323'});
-        this.timer = new Timer(this, timeDisplay);
-        this.timer.timerDuration(600000);
 
+        //this.scene.run('Timer', {data, player});
+        
         this.hearts = this.add.group()
 
         this.hearts.createMultiple({
@@ -98,9 +95,5 @@ export default class GameUI extends Phaser.Scene {
             }   
         })
     
-    }
-
-    update(){
-        this.timer.update(this, this.player);
     }
 }

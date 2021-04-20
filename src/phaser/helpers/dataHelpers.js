@@ -47,7 +47,7 @@ const preloadAssets = (scene) => {
 };
 
 const gameOver = (player, thisScene) => {
-  
+  console.log(thisScene);
   thisScene.game.sound.stopAll();
 
   // Reset sample locations in all scenes
@@ -71,6 +71,7 @@ const gameOver = (player, thisScene) => {
   thisScene.scene.start("GameOver", data); 
   thisScene.scene.stop(thisScene);
   thisScene.scene.stop("GameUI");
+  thisScene.scene.stop("Timer");
   //player.explode();
 };
 

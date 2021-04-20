@@ -4,6 +4,7 @@ import { Shots, Shot } from './Shots';
 import { preloadAssets, gameOver, portalCallback } from './helpers/dataHelpers';
 import { createSamples, sampleCollector } from './helpers/sampleHelpers';
 import { zombieFactory, zombieDamage, zombieHit } from './helpers/zombieHelpers';
+import sceneEvents from './SceneEvents';
 
 export default class Dungeon extends Phaser.Scene {
   constructor() {
@@ -37,9 +38,7 @@ export default class Dungeon extends Phaser.Scene {
     const ground = map.createLayer("belowPlayer", tileset, 0, 0); // creates floor tiles
     const obstacles = map.createLayer("walls", tileset, 0, 0);
     const upStairs = map.createLayer('exitDungeon', dungObjs, 0, 0);
-    
-    //render hearts and inventory
-    this.scene.run('GameUI', data);
+  
 
     // camera setup
     this.cameras.main.setZoom(2);
@@ -59,6 +58,7 @@ export default class Dungeon extends Phaser.Scene {
     this.player = new Player(this, spawnPlayerPos.x, spawnPlayerPos.y, 'player', data.inventory, data.health, data.sampleLocations, data.kills);
     this.player.body.setCollideWorldBounds(true);
     this.cameras.main.startFollow(this.player); 
+    const player = this.player;
 
     // Create samples and set overlap with player
     this.samples = createSamples(this.sampleObjs, this);
@@ -131,6 +131,9 @@ export default class Dungeon extends Phaser.Scene {
     if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
       this.player.clearTint();
     }
+    sceneEvents.on('timerOver', ()=>{
+      gameOver(this.player, this);
+    });
   }
 }
 

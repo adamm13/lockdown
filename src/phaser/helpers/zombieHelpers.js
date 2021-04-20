@@ -43,7 +43,7 @@ const zombieHit = (player, zombie) => {
   const directionX = player.x - zombie.x;
   const directionY = player.y - zombie.y;
   const direction = new Phaser.Math.Vector2(directionX, directionY).normalize().scale(300);
-  
+  //player.bounceBack(direction);
   // mess up the player more if boss
   if (zombie.textureKey === "zombieKing") {
     player.gameData.health -= 1; 

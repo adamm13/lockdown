@@ -160,6 +160,7 @@ const Intro = new Phaser.Class({
             
           scene.start('Town', data);
           scene.stop('Intro');
+          scene.run('Timer');
         }, this);
 
           }

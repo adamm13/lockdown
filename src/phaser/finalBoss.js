@@ -4,6 +4,7 @@ import { Shots, Shot } from './Shots';
 import { preloadAssets, gameOver, portalCallback } from './helpers/dataHelpers';
 import { zombieFactory, zombieDamage, zombieHit } from './helpers/zombieHelpers';
 import GameUI from './GameUI';
+import sceneEvents from './SceneEvents';
 
 class FinalBoss extends Phaser.Scene {
   constructor() {
@@ -33,7 +34,7 @@ class FinalBoss extends Phaser.Scene {
   const walls = map.createLayer("Walls", tileset, 0, 0);
   
   console.log(data);
-  this.scene.run('GameUI', data);
+  // this.scene.run('GameUI', {data, player});
   
   // camera
   this.cameras.main.setZoom(1.7);
@@ -114,6 +115,9 @@ class FinalBoss extends Phaser.Scene {
     if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
       this.player.clearTint();
     }
+    sceneEvents.on('timerOver', ()=>{
+      gameOver(this.player, this);
+    });
   }
 
 }

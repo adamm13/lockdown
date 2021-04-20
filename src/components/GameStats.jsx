@@ -4,6 +4,7 @@ import sceneEvents from "../phaser/SceneEvents";
 export default function GameStats(props) {
 	const [inventory, setInventory] = useState(0);
 	const [killCount, setKillCount] = useState(0);
+	const [timer, setTimer] = useState(0);
 
 	useEffect(() => {
 
@@ -25,11 +26,15 @@ export default function GameStats(props) {
 			setKillCount(0);
 		});
 
+		sceneEvents.on('timer', (timer)=>{
+			setTimer(timer);
+		})
+
 	}, []);
 
 	return (
 		<ul className="gameStats">
-			<li>Samples: {inventory}</li>
+			<li>Timer: {timer}</li>
 			<li>Zombie Kills: {killCount}</li>
 			<li>Score: {(inventory * 100) + (killCount * 500)} </li>
 		</ul>
