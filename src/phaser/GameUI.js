@@ -82,20 +82,17 @@ export default class GameUI extends Phaser.Scene {
     updateHealth(playerHealth) {
         const fullHeartsToRender = Math.floor((playerHealth / 500) * 5);
         const abovePointFive = playerHealth / 100; 
-        if(playerHealth <= 450){
-            console.log(playerHealth);
-            console.log(fullHeartsToRender);
+        //if(playerHealth <= 450){
         this.hearts.children.each((individualHeart, index)=> {
             const heart = individualHeart;
             if (index < fullHeartsToRender){
                 heart.setTexture('full-heart');
             } else if (abovePointFive <= index + 0.5 && abovePointFive > index){
-                console.log(index);
                 heart.setTexture('half-heart').setScale(2); 
             } else if (index > fullHeartsToRender && abovePointFive < index){    
                 heart.setTexture('empty-heart').setScale(1);
             }   
-        })}
+        })
     
     }
 }
