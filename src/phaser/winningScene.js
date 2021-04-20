@@ -58,12 +58,12 @@ const Winning = new Phaser.Class({
         google: {
             families: [ 'VT323' ]
         },
-        active: function ()
-        {
+        active: () => {
 
           add.text(32, 32, win_game, textStyle).setAlpha(0.25).setVisible(debug);
 
           const text = add.text(32, 32, win_game, textStyle);
+
           const {
             lineHeight,
             lineSpacing,
@@ -73,9 +73,11 @@ const Winning = new Phaser.Class({
             text.getTextMetrics(),
             win_game.split("\n")
           );
+
           const totalLineHeight = lineHeight + lineSpacing;
+          
           this.add
-            .grid(
+              .grid(
               text.x,
               text.y,
               text.width,
@@ -88,12 +90,14 @@ const Winning = new Phaser.Class({
               0.2
             )
             .setOrigin(0, 0)
-            .setVisible(debug);
+            .setVisible(debug)
+
           const maskImage = add
             .graphics({
               fillStyle: { color: 0xff0000, alpha: 0.5 }
             })
             .setVisible(debug);
+
           const mask = maskImage.createGeometryMask();
 
           text.setMask(mask);
@@ -128,35 +132,29 @@ const Winning = new Phaser.Class({
             }
           }); 
         }
-  });
-        //stop timer
-        this.scene.stop("Timer");
-        this.scene.stop("GameUI");
-        
-        this.input.keyboard.once('keyup-SPACE', function () {
-
-          // Suppress WebGL warnings before changing scenes
-          text.texture = this.renderer.blankTexture; // Should be wrapped in conditional when rendering direct to canvas?
-          
-          // When starting the game fresh, we use this initial state
-          const data = {
-            comingFrom: "Intro",  
-            health: 500,
-            inventory: [],
-            sampleLocations: {
-              "Dungeon": null,
-              "Town": null,
-              "Forest": null
-            },
-            kills: 0
+      });
+      
+      //stop timer
+      this.scene.stop("Timer");
+      this.scene.stop("GameUI");
+      
+      this.input.keyboard.once('keyup-SPACE', function () {
+        // When starting the game fresh, we use this initial state
+        const data = {
+          comingFrom: "Intro",  
+          health: 500,
+          kills: 0,
+          inventory: [],
+          sampleLocations: {
+            "Dungeon": null,
+            "Town": null,
+            "Forest": null
           }
-           this.scene.start('Act1', data);
-
+        };
+        this.scene.start('Act1', data);
       }, this);
-}
+    }
 
-
-    
 });
 
 module.exports = { Winning };

@@ -26,9 +26,9 @@ export default function GameStats(props) {
 			setKillCount(0);
 		});
 
-		sceneEvents.on('timer', (timer)=>{
+		sceneEvents.on('timer', (timer) => {
 			setTimer(timer);
-		})
+		});
 
 	}, []);
 
