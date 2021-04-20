@@ -14,7 +14,7 @@ export default class Timer extends Phaser.Scene{
     }
 
     create(){
-        this.totalTime = 10000;
+        this.totalTime = 600000;
         this.timerEvent = this.time.addEvent({delay: this.totalTime});
     }
 
