@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { gameOver } from './helpers/dataHelpers.js';
+import sceneEvents from './SceneEvents';
 
 let timerEvent;
 let totalTime;
@@ -27,7 +28,7 @@ export default class Timer extends Phaser.Scene{
         });
 
         this.timeDisplay = this.add.text(20, 75, 600000, {fontSize: 25, fontFamily: 'VT323'});
-        this.totalTime = 600000;
+        this.totalTime = 45000;
         this.timerEvent = this.time.addEvent({delay: this.totalTime});
     }
     // timerDuration(totalTime){
@@ -55,5 +56,7 @@ export default class Timer extends Phaser.Scene{
             gameOver(this);
         }
         this.timeDisplay.text = minutes + ':' + seconds;
+
+        sceneEvents.emit('timer', this.timeDisplay.text);
     }
 }
