@@ -196,7 +196,7 @@ class Town extends Phaser.Scene {
   
 
   update() {
-    
+
     //  Input Events
     if (this.player.isDead) {
       gameOver(this.player, this);

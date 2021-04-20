@@ -4,7 +4,7 @@ import sceneEvents from "../phaser/SceneEvents";
 export default function GameStats(props) {
 	const [inventory, setInventory] = useState(0);
 	const [killCount, setKillCount] = useState(0);
-	const [timer, setTimer] = useState(0);
+	const [timer, setTimer] = useState('00:00');
 	const [danger, setDanger] = useState(0);
 
 	useEffect(() => {
@@ -20,12 +20,13 @@ export default function GameStats(props) {
 		sceneEvents.on('player-death', (data) => {
 			setInventory(data.inventory.length);
 			setKillCount(data.kills);
+			setTimer(0);
 		});
 
 		sceneEvents.on('reset-score', (data) => {
 			setInventory(0);
 			setKillCount(0);
-			setTimer(0);
+			setTimer('00:00');
 		});
 
 		sceneEvents.on('timer', (timer, danger)=>{
