@@ -33,7 +33,7 @@ class FinalBoss extends Phaser.Scene {
   const ground = map.createLayer("Ground", tileset, 0, 0);
   const walls = map.createLayer("Walls", tileset, 0, 0);
   
-  console.log(data);
+  
   // this.scene.run('GameUI', {data, player});
   
   // camera
@@ -100,6 +100,10 @@ class FinalBoss extends Phaser.Scene {
       this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
     });
 
+    sceneEvents.once('timerOver', ()=>{
+      this.player.isDead = true;
+    });
+
   } // end create()
 
   update() {
@@ -115,9 +119,6 @@ class FinalBoss extends Phaser.Scene {
     if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
       this.player.clearTint();
     }
-    sceneEvents.on('timerOver', ()=>{
-      gameOver(this.player, this);
-    });
   }
 
 }

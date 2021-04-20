@@ -24,9 +24,8 @@ const zombieDamage = (zombie, shot, scene, player, bossRoom) => {
     sceneEvents.emit('zombie-killed', player.gameData.kills);
     // Keep track of kills in bossRoom for conditional chest render
     if (bossRoom) {
-      const { map, tileset, player } = bossRoom;
-      const finalScene = scene.scene.get('FinalBoss');
-      killZombie(zombie, finalScene, map, tileset, player);
+      const { key, scene, map, tileset, player } = bossRoom;
+      killZombie(zombie, scene, map, tileset, player, key);
     }
   } else {
     zombie.tint = Math.random() * 0xffffff;
@@ -58,15 +57,16 @@ const zombieHit = (player, zombie) => {
   //scene.sound.play("blood") // throttle this sound to play once/second
 };
 
-const killZombie = (zombie, scene, map, tileset, player) => {
+const killZombie = (zombie, scene, map, tileset, player, key) => {
   // Remove zombie from scene zombies array
   const zombieIndex = scene.zombies.indexOf(zombie); 
   scene.zombies.splice(zombieIndex, 1); 
 
-  const finalScene = scene.scene.get('FinalBoss');
-  if (finalScene.zombies.length === 0) {
-    console.log("YOU WIN!");
-    renderChest(finalScene, map, tileset, player);
+  if (key === "FinalBoss") {
+    if (scene.zombies.length === 0) {
+      console.log("YOU WIN!");
+      renderChest(scene, map, tileset, player);
+    }
   }
 }
 

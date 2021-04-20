@@ -40,16 +40,15 @@ class startMenu extends Phaser.Scene {
     //this.sound.pauseOnBlur = false
 
     //plays the sound
-    this.sound.play("darkshadow", {
-      loop: true
-    })
+    // this.sound.play("darkshadow", {
+    //   loop: true
+    // })
 
 
     playButton.setInteractive();
 
     playButton.on("pointerover", () => {
       hoverSprite.setVisible(true)
-      //this.sound.play("blood")
       hoverSprite.play("walk")
       hoverSprite.x = playButton.x - playButton.width / 1.5;
       hoverSprite.y = playButton.y;

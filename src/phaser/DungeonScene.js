@@ -113,6 +113,10 @@ export default class Dungeon extends Phaser.Scene {
       this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
     });
 
+    sceneEvents.once('timerOver', ()=>{
+      this.player.isDead = true;
+    });
+
   } // end create() function
   
   update() {
@@ -131,9 +135,6 @@ export default class Dungeon extends Phaser.Scene {
     if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
       this.player.clearTint();
     }
-    sceneEvents.on('timerOver', ()=>{
-      gameOver(this.player, this);
-    });
   }
 }
 

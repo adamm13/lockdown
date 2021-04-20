@@ -72,103 +72,104 @@ class Forest extends Phaser.Scene {
     //create shots
     this.shots = new Shots(this);
 
-  
-    //create layer above player
-    const above_player = map.createLayer("above-player", tileset1, 0, 0);
-
     // Make camera stop at edge of map
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-  
+
     // make camera follow player
     this.cameras.main.startFollow(this.player);
-  
-      //  Player physics properties.
-      obstacles.setCollisionBetween(0, 300);
-      obstacles_2.setCollisionBetween(1, 400);
-      exitShrubs.setCollisionBetween(1, 400);
-      this.physics.add.collider(player, obstacles);
-      this.physics.add.collider(player, obstacles_2);
 
-      // Get zombie obj array from map
-      const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
-      // Create zombies // the zombieGhost sprite can pass through obstacles_2
-      zombieFactory(this, zombieObjs, 'zombieGhost', this.player, obstacles);
+    //  Player physics properties.
+    obstacles.setCollisionBetween(0, 300);
+    obstacles_2.setCollisionBetween(1, 400);
+    exitShrubs.setCollisionBetween(1, 400);
+    this.physics.add.collider(player, obstacles);
+    this.physics.add.collider(player, obstacles_2);
 
-      this.zombies.forEach(zombie => {
-        this.physics.add.overlap(player, zombie, zombieHit);
-      });
+    // Get zombie obj array from map
+    const zombieObjs = map.objects.find(layer => layer.name === 'zombies').objects;
+    // Create zombies // the zombieGhost sprite can pass through obstacles_2
+    zombieFactory(this, zombieObjs, 'zombieGhost', this.player, obstacles);
 
-      // Zombie-Zombie collisions
-      this.physics.add.collider(this.zombies, this.zombies);
+    this.zombies.forEach(zombie => {
+      this.physics.add.overlap(player, zombie, zombieHit);
+    });
 
-      // Exit scene & pass data through player object (player.gameData property)
-      this.physics.add.collider(player, exitShrubs, (player, tile) => { 
+    // Zombie-Zombie collisions
+    this.physics.add.collider(this.zombies, this.zombies);
+
+    // Exit scene & pass data through player object (player.gameData property)
+    this.physics.add.collider(player, exitShrubs, (player, tile) => { 
+      portalCallback(player, tile, this, data);
+    });
+
+    // Conditional staircase to boss room if 36 samples
+    if (data.inventory.length === 36) {
+      const enterBoss = map.createLayer("enterBoss", tileset3);
+      enterBoss.setCollisionBetween(0, 1200);
+      this.physics.add.collider(player, enterBoss, (player, tile) => { 
         portalCallback(player, tile, this, data);
       });
-
-      // Conditional staircase to boss room if 36 samples
-      if (data.inventory.length === 36) {
-        const enterBoss = map.createLayer("enterBoss", tileset3);
-        enterBoss.setCollisionBetween(0, 1200);
-        this.physics.add.collider(player, enterBoss, (player, tile) => { 
-          portalCallback(player, tile, this, data);
-        });
-      }
-
-      // Physics properties for shots
-      this.physics.add.collider(this.shots, obstacles, () => {
-        //console.log(this.shots.children);
-        let shot = this.shots.getFirstAlive();
-      
-        if(shot){
-          shot.setVisible(false);
-          shot.setActive(false);
-        }
-      });
-      this.physics.add.collider(this.shots, obstacles_2, () => {
-        let shot = this.shots.getFirstAlive();
-        //console.log(shot)
-        if(shot){
-          shot.setVisible(false);
-        }
-      });
-      // Physics for shots/zombies
-      this.zombies.forEach(zombie => {
-        this.physics.add.collider(this.shots, zombie, (shot, zombie) => {
-          let individualShot = this.shots.getFirstAlive();
-          if (individualShot){
-            individualShot.setVisible(false);
-            individualShot.setActive(false);
-            zombieDamage(shot, zombie, this, player);
-          }
-        });
-      });
-
-      // Adds controls for firing
-      this.input.keyboard.on('keydown-SPACE', () => {
-        this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
-      });
-
-      
     }
 
-    update() {
-      if (this.player.isDead) {
-        gameOver(this.player, this);
-      } else {
-        this.player.update();
+    // Physics properties for shots
+    this.physics.add.collider(this.shots, obstacles, () => {
+      //console.log(this.shots.children);
+      let shot = this.shots.getFirstAlive();
+      if (shot) {
+        shot.setVisible(false);
+        shot.setActive(false);
       }
-      this.zombies.forEach(z => z.update());
-      if (this.player.body.embedded) {
-        this.player.body.touching.none = false;
+    });
+    
+    this.physics.add.collider(this.shots, obstacles_2, () => {
+      let shot = this.shots.getFirstAlive();
+      //console.log(shot)
+      if (shot) {
+        shot.setVisible(false);
       }
-      if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
-        this.player.clearTint();
-      }
-      sceneEvents.on('timerOver', ()=>{
-        gameOver(this.player, this);
+    });
+
+    // Physics for shots/zombies
+    this.zombies.forEach(zombie => {
+      this.physics.add.collider(this.shots, zombie, (shot, zombie) => {
+        let individualShot = this.shots.getFirstAlive();
+        if (individualShot){
+          individualShot.setVisible(false);
+          individualShot.setActive(false);
+          zombieDamage(shot, zombie, this, player);
+        }
       });
-    } 
+    });
+
+    //create layer above player and zombies
+    const above_player = map.createLayer("above-player", tileset1, 0, 0);
+
+    // Adds controls for firing
+    this.input.keyboard.on('keydown-SPACE', () => {
+      this.shots.fireShot(this.player.x, this.player.y, this.player.frame.name);
+    });
+
+    sceneEvents.once('timerOver', ()=>{
+      this.player.isDead = true;
+    });
+    
+  }
+
+  update() {
+    if (this.player.isDead) {
+      gameOver(this.player, this);
+    } else {
+      this.player.update();
+    }
+    this.zombies.forEach(z => z.update());
+    if (this.player.body.embedded) {
+      this.player.body.touching.none = false;
+    }
+    if (this.player.body.touching.none && !this.player.body.wasTouching.none) {
+      this.player.clearTint();
+    }
+
+  } 
 
 }
 

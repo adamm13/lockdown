@@ -29,9 +29,6 @@ export default class GameUI extends Phaser.Scene {
             }
         });
         this.player = player;
-        console.log(player);
-
-        //this.scene.run('Timer', {data, player});
         
         this.hearts = this.add.group()
 

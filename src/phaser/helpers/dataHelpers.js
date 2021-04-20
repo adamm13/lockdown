@@ -47,12 +47,13 @@ const preloadAssets = (scene) => {
 };
 
 const gameOver = (player, thisScene) => {
-  console.log(thisScene);
+  console.log('gameOver from, ', thisScene);
   thisScene.game.sound.stopAll();
 
   // Reset sample locations in all scenes
   
-  // Change this to actual game data for highscores!?
+  // Change this to player game data for highscores!?
+  // For now we are resetting the data for replays
   const data = {
     comingFrom: "GameOver",  
     health: 500,
@@ -65,14 +66,11 @@ const gameOver = (player, thisScene) => {
     kills: 0
   };
 
-  sceneEvents.emit("player-death", data);
-
   // cut to GameOver Scene here instead of startMenu?
   thisScene.scene.start("GameOver", data); 
   thisScene.scene.stop(thisScene);
   thisScene.scene.stop("GameUI");
   thisScene.scene.stop("Timer");
-  //player.explode();
 };
 
 /* ---- player portal & data transfer between game scenes ---*/
