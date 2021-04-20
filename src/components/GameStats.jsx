@@ -35,7 +35,6 @@ export default function GameStats(props) {
 	return (
 		<ul className="gameStats">
 			<li>Timer: {timer}</li>
-			<li>Samples: {inventory}</li>
 			<li>Zombie Kills: {killCount}</li>
 			<li>Score: {(inventory * 100) + (killCount * 500)} </li>
 		</ul>

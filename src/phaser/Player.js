@@ -3,7 +3,6 @@ import { Entity } from "./Entity";
   
   /* --------------------------------- Player Class ----------------------------------- */
   
-// let shootTime = 0;
 let playerHit = 0;
 
 class Player extends Entity {

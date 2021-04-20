@@ -1,5 +1,5 @@
 import React from "react";
-import '../../stylesheets/controls.css';
+import '../../stylesheets/main.css';
 
 export default function Controls(props) {
 

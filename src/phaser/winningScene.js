@@ -130,7 +130,7 @@ const Winning = new Phaser.Class({
         }
   });
         //stop timer
-        this.scene.stop('Timer');
+        this.scene.stop("Timer");
         this.scene.stop("GameUI");
         
         this.input.keyboard.once('keyup-SPACE', function () {
