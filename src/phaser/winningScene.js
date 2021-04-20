@@ -31,7 +31,7 @@ const Winning = new Phaser.Class({
     initialize:
 
     function Winning ()
-    {
+    { 
         Phaser.Scene.call(this, 'Winning');
     },
 
@@ -45,6 +45,7 @@ const Winning = new Phaser.Class({
       // camera transition effect
       this.cameras.main.fadeIn(5000);
       this.add.image(0, 0, "title_bg").setOrigin(0, 0).setVisible(!debug);
+
 
       //load fonts
       let add = this.add;
@@ -128,8 +129,9 @@ const Winning = new Phaser.Class({
           }); 
         }
   });
-
-        this.scene.stop("GameUI")
+        //stop timer
+        this.scene.stop('Timer');
+        this.scene.stop("GameUI");
         
         this.input.keyboard.once('keyup-SPACE', function () {
 
