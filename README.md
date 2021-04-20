@@ -5,7 +5,7 @@
 
 ---
 
-- LOCKDOWN is a 2D topdown shooter where zombies have taken over. Players must collect enough samples to eradicate the virus to save the world.
+*LOCKDOWN is a 2D topdown shooter where zombies have taken over. Players must collect enough samples to eradicate the virus to save the world.*
 
 ---
 
