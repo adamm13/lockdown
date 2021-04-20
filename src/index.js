@@ -13,6 +13,7 @@ import { GameOver } from "./phaser/gameOverScene";
 import { BossUnlock } from "./phaser/bossunlockScene";
 import { Winning } from "./phaser/winningScene";
 import { Act1 }  from "./phaser/act1Scene";
+import  Timer  from "./phaser/Timer";
 
 import GameUI from './phaser/GameUI';
 
@@ -39,6 +40,7 @@ const config = {
       BossUnlock, 
       Winning,
       Act1,
+      Timer,
       GameUI
     ],
     render: {
