@@ -5,6 +5,7 @@ export default function GameStats(props) {
 	const [inventory, setInventory] = useState(0);
 	const [killCount, setKillCount] = useState(0);
 	const [timer, setTimer] = useState(0);
+	const [danger, setDanger] = useState(0);
 
 	useEffect(() => {
 
@@ -26,18 +27,28 @@ export default function GameStats(props) {
 			setKillCount(0);
 		});
 
-		sceneEvents.on('timer', (timer)=>{
+		sceneEvents.on('timer', (timer, danger)=>{
+			setDanger(danger);
 			setTimer(timer);
 		})
 
 	}, []);
-
-	return (
-		<ul className="gameStats">
-			<li>Timer: {timer}</li>
-			<li>Zombie Kills: {killCount}</li>
-			<li>Score: {(inventory * 100) + (killCount * 500)} </li>
-		</ul>
-	);
+	if (danger === true){
+		return (
+			<ul className="gameStats">
+				<li className="danger">Timer: {timer}</li>
+				<li>Zombie Kills: {killCount}</li>
+				<li>Score: {(inventory * 100) + (killCount * 500)} </li>
+			</ul>
+		);
+	} else {
+		return (
+			<ul className="gameStats">
+				<li>Timer: {timer}</li>
+				<li>Zombie Kills: {killCount}</li>
+				<li>Score: {(inventory * 100) + (killCount * 500)} </li>
+			</ul>
+		);
+	}
 	
 }

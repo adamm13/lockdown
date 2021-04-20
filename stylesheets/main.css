@@ -36,6 +36,10 @@ canvas {
   justify-content: space-around;
 }
 
+.danger {
+  color: red;
+}
+
 .controls{
   font-size: 20px;
   font-family: 'Press Start 2P', Verdana, Geneva, Tahoma, sans-serif;

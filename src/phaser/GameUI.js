@@ -76,7 +76,11 @@ export default class GameUI extends Phaser.Scene {
     }
 
     updateInventory(playerInventory){
-        inventoryDisplay.setText(': ' + playerInventory + '/36');
+        if (playerInventory === 36){
+            inventoryDisplay.setText(': ' + playerInventory + '/36  ✅');
+        } else {
+            inventoryDisplay.setText(': ' + playerInventory + '/36  ✅');
+        }
     }
 
     updateHealth(playerHealth) {

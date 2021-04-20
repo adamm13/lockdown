@@ -37,6 +37,10 @@ export default class Timer extends Phaser.Scene{
             sceneEvents.emit('timerOver');
         }
         const time = minutes + ':' + seconds;
-        sceneEvents.emit('timer', time);
+        let danger;
+        if (minutes === '00'){
+            danger = true;
+        }
+        sceneEvents.emit('timer', time, danger);
     }
 }
