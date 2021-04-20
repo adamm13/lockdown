@@ -36,7 +36,7 @@ This project was created by [Adam Marsala](https://github.com/MagicMark5), [Cait
 
 ## Features
 
-- 
+- **Launching Projectiles** - The player is able to fire projectiles in the direction they are facing to defeat enemies. They are limited to 5 'bullets', each of  which reset once a collision between an enemy or obstacle occurs.
 
 - **Dynamic Game State** - The games state is shared between scenes and portal tiles. Zombies and samples also have their data shared between the game and the UI.
 
