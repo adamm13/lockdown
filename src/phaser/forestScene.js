@@ -18,7 +18,6 @@ class Forest extends Phaser.Scene {
   samplesTouched = false; 
 
   init(data) {
-    console.log(data);
     if (!data.sampleLocations["Forest"]) {
       this.samplesTouched = false;
       data.sampleLocations["Forest"] = [];
@@ -113,7 +112,6 @@ class Forest extends Phaser.Scene {
 
     // Physics properties for shots
     this.physics.add.collider(this.shots, obstacles, () => {
-      //console.log(this.shots.children);
       let shot = this.shots.getFirstAlive();
       if (shot) {
         shot.setVisible(false);
@@ -123,7 +121,6 @@ class Forest extends Phaser.Scene {
     
     this.physics.add.collider(this.shots, obstacles_2, () => {
       let shot = this.shots.getFirstAlive();
-      //console.log(shot)
       if (shot) {
         shot.setVisible(false);
       }

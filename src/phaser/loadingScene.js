@@ -95,7 +95,6 @@ class loadingScene extends Phaser.Scene {
         assetText.setOrigin(0.5, 0.5);
 
         this.load.on('progress', function (value) {
-            // console.log(value);
             progressBar.clear();
             progressBar.fillStyle(0xff0000, 1);
             progressBar.fillRect(250, 280, 300 * value, 30);     	
@@ -103,12 +102,10 @@ class loadingScene extends Phaser.Scene {
         });
                     
         this.load.on('fileprogress', function (file) {
-            // console.log(file.src);
             assetText.setText('Loading asset: ' + file.key);
         });
         
         this.load.on('complete', function () {
-            //console.log('complete');
             progressBar.destroy();
             progressBox.destroy();
             loadingText.destroy();

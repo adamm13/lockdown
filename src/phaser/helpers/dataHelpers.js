@@ -10,7 +10,6 @@ const preloadAssets = (scene) => {
   scene.load.image('obj-tiles', "src/assets/tilesets/dungeon-objects.png");
   scene.load.tilemapTiledJSON('map', 'src/assets/maps/overworldv4.json');
   scene.load.spritesheet('player', 'src/assets/characters/players/player.png', { frameWidth: 32, frameHeight: 32 });
-  // scene.load.spritesheet('npc', "src/assets/characters/player3.png", { frameWidth: 32, frameHeight: 32 });
   scene.load.atlas('boy1', "src/assets/characters/players/testnpc.png", "src/assets/characters/players/testnpc.json")
   
   // image for shots
@@ -40,7 +39,6 @@ const preloadAssets = (scene) => {
   scene.load.tilemapTiledJSON('dungMap', "src/assets/maps/dungeonMap.json");
 
   //final boss preload
-  //scene.load.image('dungeonTiles', 'src/assets/tilesets/dungeon-tileset-extruded.png')
   scene.load.image('chest', 'src/assets/symbols-and-items/chest.png');
   scene.load.tilemapTiledJSON('finalBoss', 'src/assets/maps/finalBoss.json');
 

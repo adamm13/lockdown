@@ -46,7 +46,6 @@ class GameOver extends Phaser.Scene {
       sceneEvents.emit("player-death", data);
       this.sound.play("blood")
       this.scene.start("Intro", data)
-      console.log("restart game")
     })
 
     // takes you back to the start screen
@@ -55,16 +54,13 @@ class GameOver extends Phaser.Scene {
       hoverSprite2.setVisible(true)
       hoverSprite2.x = noButton.x - noButton.width * 2.1;
       hoverSprite2.y = noButton.y;
-      console.log("hovering")
     })
       noButton.on("pointerout", () => {
       hoverSprite2.setVisible(false)
-      console.log("no more hover")
     })
       noButton.on("pointerup", () => {
       sceneEvents.emit("player-death", data);
       this.scene.start("startMenu", data)
-      console.log("back to menu")
     })
 
   

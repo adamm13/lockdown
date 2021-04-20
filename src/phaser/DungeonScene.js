@@ -15,7 +15,6 @@ export default class Dungeon extends Phaser.Scene {
   samplesTouched = false;
 
   init(data) {
-    console.log(data);
     if (!data.sampleLocations["Dungeon"]) {
       this.samplesTouched = false;
       data.sampleLocations["Dungeon"] = [];

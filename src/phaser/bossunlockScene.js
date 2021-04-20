@@ -8,7 +8,6 @@ class BossUnlock extends Phaser.Scene {
   }
 
   create(data) {
-    console.log(data);
     // camera transition effect
     this.cameras.main.fadeIn(5000);
 
@@ -22,8 +21,6 @@ class BossUnlock extends Phaser.Scene {
         "Town": data.sampleLocations["Town"] ? data.sampleLocations["Town"] : []
       }
     };
-
-    console.log(dataUpdate);
 
     this.add.image(0,0, "forestportal").setOrigin(0)
 

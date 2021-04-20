@@ -37,7 +37,6 @@ class Town extends Phaser.Scene {
   samplesTouched = false;
 
   init(data) {
-    console.log(data);
     // adjust start location
     if (data.comingFrom === "Forest") {
       this.startingX = 1276;

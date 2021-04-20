@@ -15,7 +15,6 @@ class FinalBoss extends Phaser.Scene {
     zombieBoss = [];
 
   init(data){
-      console.log(data);
   }
 
   preload() {
@@ -66,9 +65,7 @@ class FinalBoss extends Phaser.Scene {
 
   // Physics properties for shots
   this.physics.add.collider(this.shots, walls, () => {
-      //console.log(this.shots.children);
       let shot = this.shots.getFirstAlive();
-      //console.log(shot);
       if(shot){
         shot.setVisible(false);
         shot.setActive(false);
