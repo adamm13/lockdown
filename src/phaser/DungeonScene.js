@@ -37,9 +37,7 @@ export default class Dungeon extends Phaser.Scene {
     const ground = map.createLayer("belowPlayer", tileset, 0, 0); // creates floor tiles
     const obstacles = map.createLayer("walls", tileset, 0, 0);
     const upStairs = map.createLayer('exitDungeon', dungObjs, 0, 0);
-    
-    //render hearts and inventory
-    this.scene.run('GameUI', {data, player});
+  
 
     // camera setup
     this.cameras.main.setZoom(2);

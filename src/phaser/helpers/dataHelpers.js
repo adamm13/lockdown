@@ -71,6 +71,7 @@ const gameOver = (player, thisScene) => {
   thisScene.scene.start("GameOver", data); 
   thisScene.scene.stop(thisScene);
   thisScene.scene.stop("GameUI");
+  thisScene.scene.stop("Timer");
   //player.explode();
 };
 

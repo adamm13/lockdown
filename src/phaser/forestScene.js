@@ -45,8 +45,6 @@ class Forest extends Phaser.Scene {
     const below_player = map.createLayer("below-player", tileset1);
     const exitShrubs = map.createLayer("exitForest", tileset1);
 
-    //render hearts
-    this.scene.run('GameUI', {data, player} );
     
     // camera
     this.cameras.main.setZoom(2);

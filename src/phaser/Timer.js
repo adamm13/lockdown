@@ -18,17 +18,15 @@ export default class Timer extends Phaser.Scene{
     }
 
 
-    create({data, player}){
+    create(){
         //load the google font
         WebFont.load({
             google: {
                 families: [ 'VT323' ]
             }
         });
-        this.player = player;
-        console.log(player);
 
-        this.timeDisplay = this.add.text(20, 75, 600, {fontSize: 25, fontFamily: 'VT323'});
+        this.timeDisplay = this.add.text(20, 75, 600000, {fontSize: 25, fontFamily: 'VT323'});
         this.totalTime = 600000;
         this.timerEvent = this.time.addEvent({delay: this.totalTime});
     }
@@ -36,7 +34,7 @@ export default class Timer extends Phaser.Scene{
     //     this.timerEvent = this.scene.time.addEvent({delay: totalTime});
     // }
 
-    update(scene, player){
+    update(){
         const playTime = this.timerEvent.getElapsed();
         const remainingTime = Math.floor((this.totalTime - playTime) / 1000);
         //console.log(remainingTime);
@@ -54,7 +52,7 @@ export default class Timer extends Phaser.Scene{
             seconds = remainingTime % 60;
         }
         if (remainingTime === 0){
-            gameOver(player, scene);
+            gameOver(this);
         }
         this.timeDisplay.text = minutes + ':' + seconds;
     }
