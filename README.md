@@ -17,16 +17,12 @@ We were motivated to develop a game as we were all passionate about video games.
 
 ## Screenshots
 
-* Main Menu
 ![alt text](https://github.com/adamm13/lockdown/blob/master/src/assets/menu-images/menupic.png)
 ---
-* Town
 ![alt text](https://github.com/adamm13/lockdown/blob/master/src/assets/menu-images/townpic.png)
 ---
-* Dungeon
 ![alt text](https://github.com/adamm13/lockdown/blob/master/src/assets/menu-images/dungeonpic.png)
 ---
-* Forest
 ![alt text](https://github.com/adamm13/lockdown/blob/master/src/assets/menu-images/forestpic.png)
 ---
 
