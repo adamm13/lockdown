@@ -15,6 +15,21 @@ We were motivated to develop a game as we were all passionate about video games.
 
 ---
 
+## Screenshots
+
+* Main Menu
+![alt text](https://github.com/adamm13/lockdown/blob/master/src/assets/menu-images/menupic.png)
+---
+* Town
+![alt text](https://github.com/adamm13/lockdown/blob/master/src/assets/menu-images/townpic.png)
+---
+* Dungeon
+![alt text](https://github.com/adamm13/lockdown/blob/master/src/assets/menu-images/dungeonpic.png)
+---
+* Forest
+![alt text](https://github.com/adamm13/lockdown/blob/master/src/assets/menu-images/forestpic.png)
+---
+
 ## Controls
 
 W or ⬆  &nbsp;  to move up <br />
@@ -30,9 +45,6 @@ Spacebar to shoot <br />
 This project was created by [Adam Marsala](https://github.com/MagicMark5), [Caitlin Garrood](https://github.com/CaitieCat), and [Adam Mohammed](https://github.com/adamm13). 
 
 ---
-
-## Screenshots
-
 
 ## Features
 
